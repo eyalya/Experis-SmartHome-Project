@@ -9,6 +9,11 @@ typedef int Room;
 typedef int EventType;//TODO: figure how
 typedef std::string Payload;
 
+namespace smartHome
+{
+namespace eventor
+{
+
 struct Location
 {
     Floor m_floorNum;
@@ -23,7 +28,15 @@ struct Event
     Payload m_payload;
 };
 
+struct Topic
+{
+    Topic(EventType a_type, Location a_location);
+    EventType m_type;
+    Location m_location;
+};
 
+} //namespace eventor
+} //namespace smartHome
 
-
+#include event.inl
 #endif //EVENT_HPP
