@@ -16,12 +16,16 @@ namespace eventor
 
 struct Location
 {
+    Location(Floor a_floor, Room a_room);
+
     Floor m_floorNum;
     Room m_room;
 };
 
 struct Event
 {
+    Event(EventType a_type, Location a_location, TimeStamp a_timeStamp, Payload a_payload = "");
+
     EventType m_type;
     TimeStamp m_timestamp;
     Location m_location;
@@ -38,5 +42,5 @@ struct Topic
 } //namespace eventor
 } //namespace smartHome
 
-#include event.inl
+#include "./inl/event.inl"
 #endif //EVENT_HPP
