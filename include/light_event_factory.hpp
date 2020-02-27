@@ -15,7 +15,7 @@ class LightEventFactory : public IEventFactory
 public:
     typedef std::shared_ptr<Event> EventPtr;
 
-    LightEventFactory(advcpp::WaitableQ<EventPtr>& a_eventQ);
+    explicit LightEventFactory(advcpp::WaitableQ<EventPtr>& a_eventQ);
     LightEventFactory(LightEventFactory const& a_other) = default;
     virtual ~LightEventFactory() = default;
     
@@ -27,15 +27,19 @@ private:
     advcpp::WaitableQ<EventPtr>& m_events;
 };
 
-class DemoCensor : 
+class DemoCensor : public advcpp::IRunnable
 {
 public:
-    DemoCensor(IEventFactory& a_factory);
+    explicit DemoCensor(IEventFactory& a_factory);
     ~DemoCensor() = default;
 
-    void DemoEvent();
+    void Run() noexcept;
 
 private:
+    static const EventType DemoType = 0;
+    static const Location DemoLoc;
+    static const int NumOfEvents = 30;
+
     IEventFactory& m_factory;
 };
 
