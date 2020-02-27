@@ -1,10 +1,11 @@
 #ifndef I_EVENT_CONTROLLER_HPP
 #define I_EVENT_CONTROLLER_HPP
 
-namespace advcpp 
+namespace smartHome 
+{
+namespace hub 
 {
 
-template <typename T> 
 class IEventController {
 public:
     
@@ -16,6 +17,7 @@ protected:
     IEventController& operator=(const IEventController<T> a_rhs) = default;
 };
 
-} //namespace advcpp 
+} //namespace hub
+} //namespace smartHome 
 
 #endif //IEVENT_CONTROLLER_HPP
