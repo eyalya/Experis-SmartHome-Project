@@ -19,6 +19,7 @@ size_t hash (Key const& a_key);
 size_t hash (int const& a_num);
 
 size_t hash(char *a_key);
+
 ///////////// Public Functions //////////////////////////////////////////////////////////////////////////////////////
 template <typename Key>
 inline size_t DefaultHasher<Key>::operator () (Key const& a_key) const
