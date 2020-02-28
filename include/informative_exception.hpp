@@ -7,11 +7,11 @@
 #include <stdexcept>
 #include <cstddef>
 
-#define NOEXCEPT noexcept
-#define THROW(x) //throw(x)
-#define THROW2(x,y) //throw(x,y)
-#define THROW3(x,y,z) //throw(x,y,z)
-#define XINFO Information(__FILE__, __func__, __LINE__ )
+// #define NOEXCEPT noexcept
+// #define THROW(x) //throw(x)
+// #define THROW2(x,y) //throw(x,y)
+// #define THROW3(x,y,z) //throw(x,y,z)
+// #define XINFO Information(__FILE__, __func__, __LINE__ )
 
 namespace advcpp
 {

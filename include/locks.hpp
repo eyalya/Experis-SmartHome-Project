@@ -64,5 +64,5 @@ private:
 
 } //namespace advcpp
 
-#include "locks.inl"
+#include "inl/locks.inl"
 #endif //MUTEX_HPP
