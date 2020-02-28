@@ -42,6 +42,9 @@ public:
     static void Yield() THROW1(ThreadException);
     static void Exit(void* a_retVal = 0) NOEXCEPT;
 
+    int GetId() const;
+    static int GetSelf();
+
 private:
     static void* thunk(void* a_pctx);
 

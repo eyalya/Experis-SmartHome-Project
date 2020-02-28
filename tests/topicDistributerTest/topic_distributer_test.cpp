@@ -3,6 +3,7 @@
 #include "isubscribers_register.hpp"
 #include "topic_subscribers.hpp" //TopicSubscribers
 #include "ievent_contorller.hpp"
+#include "event_manager.hpp" 
 
 using namespace smartHome;
 using namespace eventor;
@@ -13,6 +14,8 @@ using namespace advcpp;
 
 UNIT(smoke_test)
     TopicSubscribers subscribers;
+
+
     ASSERT_PASS();
 
 END_UNIT
