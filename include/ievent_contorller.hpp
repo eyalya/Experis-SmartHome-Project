@@ -1,19 +1,20 @@
 #ifndef I_EVENT_CONTROLLER_HPP
 #define I_EVENT_CONTROLLER_HPP
 
+#include <memory> //std::shared_ptr
 #include "event.hpp"
 
-namespace smartHome 
-{
-namespace hub 
-{
+namespace smartHome {
+namespace hub {
 
 class IEventController {
 public:
-    
+
+    typedef std::shared_ptr<eventor::Event> EventPtr;
+
     virtual ~IEventController() = default; 
 
-    virtual void EventExec(eventor::Event a_event) = 0;
+    virtual void EventExec(EventPtr a_event) = 0;
 
 protected:
     IEventController() = default;

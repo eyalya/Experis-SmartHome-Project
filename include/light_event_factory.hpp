@@ -3,6 +3,7 @@
 
 #include "Ievent_factory.hpp"
 #include "waitable_queue.hpp" //advcpp::WaitableQ
+#include "isensor.hpp" //sensor
 #include "thread.hpp"
 
 namespace smartHome {
@@ -24,7 +25,7 @@ private:
     advcpp::WaitableQ<EventPtr>& m_events;
 };
 
-class DemoSensor : public advcpp::IRunnable
+class DemoSensor : public ISensor
 {
 public:
     explicit DemoSensor(IEventFactory& a_factory, size_t a_numOfEvents = 30);
