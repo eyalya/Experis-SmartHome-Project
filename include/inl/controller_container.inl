@@ -7,17 +7,16 @@ namespace hub
 {
 
 
-template <typename Context>
-void ControllerContainer::ControllerExec(Context a_contex)
+inline void ControllerContainer::ControllerExec(std::shared_ptr<eventor::Event> a_event)
 {
     iterator controller = m_controllers.begin();
     iterator end = m_controllers.end();
 
     while (controller != end)
     {
-        //TODO: change to after i controller edited
-        (void) a_contex;
-        // controller->Execute(a_contex);
+        IEventController* cont = controller->get();
+        cont->EventExec(a_event);
+        ++controller;
     }
 }
 

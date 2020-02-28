@@ -2,6 +2,7 @@
 #define TOPIC_SUBSCRIBERS_HPP
 
 #include <string> //std::string
+#include <memory> //std::shared_ptr
 
 #include "event.hpp" //Topic
 #include "hash_table.hpp" //HashTable
@@ -25,7 +26,7 @@ public:
     virtual void RegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic);
     virtual void UnRegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic);
 
-    virtual void ExecuteTopic(eventor::Topic const& a_topic, eventor::Event a_event);
+    virtual void ExecuteTopic(eventor::Topic const& a_topic, std::shared_ptr<eventor::Event> a_event);
 
 private:
     typedef std::string TopicId;

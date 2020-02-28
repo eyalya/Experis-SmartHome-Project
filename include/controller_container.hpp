@@ -5,6 +5,7 @@
 #include <memory> //shared_ptr
 
 #include "ievent_contorller.hpp" //IEventController
+#include "event.hpp" //Event 
 
 namespace smartHome {
 namespace hub {
@@ -23,8 +24,7 @@ public:
     void AddController(IEventController& a_controller);
     void RemoveController(IEventController& a_controller);
 
-    template <typename Context>
-    void ControllerExec(Context a_contex);
+    void ControllerExec(std::shared_ptr<eventor::Event> a_event);
 
     size_t Size() const;
     

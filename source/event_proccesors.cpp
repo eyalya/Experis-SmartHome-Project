@@ -15,7 +15,7 @@ EventProcessor::EventProcessor(std::shared_ptr<eventor::Event> a_event, ITopicDi
 void EventProcessor::Run() noexcept
 {
     eventor::Topic topic(m_event->m_type, m_event->m_location);
-    m_destributor.ExecuteTopic(topic, *m_event);
+    m_destributor.ExecuteTopic(topic, m_event);
 }
 
 

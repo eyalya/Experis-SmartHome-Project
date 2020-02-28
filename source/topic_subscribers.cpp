@@ -31,7 +31,7 @@ void TopicSubscribers::UnRegisterSubscriber(IEventController& a_controller, even
     }
 }
 
-void TopicSubscribers::ExecuteTopic(eventor::Topic const& a_topic, eventor::Event a_event)
+void TopicSubscribers::ExecuteTopic(eventor::Topic const& a_topic, std::shared_ptr<eventor::Event> a_event)
 {
     iterator iter = m_subscribers.Find(a_topic.m_id);
 

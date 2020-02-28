@@ -10,6 +10,7 @@
 #include "event_manager.hpp"
 #include "thread_pool.hpp"
 #include "events_pool.hpp"
+#include "demo_controller.hpp"
 
 using namespace std;
 using namespace smartHome;
@@ -35,15 +36,24 @@ UNIT(events_flow)
     ThreadPool<> pool;
     EventManger manager(pool);
     EventsPool eventPool(subscribers, pool);
-    Event event(1, Location(1, 2), string("test"));
 
-    const size_t nEvents = 10000;
+    EventType type = 1;
+    Floor floor = 2;
+    Room room = 3;
+    Location location(floor, room);
+    Event event(type, location, string("test"));
+
+    string name("register");
+    DemoController controller(name, location);
+    subscribers.RegisterSubscriber(controller, Topic(type, location));
+
+    const size_t nEvents = 5;
     for (size_t i = 0; i < nEvents; ++i)
     {
         eventPool.Submit(make_shared<Event>(event));
     }
 
-    
+
     manager.ShutDown();
     ASSERT_PASS();
 
