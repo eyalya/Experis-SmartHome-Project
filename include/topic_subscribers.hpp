@@ -1,6 +1,8 @@
 #ifndef TOPIC_SUBSCRIBERS_HPP
 #define TOPIC_SUBSCRIBERS_HPP
 
+#include <string> //std::string
+
 #include "event.hpp" //Topic
 #include "hash_table.hpp" //HashTable
 #include "ievent_contorller.hpp" //eventControllers
@@ -28,11 +30,12 @@ public:
     virtual void ExecuteTopic(eventor::Topic const& a_topic, eventor::Event a_event);
 
 private:
-    typedef advcpp::HashTable<eventor::Topic, ControllerContainer>::iterator iterator;
-    typedef advcpp::HashTable<eventor::Topic, ControllerContainer>::const_iterator const_iterator;
+    typedef std::string TopicId;
+    typedef advcpp::HashTable<TopicId, ControllerContainer>::iterator iterator;
+    typedef advcpp::HashTable<TopicId, ControllerContainer>::const_iterator const_iterator;
 
 private:
-    advcpp::HashTable<eventor::Topic, ControllerContainer> m_subscribers;
+    advcpp::HashTable<TopicId, ControllerContainer> m_subscribers;
 };
 
 

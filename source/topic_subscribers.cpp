@@ -9,11 +9,11 @@ namespace hub
 
 void TopicSubscribers::RegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic)
 {
-    iterator iter = m_subscribers.Find(a_topic);
+    iterator iter = m_subscribers.Find(a_topic.m_id);
     if (iter == m_subscribers.End())
     {
         ControllerContainer cont(a_controller);
-        m_subscribers.Insert(a_topic, cont);
+        m_subscribers.Insert(a_topic.m_id, cont);
     }
     else
     {
@@ -23,7 +23,7 @@ void TopicSubscribers::RegisterSubscriber(IEventController& a_controller, evento
 
 void TopicSubscribers::UnRegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic)
 {
-    iterator iter = m_subscribers.Find(a_topic);
+    iterator iter = m_subscribers.Find(a_topic.m_id);
 
     if (iter != m_subscribers.End())
     {
@@ -33,7 +33,7 @@ void TopicSubscribers::UnRegisterSubscriber(IEventController& a_controller, even
 
 void TopicSubscribers::ExecuteTopic(eventor::Topic const& a_topic, eventor::Event a_event)
 {
-    iterator iter = m_subscribers.Find(a_topic);
+    iterator iter = m_subscribers.Find(a_topic.m_id);
 
     if (iter != m_subscribers.End())
     {
