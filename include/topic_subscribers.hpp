@@ -9,7 +9,6 @@
 #include "controller_container.hpp" //ControllerContainer
 
 
-
 namespace smartHome 
 {
 namespace hub 
@@ -26,13 +25,10 @@ public:
     virtual void RegisterSubscriber(IEventController& a_controller, Topic const& a_topic);
     virtual void UnRegisterSubscriber(IEventController& a_controller, Topic const& a_topic);
 
-    virtual void ExecuteTopic(eventor::Topic const& a_topic) const;
+    virtual void ExecuteTopic(eventor::Topic const& a_topic, Event a_event) const;
 
 private:
     typedef HashTable<Topic, ControllerContainer>::iterator Iterator;
-
-    void TopicSubscribers::CreateControllerContainer(a_topic, a_controller);
-    void CreateControllerContainer(*iter, a_controller);
 
 private:
     HashTable<Topic, ControllerContainer> m_subscribers;
@@ -42,5 +38,5 @@ private:
 } //namespace hub
 } //namespace smartHome 
 
-#include "topic_subscribers.inl"
+
 #endif //TOPIC_SUBSCRIBERS_HPP

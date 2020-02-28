@@ -1,3 +1,5 @@
+#include <cassert> //assert
+
 #include "topic_subscribers.hpp" //TopicSubscribers
 
 namespace smartHome 
@@ -10,32 +12,32 @@ void TopicSubscribers::RegisterSubscriber(IEventController& a_controller, Topic 
     Iterator iter = m_subscribers.Find(a_topic);
     if (iter == m_subscribers.End())
     {
-        CreateControllerContainer(a_topic, a_controller);
+        m_subscribers.insert(a_topic, ControllerContainer(a_controller));
     }
     else
     {
-        CreateControllerContainer(*iter, a_controller);
+        iter->AddController(a_controller);
     }
-}
-
-void TopicSubscribers::CreateControllerContainer(a_topic, a_controller)
-{
-    m_subscribers.Insert(a_topic, ControllerContainer() a_controller)
-}
-
-void TopicSubscribers::CreateControllerContainer(*iter, a_controller)
-{
-
 }
 
 void TopicSubscribers::UnRegisterSubscriber(IEventController& a_controller, Topic const& a_topic)
 {
+    Iterator iter = m_subscribers.Find(a_topic);
 
+    if (iter != m_subscribers.End())
+    {
+        iter->RemoveController(a_controller);
+    }
 }
 
-void TopicSubscribers::ExecuteTopic(eventor::Topic const& a_topic) const
+void TopicSubscribers::ExecuteTopic(eventor::Topic const& a_topic, Event a_event) const
 {
+    Iterator iter = m_subscribers.Find(a_topic);
 
+    if (iter != m_subscribers.End())
+    {
+        iter->ControllerExec(a_event);
+    }
 }
 
 };

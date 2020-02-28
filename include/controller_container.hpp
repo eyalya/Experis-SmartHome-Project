@@ -4,6 +4,7 @@
 #include <vector> //std::vector
 
 #include "ievent_contorller.hpp" //IEventController
+#include "event.hpp" //event
 
 namespace smartHome 
 {
@@ -23,14 +24,22 @@ public:
     void AddController(IEventController& a_controller);
     void RemoveController(IEventController& a_controller);
 
-    void ControllerExec();
-    
+    template <typename Context>
+    void ControllerExec(Context a_contex);
 
+    size_t Size() const;
+    
 private:
     std::vector<IEventController&> m_controllers;
 };
 
+inline size_t ControllerContainer::Size() const
+{
+    return m_controllers.size();
+}
+
 } //namespace hub
 } //namespace smartHome 
 
+#include "controller_container.inl"
 #endif //CONTORLLER_CONTAINER_HPP

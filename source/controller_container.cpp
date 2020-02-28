@@ -1,5 +1,7 @@
 #include "controller_container.hpp"
 
+using namespace std;
+
 namespace smartHome 
 {
 namespace hub 
@@ -18,14 +20,10 @@ void ControllerContainer::AddController(IEventController& a_controller)
 
 void ControllerContainer::RemoveController(IEventController& a_controller)
 {
-    iterator iter = m_controllers.find()
-    m_controllers.erase(a_controller);
+    //TODO: settel how to find a controller 
 }
-
 
 
 
 } //namespace hub
 } //namespace smartHome 
-
-#endif //CONTORLLER_CONTAINER_HPP
