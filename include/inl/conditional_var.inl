@@ -11,11 +11,11 @@ void ConditionalVar::Wait(Mutex & a_mutex, Predicate const& a_pred)
 {
     while (a_pred())
     {
-        int errorNum = pthread_cond_wait(&m_cond, a_mutex.posixMu());
+        int errorNum = pthread_cond_wait(&m_cond, &a_mutex.getLock());
         
         if(errorNum != 0)
         {
-            throw(CondExcept(errorNum, XINFO));
+            THROW1(CondExcept(errorNum, XINFO));
         }
     }
 }

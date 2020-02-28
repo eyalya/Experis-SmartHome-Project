@@ -2,8 +2,8 @@
 #define SAFE_QUEUE_HPP
 
 #include <queue>// std::queue
-#include "locks.hpp" // mutex
 #include "conditional_var.hpp" //ConditionalVar
+#include "locks.hpp" // mutex
 #include "informative_exception.hpp"
 #include <string>
 

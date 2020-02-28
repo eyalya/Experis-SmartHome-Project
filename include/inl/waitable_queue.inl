@@ -47,7 +47,7 @@ size_t WaitableQ<T>::Size() const
 {
     m_mutex.Lock();
     size_t res = m_data.size();
-    m_mutex.Unlock();
+    m_mutex.UnLock();
     return res;
 }
 

@@ -36,5 +36,5 @@ private:
 } //namespace hub
 } //namespace smartHome 
 
-#include "controller_container.inl"
+#include "inl/controller_container.inl"
 #endif //CONTORLLER_CONTAINER_HPP

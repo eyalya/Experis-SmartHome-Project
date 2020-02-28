@@ -32,14 +32,14 @@ public:
 class Thread : private UnCopyable 
 {
 public:
-    Thread(IRunnable *a_prun) THROW(ThreadException);
+    Thread(IRunnable *a_prun) THROW1(ThreadException);
     ~Thread() NOEXCEPT;
     void Detach() NOEXCEPT;
-    void Join(void* a_retVal = 0) THROW(ThreadException);
+    void Join(void* a_retVal = 0) THROW1(ThreadException);
     // void TryJoin(timeOut);
     void Cancel() NOEXCEPT;
-    void Kill(int a_sig = SIGINT) THROW(ThreadException);
-    static void Yield() THROW(ThreadException);
+    void Kill(int a_sig = SIGINT) THROW1(ThreadException);
+    static void Yield() THROW1(ThreadException);
     static void Exit(void* a_retVal = 0) NOEXCEPT;
 
 private:

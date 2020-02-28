@@ -5,7 +5,7 @@
 namespace advcpp
 {
     
-Thread::Thread(IRunnable *a_prun) THROW(ThreadException)
+Thread::Thread(IRunnable *a_prun) THROW1(ThreadException)
 : m_joinable(true)
 {
     if(a_prun == 0)
@@ -35,7 +35,7 @@ void Thread::Detach() NOEXCEPT
     m_joinable = false;
 }
 
-void Thread::Join(void* a_retVal) THROW(ThreadException)
+void Thread::Join(void* a_retVal) THROW1(ThreadException)
 {
     int errnum = pthread_join(m_thread, &a_retVal);
 
@@ -51,7 +51,7 @@ void Thread::Cancel() NOEXCEPT
     pthread_cancel(m_thread);
 }
 
-void Thread::Kill(int a_sig) THROW(ThreadException)
+void Thread::Kill(int a_sig) THROW1(ThreadException)
 {
     int errnum = pthread_kill(m_thread, a_sig);
 
@@ -61,7 +61,7 @@ void Thread::Kill(int a_sig) THROW(ThreadException)
     }
 }
 
-void Thread::Yield() THROW(ThreadException)
+void Thread::Yield() THROW1(ThreadException)
 {
     int errnum = pthread_yield();
 
@@ -95,7 +95,7 @@ void* Thread::thunk(void* a_pctx)
 }
 
 ThreadException::ThreadException(int a_errorNum, Information a_info)
-: InformativeException(NumToString(a_errorNum), a_info)
+: InformativeException(std::to_string(a_errorNum), a_info)
 {
 }
 

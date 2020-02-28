@@ -4,15 +4,15 @@
 namespace advcpp 
 {
 
-Mutex::Mutex() THROW1(MutexCreateException)
+Mutex::Mutex() THROW11(MutexCreateException)
 {
     if (pthread_mutex_init(&m_lock, NULL) != 0)
     {
-        THROWX(MutexCreateException);
+        THROW1X(MutexCreateException);
     }
 }
 
-void Mutex::TryLock(size_t a_nanoTime) THROW1(MutexLockingException)
+void Mutex::TryLock(size_t a_nanoTime) THROW11(MutexLockingException)
 {
     int result = 1;
     result  = pthread_mutex_trylock(&getLock());
@@ -26,7 +26,7 @@ void Mutex::TryLock(size_t a_nanoTime) THROW1(MutexLockingException)
 
     if (result != 0)
     {
-        THROWX(MutexLockingException);
+        THROW1X(MutexLockingException);
     }
 }
 

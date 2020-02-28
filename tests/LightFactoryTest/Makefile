@@ -7,14 +7,14 @@ CPPFLAGS += -MMD -MP
 CFLAGS = -g3 -pedantic -Wall -Werror -Wextra
 
 CXXFLAGS = $(CFLAGS) 
-CXXFLAGS += -std=c++03 
+CXXFLAGS += -std=c++17
 
 # LDFLAGS += 
 # LDLIBS += 
 
 INC_DIRS += ../../include/
 
-SOURCES  = $(TARGET).cpp
+SOURCES  = $(TARGET).cpp $(wildcard ../../source/*.cpp)
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 
