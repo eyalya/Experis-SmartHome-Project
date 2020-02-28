@@ -14,8 +14,8 @@ CXXFLAGS += -std=c++17
 
 INC_DIRS += ../../include/
 
-SOURCES  = $(TARGET).cpp $(wildcard ../../source/*.cpp)
-
+SOURCES  = $(TARGET).cpp ../../source/conditional_var.cpp ../../source/light_event_factory.cpp ../../source/locks.cpp ../../source/informative_exception.cpp 
+SOURCES  += ../../source/common.cpp
 OBJECTS  = $(SOURCES:.cpp=.o)
 
 TARGET = light_factory_test
@@ -27,7 +27,7 @@ all:  $(TARGET)
 test: $(TARGET)
 	./$(TARGET)
     
-$(TARGET): $(OBJECTS)
+$(TARGET): $(OBJECTS) -lpthread
 
 clean:
 	rm -f $(OBJECTS) $(TARGET) $(DEPENDS)

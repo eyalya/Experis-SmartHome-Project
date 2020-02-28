@@ -13,7 +13,6 @@ namespace eventor {
 class LightEventFactory : public IEventFactory
 {
 public:
-    typedef std::shared_ptr<Event> EventPtr;
 
     explicit LightEventFactory(advcpp::WaitableQ<EventPtr>& a_eventQ);
     LightEventFactory(LightEventFactory const& a_other) = default;
