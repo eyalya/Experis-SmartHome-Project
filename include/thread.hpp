@@ -25,7 +25,7 @@ public:
 class IRunnable
 {
 public:
-    virtual ~IRunnable() = 0;
+    virtual ~IRunnable() = default;
     virtual void Run() NOEXCEPT = 0;
 };
 

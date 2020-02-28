@@ -1,18 +1,18 @@
 #include "locks.hpp"
-
+#include "common.hpp"
 
 namespace advcpp 
 {
 
-Mutex::Mutex() THROW11(MutexCreateException)
+Mutex::Mutex() THROW1(MutexCreateException)
 {
     if (pthread_mutex_init(&m_lock, NULL) != 0)
     {
-        THROW1X(MutexCreateException);
+        THROWX(MutexCreateException);
     }
 }
 
-void Mutex::TryLock(size_t a_nanoTime) THROW11(MutexLockingException)
+void Mutex::TryLock(size_t a_nanoTime) THROW1(MutexLockingException)
 {
     int result = 1;
     result  = pthread_mutex_trylock(&getLock());
@@ -20,13 +20,13 @@ void Mutex::TryLock(size_t a_nanoTime) THROW11(MutexLockingException)
     int n = 3;
     while (result && --n)
     {
-        advcpp::Sleep(a_nanoTime);
+        advcpp::Sleep(Nano(a_nanoTime));
         result  = pthread_mutex_trylock(&getLock());
     }
 
     if (result != 0)
     {
-        THROW1X(MutexLockingException);
+        THROWX(MutexLockingException);
     }
 }
 

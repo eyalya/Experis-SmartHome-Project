@@ -2,6 +2,7 @@
 #define IEVENT_FACTOR_HPP
 
 #include "event.hpp"
+#include <memory> //std::shared_ptr
 
 namespace smartHome {
 namespace eventor {
@@ -9,8 +10,10 @@ namespace eventor {
 class IEventFactory
 {
 public:
+    typedef std::shared_ptr<Event> EventPtr;
+
     virtual ~IEventFactory() = default;
-    virtual void GenrateEvent(Event const& a_event);
+    virtual void GenrateEvent(EventPtr a_event) = 0;
 
 protected:
     IEventFactory() = default;

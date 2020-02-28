@@ -10,6 +10,9 @@ UNIT(smoke_test)
     LightEventFactory factory(eventQ);
     DemoCensor censor(factory);
 
+    censor.Run();
+
+    ASSERT_EQUAL(eventQ.Size(), 30);
 END_UNIT
 
 TEST_SUITE(test light factor)

@@ -2,6 +2,7 @@
 #define COMMON_HPP
 
 #include <cstddef>
+#include <exception>
 #include <sys/sysinfo.h> //nprocs
 
 namespace advcpp

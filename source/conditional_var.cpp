@@ -36,7 +36,7 @@ void ConditionalVar::NotifyAll() NOEXCEPT
 }
 
 CondExcept::CondExcept(int a_errorNum, Information a_info)
-: InformativeException(NumToString(a_errorNum), a_info)
+: InformativeException(std::to_string(a_errorNum), a_info)
 {
 }
 
