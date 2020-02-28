@@ -1,6 +1,8 @@
 #ifndef EVENT_INL
 #define EVENT_INL
 
+#include <string> //string, to_string
+#include "hash_funcs.hpp" //
 #include "event.hpp"
 
 namespace smartHome
@@ -26,6 +28,15 @@ inline Location::Location(Floor a_floor, Room a_room)
 : m_floorNum(a_floor)
 , m_room(a_room)
 {
+}
+
+size_t Topic::hash() const
+{
+    std::string eventType = std::to_string(m_type);
+    std::string floor = std::to_string(m_location.m_floorNum);
+    std::string room = std::to_string(m_location.m_room);
+    std::string topicHash = eventType + floor + room;
+    return advcpp::hash(topicHash);
 }
 
 } //namespace eventor

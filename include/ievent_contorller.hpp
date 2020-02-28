@@ -12,6 +12,8 @@ public:
     virtual ~IEventController() = default; 
 
     virtual void EventExec() = 0;
+
+    virtual size_t hash() = 0;
 protected:
     IEventController() = default;
     IEventController(IEventController const& a_rhs) = default;

@@ -25,10 +25,11 @@ public:
     virtual void RegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic);
     virtual void UnRegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic);
 
-    virtual void ExecuteTopic(eventor::Topic const& a_topic, eventor::Event a_event) const;
+    virtual void ExecuteTopic(eventor::Topic const& a_topic, eventor::Event a_event);
 
 private:
-    typedef advcpp::HashTable<eventor::Topic, ControllerContainer>::iterator Iterator;
+    typedef advcpp::HashTable<eventor::Topic, ControllerContainer>::iterator iterator;
+    typedef advcpp::HashTable<eventor::Topic, ControllerContainer>::const_iterator const_iterator;
 
 private:
     advcpp::HashTable<eventor::Topic, ControllerContainer> m_subscribers;

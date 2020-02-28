@@ -9,38 +9,37 @@ namespace hub
 
 void TopicSubscribers::RegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic)
 {
-    Iterator iter = m_subscribers.Find(a_topic);
+    iterator iter = m_subscribers.Find(a_topic);
     if (iter == m_subscribers.End())
     {
-        m_subscribers.insert(a_topic, ControllerContainer(a_controller));
+        ControllerContainer cont(a_controller);
+        m_subscribers.Insert(a_topic, cont);
     }
     else
     {
-        iter->AddController(a_controller);
+        iter->m_value.AddController(a_controller);
     }
 }
 
 void TopicSubscribers::UnRegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic)
 {
-    Iterator iter = m_subscribers.Find(a_topic);
+    iterator iter = m_subscribers.Find(a_topic);
 
     if (iter != m_subscribers.End())
     {
-        iter->RemoveController(a_controller);
+        iter->m_value.RemoveController(a_controller);
     }
 }
 
-void TopicSubscribers::ExecuteTopic(eventor::Topic const& a_topic, eventor::Event a_event) const
+void TopicSubscribers::ExecuteTopic(eventor::Topic const& a_topic, eventor::Event a_event)
 {
-    Iterator iter = m_subscribers.Find(a_topic);
+    iterator iter = m_subscribers.Find(a_topic);
 
     if (iter != m_subscribers.End())
     {
-        iter->ControllerExec(a_event);
+        iter->m_value.ControllerExec(a_event);
     }
 }
-
-};
 
 } //namespace hub
 } //namespace smartHome 

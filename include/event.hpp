@@ -37,6 +37,8 @@ struct Topic
     Topic(EventType a_type, Location a_location);
     EventType m_type;
     Location m_location;
+
+    size_t hash() const;
 };
 
 } //namespace eventor

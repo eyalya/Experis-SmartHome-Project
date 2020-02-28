@@ -14,7 +14,7 @@ public:
     
     virtual ~ITopicDistributer() = default;
     
-    virtual void ExecuteTopic(eventor::Topic const& a_topic, eventor::Event a_event) const = 0;
+    virtual void ExecuteTopic(eventor::Topic const& a_topic, eventor::Event a_event) = 0;
 
 protected:
     ITopicDistributer() = default;
