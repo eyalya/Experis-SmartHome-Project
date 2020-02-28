@@ -21,24 +21,24 @@ size_t hash (int const& a_num);
 size_t hash(char *a_key);
 ///////////// Public Functions //////////////////////////////////////////////////////////////////////////////////////
 template <typename Key>
-size_t DefaultHasher<Key>::operator () (Key const& a_key) const
+inline size_t DefaultHasher<Key>::operator () (Key const& a_key) const
 {
     return hash(a_key);
 }
 
 template <typename Key>
-size_t hash (Key const& a_key)
+inline size_t hash (Key const& a_key)
 {
     return a_key.hash();
 }
 
-size_t hash (int const& a_num)
-{
-//    TODO: find a better one
-    return static_cast<size_t>(a_num);
-}
+// size_t hash (int const& a_num)
+// {
+// //    TODO: find a better one
+//     return static_cast<size_t>(a_num);
+// }
 
-size_t hash(char *a_key)
+inline size_t hash(char *a_key)
 {
     size_t hash, i;
     size_t len = strlen(a_key);
@@ -54,7 +54,7 @@ size_t hash(char *a_key)
     return hash;
 }
 
-size_t hash(std::string a_key)
+inline size_t hash(std::string a_key)
 {
     size_t hash, i;
     size_t len = a_key.size();
