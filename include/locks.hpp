@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "enriched_exeptions.hpp"
-#include "timer.hpp"
 #include "common.hpp"
 
 namespace advcpp

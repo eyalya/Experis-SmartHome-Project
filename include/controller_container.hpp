@@ -4,7 +4,6 @@
 #include <vector> //std::vector
 
 #include "ievent_contorller.hpp" //IEventController
-#include "event.hpp" //event
 
 namespace smartHome 
 {

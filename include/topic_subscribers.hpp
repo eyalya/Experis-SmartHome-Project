@@ -5,7 +5,7 @@
 #include "hash_table.hpp" //HashTable
 #include "ievent_contorller.hpp" //eventControllers
 #include "itopic_distributer.hpp" //ITopicDistributer
-#include "isubscribers_register.hpp " //ISubscribersRegister
+#include "isubscribers_register.hpp" //ISubscribersRegister
 #include "controller_container.hpp" //ControllerContainer
 
 

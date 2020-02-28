@@ -7,18 +7,19 @@ CPPFLAGS += -MMD -MP
 CFLAGS = -g3 -pedantic -Wall -Werror -Wextra
 
 CXXFLAGS = $(CFLAGS) 
-CXXFLAGS += -std=c++03 
+CXXFLAGS += -std=c++17
 
 # LDFLAGS += 
 # LDLIBS += 
 
 INC_DIRS += ../../include/
+INC_DIRS += ../../include/inl/
 
 SOURCES  = $(TARGET).cpp
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 
-TARGET = light_factory_test
+TARGET = topic_distributer_test
 
 .PHONY: clean test all val
 

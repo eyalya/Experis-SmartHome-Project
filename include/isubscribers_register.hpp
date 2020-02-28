@@ -1,11 +1,8 @@
 #ifndef SUBSCRIBERS_REGISTER_HPP
 #define SUBSCRIBERS_REGISTER_HPP
 
-#include <vector> //std::vector
-
 #include "event.hpp" //Topic
 #include "ievent_contorller.hpp" //eventControllers
-#include "topic_Subscribers.hpp" //TopicSubscribers
 
 namespace smartHome 
 {
