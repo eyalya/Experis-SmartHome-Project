@@ -30,12 +30,11 @@ inline Location::Location(Floor a_floor, Room a_room)
 {
 }
 
-size_t Topic::hash() const
+inline size_t Topic::hash() const
 {
-    std::string eventType = std::to_string(m_type);
-    std::string floor = std::to_string(m_location.m_floorNum);
-    std::string room = std::to_string(m_location.m_room);
-    std::string topicHash = eventType + floor + room;
+    std::string topicHash = std::to_string(m_type);
+    topicHash += std::to_string(m_location.m_floorNum);
+    topicHash += std::to_string(m_location.m_room);
     return advcpp::hash(topicHash);
 }
 
