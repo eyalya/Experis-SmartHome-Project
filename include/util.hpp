@@ -130,14 +130,15 @@ void CopyArray(T* a_dest, const T* a_arr, size_t a_size)
     }
 }
 
-void CopyStringArray(std::string a_dest[], const std::string a_arr[], size_t a_size)
+inline void CopyStringArray(std::string a_dest[], const std::string a_arr[], size_t a_size)
 {
     for (size_t i = 0; i < a_size; i++)
     {   
         a_dest[i] = a_arr[i];
     }
 }
-void RemoveLastLetter(std::string& a_word)
+
+inline void RemoveLastLetter(std::string& a_word)
 {
     if (a_word.size() > 0)
     {
@@ -216,7 +217,7 @@ namespace iterFuncs
 
 namespace exceptions
 {
-    std::string ExceptionMessageBuild(const char* a_file, const char* a_func, int a_line, const char* a_msg)
+inline std::string ExceptionMessageBuild(const char* a_file, const char* a_func, int a_line, const char* a_msg)
     {
         std::ostringstream msg;
         msg << "File: " << a_file << " Function: " << a_func << " Line: " << a_line << " Message: " << a_msg << "\n";

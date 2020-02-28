@@ -13,7 +13,7 @@ using namespace advcpp;
 
 UNIT(smoke_test)
     TopicSubscribers subscribers;
-
+    ASSERT_PASS();
 
 END_UNIT
 
