@@ -11,12 +11,12 @@ Information::Information(const char* a_file, const char* a_function, size_t a_li
 , m_line(a_line)
 {} 
 
-InformativeException::InformativeException(char const* a_msg, Information const& a_info) THROW(std::logic_error)
+InformativeException::InformativeException(char const* a_msg, Information const& a_info) THROW1(std::logic_error)
 : std::logic_error(a_msg)
 , m_info(a_info)
 {}
 
-InformativeException::InformativeException(std::string a_msg, Information const& a_info) THROW(std::logic_error)
+InformativeException::InformativeException(std::string a_msg, Information const& a_info) THROW1(std::logic_error)
 : std::logic_error(a_msg)
 , m_info(a_info)
 {}
@@ -25,7 +25,7 @@ InformativeException::~InformativeException() NOEXCEPT
 {}
 
 
-std::string InformativeException::What() const THROW(std::ios_base::failure)
+std::string InformativeException::What() const THROW1(std::ios_base::failure)
 {
 	std::ostringstream sStream;
 

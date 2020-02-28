@@ -9,7 +9,7 @@ namespace advcpp
 #if __cplusplus == 201703L
         #define NOEXCEPT noexcept
 #else
-        #define NOEXCEPT throw()
+        #define NOEXCEPT THROW1()
 #endif
 
 #if __cplusplus == 201703L
@@ -17,9 +17,9 @@ namespace advcpp
         #define THROW2(X, Y)
         #define THROW3(X, Y, Z)
 #else
-        #define THROW1(x) throw(x)
-        #define THROW2(x,y) throw(x,y)
-        #define THROW3(x,y,z) throw(x,y,z)
+        #define THROW1(x) THROW1(x)
+        #define THROW2(x,y) THROW1(x,y)
+        #define THROW3(x,y,z) THROW1(x,y,z)
 #endif
 
 

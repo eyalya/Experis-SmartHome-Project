@@ -21,7 +21,7 @@ public:
 class ConditionalVar : private UnCopyable
 {
 public:
-    ConditionalVar() THROW(CondExcept);
+    ConditionalVar() THROW1(CondExcept);
     ~ConditionalVar() NOEXCEPT;
 
     template<typename Predicate>

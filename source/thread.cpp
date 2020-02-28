@@ -5,19 +5,19 @@
 namespace advcpp
 {
     
-Thread::Thread(IRunnable *a_prun) THROW(ThreadException)
+Thread::Thread(IRunnable *a_prun) THROW1(ThreadException)
 : m_joinable(true)
 {
     if(a_prun == 0)
     {
-        throw BadParamException("a_prun is null" ,XINFO);
+        THROW1 BadParamException("a_prun is null" ,XINFO);
     }
 
     int errnum = pthread_create(&m_thread, 0, thunk, static_cast<void*>(a_prun));
 
     if(errnum != 0)
     {
-        throw ThreadException(errnum, XINFO);
+        THROW1 ThreadException(errnum, XINFO);
     }
 }
 
@@ -35,13 +35,13 @@ void Thread::Detach() NOEXCEPT
     m_joinable = false;
 }
 
-void Thread::Join(void* a_retVal) THROW(ThreadException)
+void Thread::Join(void* a_retVal) THROW1(ThreadException)
 {
     int errnum = pthread_join(m_thread, &a_retVal);
 
     if(errnum != 0)
     {
-        throw ThreadException(errnum, XINFO);
+        THROW1 ThreadException(errnum, XINFO);
     }
     m_joinable = false;
 }
@@ -51,23 +51,23 @@ void Thread::Cancel() NOEXCEPT
     pthread_cancel(m_thread);
 }
 
-void Thread::Kill(int a_sig) THROW(ThreadException)
+void Thread::Kill(int a_sig) THROW1(ThreadException)
 {
     int errnum = pthread_kill(m_thread, a_sig);
 
     if(errnum != 0)
     {
-        throw ThreadException(errnum, XINFO);
+        THROW1 ThreadException(errnum, XINFO);
     }
 }
 
-void Thread::Yield() THROW(ThreadException)
+void Thread::Yield() THROW1(ThreadException)
 {
     int errnum = pthread_yield();
 
     if(errnum != 0)
     {
-        throw ThreadException(errnum, XINFO);
+        THROW1 ThreadException(errnum, XINFO);
     }
 }
 

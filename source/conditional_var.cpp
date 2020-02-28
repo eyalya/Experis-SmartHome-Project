@@ -5,7 +5,7 @@
 namespace advcpp
 {
 
-ConditionalVar::ConditionalVar() THROW(CondExcept)
+ConditionalVar::ConditionalVar() THROW1(CondExcept)
 {
     int errorNum;
     size_t tryTimes = 5;
@@ -16,7 +16,7 @@ ConditionalVar::ConditionalVar() THROW(CondExcept)
     
     if(errorNum != 0)
     {
-        throw(CondExcept(errorNum, XINFO));
+        THROW1(CondExcept(errorNum, XINFO));
     }
 }
 

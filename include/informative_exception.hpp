@@ -7,10 +7,12 @@
 #include <stdexcept>
 #include <cstddef>
 
+#include "common.hpp"
+
 // #define NOEXCEPT noexcept
-// #define THROW(x) //throw(x)
-// #define THROW2(x,y) //throw(x,y)
-// #define THROW3(x,y,z) //throw(x,y,z)
+// #define THROW1(x) //THROW1(x)
+// #define THROW2(x,y) //THROW1(x,y)
+// #define THROW3(x,y,z) //THROW1(x,y,z)
 // #define XINFO Information(__FILE__, __func__, __LINE__ )
 
 namespace advcpp
@@ -36,11 +38,11 @@ public:
 	const std::string& Function() const NOEXCEPT;
 	const std::string& File() const NOEXCEPT;
 	size_t Line() const NOEXCEPT;
-	std::string What() const THROW(std::ios_base::failure);
+	std::string What() const THROW1(std::ios_base::failure);
 
 protected:
-	InformativeException(char const* a_msg, Information const& a_info) THROW(std::logic_error);
-	InformativeException(std::string a_msg, Information const& a_info) THROW(std::logic_error);
+	InformativeException(char const* a_msg, Information const& a_info) THROW1(std::logic_error);
+	InformativeException(std::string a_msg, Information const& a_info) THROW1(std::logic_error);
 	virtual ~InformativeException() NOEXCEPT;
 
 private:
