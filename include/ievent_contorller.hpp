@@ -14,8 +14,8 @@ public:
     virtual void EventExec() = 0;
 protected:
     IEventController() = default;
-    IEventController(const IEventController& a_rhs) = default;
-    IEventController& operator=(const IEventController a_rhs) = default;
+    IEventController(IEventController const& a_rhs) = default;
+    IEventController& operator=(IEventController const& a_rhs) = default;
 };
 
 } //namespace hub

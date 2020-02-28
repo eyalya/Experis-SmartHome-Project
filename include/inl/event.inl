@@ -9,15 +9,15 @@ namespace eventor
 {
 
 inline Topic::Topic(EventType a_type, Location a_location)
-: m_type(m_type)
+: m_type(a_type)
 , m_location(a_location)
 {
 }
 
-inline Event::Event(EventType a_type, Location a_location, TimeStamp a_timeStamp, Payload a_payload = "")
+inline Event::Event(EventType a_type, Location a_location, TimeStamp a_timeStamp, Payload a_payload)
 : m_type(a_type)
-, m_location(a_location)
 , m_timestamp(a_timeStamp)
+, m_location(a_location)
 , m_payload(a_payload)
 {
 }
