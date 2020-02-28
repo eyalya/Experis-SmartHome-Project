@@ -146,6 +146,9 @@ void ThreadPool<SafeCont, Handler>::ShutDown(ShutDownModes a_shmode)
     case NOOB:
         shutDownNoob();
         break;
+    case HARD:
+        shutDownHard();
+        break;
     default:
         break;
     }
@@ -162,10 +165,20 @@ size_t ThreadPool<SafeCont, Handler>::NumOfWorkers() const noexcept
 template <typename SafeCont, typename Handler>
 void ThreadPool<SafeCont, Handler>::shutDownNoob()
 {
-    size_t nthread = NumOfWorkers();
+    m_state = false;
+
+    while (m_taskQue.Size() && m_state == false)
+    {
+        Sleep(Second(1));
+    }
 
     shutDownWorkers();
-    insertEmptyTasks(nthread);
+}
+
+template <typename SafeCont, typename Handler>
+void ThreadPool<SafeCont, Handler>::shutDownHard()
+{
+    shutDownWorkers();
 }
 
 struct TaskShutDown {
@@ -178,7 +191,10 @@ struct TaskShutDown {
 template <typename SafeCont, typename Handler>
 void ThreadPool<SafeCont, Handler>::shutDownWorkers()
 {
-    m_workers.ForEach<TaskShutDown>(TaskShutDown());   
+    m_workers.ForEach<TaskShutDown>(TaskShutDown()); 
+
+    size_t nthread = NumOfWorkers();  
+    insertEmptyTasks(nthread);
 }
 
 template <typename SafeCont, typename Handler>

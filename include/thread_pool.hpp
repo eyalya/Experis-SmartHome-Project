@@ -4,7 +4,6 @@
 #include <utility> //std::pair
 
 #include "common.hpp" // NT
-// #include "irunnable.hpp"
 #include "thread.hpp"
 #include "waitable_queue.hpp"
 #include "taskers.hpp"
@@ -30,7 +29,7 @@ public:
 
     bool Submit(TaskPtr a_task);
     void ShutDown(ShutDownModes a_shmode);
-    void AddWorkers(size_t a_nWorkers); 
+    void AddWorkers(size_t a_nWorkers = getHardwareCores()); 
     void RemoveWorker(size_t a_nWorkers);
 
     size_t NumOfWorkers() const noexcept;
@@ -40,6 +39,7 @@ private:
     class DestoryerTask;
 
     void shutDownNoob();
+    void shutDownHard();
     void shutDownWorkers(); 
     void insertEmptyTasks(size_t a_num);
     void insertDestroyerTasks(WaitableQ<int>& a_report, size_t a_nWorkers);

@@ -3,7 +3,6 @@
 
 #include <memory> //shared_ptr
 
-#include "waitable_queue.hpp" //WaitableQ
 #include "event.hpp" //Event
 #include "thread_pool.hpp" //ThreadPool
 
@@ -15,22 +14,20 @@ namespace hub
 
 class EventManger {
 public:
-    typedef std::shared_ptr<eventor::Event> EventPtr;
-
-    EventManger(advcpp::WaitableQ<EventPtr>& a_eventQ);
+    EventManger(advcpp::ThreadPool<>& a_eventsPool);
 
     ~EventManger() = default;
     EventManger(EventManger const& a_rhs) = default;
     EventManger& operator=(EventManger const& a_rhs) = default;
 
+    void Resume();
+    void ShutDown();
 
 private:
-    advcpp::WaitableQ<EventPtr>& m_events;
-    ThreadPool m_pool;
+    advcpp::ThreadPool<>& m_eventsPool;
 };
 
 } //namespace hub
 } //namespace smartHome 
 
-// #include "inl/class.inl"
 #endif //EVENT_MANAGER_HPP

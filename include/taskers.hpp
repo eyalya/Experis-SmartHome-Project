@@ -4,7 +4,6 @@
 #include <memory> //shared_ptr
 #include <atomic> //atomic
 
-// #include "irunnable.hpp" 
 #include "thread.hpp"
 #include "waitable_queue.hpp"
 
