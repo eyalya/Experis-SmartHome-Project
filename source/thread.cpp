@@ -10,14 +10,14 @@ Thread::Thread(IRunnable *a_prun) THROW1(ThreadException)
 {
     if(a_prun == 0)
     {
-        THROW1 BadParamException("a_prun is null" ,XINFO);
+        throw BadParamException("a_prun is null" ,XINFO);
     }
 
     int errnum = pthread_create(&m_thread, 0, thunk, static_cast<void*>(a_prun));
 
     if(errnum != 0)
     {
-        THROW1 ThreadException(errnum, XINFO);
+        throw ThreadException(errnum, XINFO);
     }
 }
 
@@ -41,7 +41,7 @@ void Thread::Join(void* a_retVal) THROW1(ThreadException)
 
     if(errnum != 0)
     {
-        THROW1 ThreadException(errnum, XINFO);
+        throw ThreadException(errnum, XINFO);
     }
     m_joinable = false;
 }
@@ -57,7 +57,7 @@ void Thread::Kill(int a_sig) THROW1(ThreadException)
 
     if(errnum != 0)
     {
-        THROW1 ThreadException(errnum, XINFO);
+        throw ThreadException(errnum, XINFO);
     }
 }
 
@@ -67,7 +67,7 @@ void Thread::Yield() THROW1(ThreadException)
 
     if(errnum != 0)
     {
-        THROW1 ThreadException(errnum, XINFO);
+        throw ThreadException(errnum, XINFO);
     }
 }
 
@@ -95,7 +95,7 @@ void* Thread::thunk(void* a_pctx)
 }
 
 ThreadException::ThreadException(int a_errorNum, Information a_info)
-: InformativeException(NumToString(a_errorNum), a_info)
+: InformativeException(std::to_string(a_errorNum), a_info)
 {
 }
 

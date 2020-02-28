@@ -8,7 +8,7 @@ using namespace advcpp;
 UNIT(smoke_test)
     WaitableQ<LightEventFactory::EventPtr> eventQ(50);
     LightEventFactory factory(eventQ);
-    DemoCensor(factory);
+    DemoCensor censor(factory);
 
 END_UNIT
 

@@ -10,8 +10,6 @@
 namespace advcpp
 {
 
-
-
 class MutexCreateException: public EnrichedExeption {
 public:
     explicit MutexCreateException (InfoException a_info, const char* a_msg = "Mutex create failed")
@@ -26,7 +24,7 @@ public:
     {};
 };
 
-class CondVar;
+class ConditionalVar;
 
 class Mutex: public UnCopiable {
 public: 
@@ -37,7 +35,7 @@ public:
     void UnLock() THROW1(MutexLockingException);
     void TryLock(size_t a_nanoTime) THROW1(MutexLockingException);
     
-    friend class CondVar;
+    friend class ConditionalVar;
 private:
     pthread_mutex_t& getLock();
 

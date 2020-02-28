@@ -40,5 +40,5 @@ inline size_t ControllerContainer::Size() const
 } //namespace hub
 } //namespace smartHome 
 
-#include "controller_container.inl"
+#include "inl/controller_container.inl"
 #endif //CONTORLLER_CONTAINER_HPP

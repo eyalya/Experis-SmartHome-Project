@@ -13,7 +13,7 @@
 // #define THROW1(x) //THROW1(x)
 // #define THROW2(x,y) //THROW1(x,y)
 // #define THROW3(x,y,z) //THROW1(x,y,z)
-// #define XINFO Information(__FILE__, __func__, __LINE__ )
+#define XINFO Information(__FILE__, __func__, __LINE__ )
 
 namespace advcpp
 {

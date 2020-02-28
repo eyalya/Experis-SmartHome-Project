@@ -153,5 +153,5 @@ void swap (HashTable<Key, Value, H>& a_lhs, HashTable<Key, Value, H>& a_rhs);
 
 } // namespace advcpp
 
-#include "hash_table.inl"
+#include "inl/hash_table.inl"
 #endif //HASH_TABLE_HPP
