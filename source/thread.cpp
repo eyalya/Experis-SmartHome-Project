@@ -104,5 +104,15 @@ BadParamException::BadParamException(std::string const& a_msg, Information a_inf
 {
 }
 
+int Thread::GetId() const
+{
+    return static_cast<int>(m_thread);
+}
+
+int Thread::GetSelf()
+{
+    return static_cast<int>(pthread_self());
+}
+
 
 } // namespace advcpp
