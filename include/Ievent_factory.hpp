@@ -2,6 +2,7 @@
 #define IEVENT_FACTOR_HPP
 
 #include "event.hpp"
+#include <memory> //std::shared_ptr
 
 namespace smartHome {
 namespace eventor {

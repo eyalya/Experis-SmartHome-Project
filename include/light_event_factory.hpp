@@ -1,8 +1,6 @@
 #ifndef LIGHT_EVENT_FACTORY
 #define LIGHT_EVENT_FACTORY
 
-#include <memory> //std::shared_ptr
-
 #include "Ievent_factory.hpp"
 #include "waitable_queue.hpp" //advcpp::WaitableQ
 #include "thread.hpp"
@@ -29,7 +27,7 @@ private:
 class DemoCensor : public advcpp::IRunnable
 {
 public:
-    explicit DemoCensor(IEventFactory& a_factory);
+    explicit DemoCensor(IEventFactory& a_factory, size_t a_numOfEvents = 30);
     ~DemoCensor() = default;
 
     void Run() noexcept;
@@ -37,9 +35,9 @@ public:
 private:
     static const EventType DemoType = 0;
     static const Location DemoLoc;
-    static const int NumOfEvents = 30;
 
     IEventFactory& m_factory;
+    size_t m_numOfEvents;
 };
 
 } // namespace eventor
