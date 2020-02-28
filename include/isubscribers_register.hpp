@@ -4,10 +4,8 @@
 #include "event.hpp" //Topic
 #include "ievent_contorller.hpp" //eventControllers
 
-namespace smartHome 
-{
-namespace hub 
-{
+namespace smartHome {
+namespace hub {
 
 class ISubscribersRegister {
 public:
