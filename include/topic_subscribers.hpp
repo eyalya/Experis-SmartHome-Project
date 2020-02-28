@@ -11,10 +11,8 @@
 #include "controller_container.hpp" //ControllerContainer
 
 
-namespace smartHome 
-{
-namespace hub 
-{
+namespace smartHome {
+namespace hub {
 
 class TopicSubscribers: public ITopicDistributer, public ISubscribersRegister {
 public:

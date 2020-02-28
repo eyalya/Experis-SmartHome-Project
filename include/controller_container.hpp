@@ -6,10 +6,8 @@
 
 #include "ievent_contorller.hpp" //IEventController
 
-namespace smartHome 
-{
-namespace hub 
-{
+namespace smartHome {
+namespace hub {
 
 class ControllerContainer {
 public:
