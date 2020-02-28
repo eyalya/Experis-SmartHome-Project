@@ -14,6 +14,7 @@ inline Topic::Topic(EventType a_type, Location a_location)
 : m_type(a_type)
 , m_location(a_location)
 {
+    GenerateID();
 }
 
 inline Event::Event(EventType a_type, Location a_location, TimeStamp a_timeStamp, Payload a_payload)
@@ -30,12 +31,11 @@ inline Location::Location(Floor a_floor, Room a_room)
 {
 }
 
-inline size_t Topic::hash() const
+inline void Topic::GenerateID()
 {
-    std::string topicHash = std::to_string(m_type);
-    topicHash += std::to_string(m_location.m_floorNum);
-    topicHash += std::to_string(m_location.m_room);
-    return advcpp::hash(topicHash);
+    m_id = std::to_string(m_type);
+    m_id += std::to_string(m_location.m_floorNum);
+    m_id += std::to_string(m_location.m_room);
 }
 
 } //namespace eventor

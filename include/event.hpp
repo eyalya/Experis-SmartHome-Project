@@ -35,10 +35,13 @@ struct Event
 struct Topic
 {
     Topic(EventType a_type, Location a_location);
+    
     EventType m_type;
     Location m_location;
+    std::string m_id;
 
-    size_t hash() const;
+private:
+    void GenerateID();
 };
 
 } //namespace eventor

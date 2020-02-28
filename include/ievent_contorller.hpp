@@ -1,6 +1,8 @@
 #ifndef I_EVENT_CONTROLLER_HPP
 #define I_EVENT_CONTROLLER_HPP
 
+#include "event.hpp"
+
 namespace smartHome 
 {
 namespace hub 
@@ -11,9 +13,8 @@ public:
     
     virtual ~IEventController() = default; 
 
-    virtual void EventExec() = 0;
+    virtual void EventExec(eventor::Event a_event) = 0;
 
-    virtual size_t hash() = 0;
 protected:
     IEventController() = default;
     IEventController(IEventController const& a_rhs) = default;

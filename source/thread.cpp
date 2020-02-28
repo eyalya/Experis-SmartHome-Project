@@ -105,9 +105,4 @@ BadParamException::BadParamException(std::string const& a_msg, Information a_inf
 }
 
 
-IRunnable::~IRunnable()
-{
-}
-
-
 } // namespace advcpp
