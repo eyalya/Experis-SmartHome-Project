@@ -7,7 +7,7 @@ namespace smartHome
 namespace hub 
 {
 
-void TopicSubscribers::RegisterSubscriber(IEventController& a_controller, Topic const& a_topic)
+void TopicSubscribers::RegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic)
 {
     Iterator iter = m_subscribers.Find(a_topic);
     if (iter == m_subscribers.End())
@@ -20,7 +20,7 @@ void TopicSubscribers::RegisterSubscriber(IEventController& a_controller, Topic 
     }
 }
 
-void TopicSubscribers::UnRegisterSubscriber(IEventController& a_controller, Topic const& a_topic)
+void TopicSubscribers::UnRegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic)
 {
     Iterator iter = m_subscribers.Find(a_topic);
 
@@ -30,7 +30,7 @@ void TopicSubscribers::UnRegisterSubscriber(IEventController& a_controller, Topi
     }
 }
 
-void TopicSubscribers::ExecuteTopic(eventor::Topic const& a_topic, Event a_event) const
+void TopicSubscribers::ExecuteTopic(eventor::Topic const& a_topic, eventor::Event a_event) const
 {
     Iterator iter = m_subscribers.Find(a_topic);
 
