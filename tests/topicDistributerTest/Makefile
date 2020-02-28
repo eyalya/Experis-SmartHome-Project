@@ -10,7 +10,7 @@ CXXFLAGS = $(CFLAGS)
 CXXFLAGS += -std=c++17
 
 # LDFLAGS += 
-# LDLIBS += 
+LDLIBS += -lpthread
 
 INC_DIRS += ../../include/
 INC_DIRS += ../../include/inl/

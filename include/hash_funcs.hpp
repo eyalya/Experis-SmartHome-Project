@@ -20,6 +20,7 @@ size_t hash (int const& a_num);
 
 size_t hash(char *a_key);
 
+size_t hash(std::string const& a_key);
 ///////////// Public Functions //////////////////////////////////////////////////////////////////////////////////////
 template <typename Key>
 inline size_t DefaultHasher<Key>::operator () (Key const& a_key) const
@@ -55,7 +56,7 @@ inline size_t hash(char *a_key)
     return hash;
 }
 
-inline size_t hash(std::string a_key)
+inline size_t hash(std::string const& a_key)
 {
     size_t hash, i;
     size_t len = a_key.size();

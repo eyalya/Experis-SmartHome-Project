@@ -21,6 +21,7 @@ void ControllerContainer::AddController(IEventController& a_controller)
 void ControllerContainer::RemoveController(IEventController& a_controller)
 {
     //TODO: settel how to find a controller 
+    (void) a_controller;
 }
 
 

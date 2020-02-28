@@ -15,6 +15,7 @@ class ControllerContainer {
 public:
     typedef std::vector<std::shared_ptr<IEventController> >::iterator iterator;
 
+    ControllerContainer() = default;
     ControllerContainer(IEventController& a_controller);
 
     ~ControllerContainer() = default;
