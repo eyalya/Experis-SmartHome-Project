@@ -24,11 +24,11 @@ private:
     advcpp::WaitableQ<EventPtr>& m_events;
 };
 
-class DemoCensor : public advcpp::IRunnable
+class DemoSensor : public advcpp::IRunnable
 {
 public:
-    explicit DemoCensor(IEventFactory& a_factory, size_t a_numOfEvents = 30);
-    ~DemoCensor() = default;
+    explicit DemoSensor(IEventFactory& a_factory, size_t a_numOfEvents = 30);
+    ~DemoSensor() = default;
 
     void Run() noexcept;
 

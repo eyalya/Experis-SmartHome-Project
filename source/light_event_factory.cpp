@@ -15,15 +15,15 @@ void LightEventFactory::GenrateEvent(EventPtr a_event)
     m_events.Enqueue(a_event);
 }
 
-DemoCensor::DemoCensor(IEventFactory& a_factory, size_t a_numOfEvents)
+DemoSensor::DemoSensor(IEventFactory& a_factory, size_t a_numOfEvents)
 : m_factory(a_factory)
 , m_numOfEvents(a_numOfEvents)
 {
 }
 
-const Location DemoCensor::DemoLoc = Location(5, 2);
+const Location DemoSensor::DemoLoc = Location(5, 2);
 
-void DemoCensor::Run() noexcept
+void DemoSensor::Run() noexcept
 {
     for (size_t i = 0; i < m_numOfEvents ; ++i)
     {
