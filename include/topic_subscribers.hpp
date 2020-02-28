@@ -22,16 +22,16 @@ public:
     TopicSubscribers(TopicSubscribers const& a_rhs) = default;
     TopicSubscribers& operator=(TopicSubscribers const& a_rhs) = default;
 
-    virtual void RegisterSubscriber(IEventController& a_controller, Topic const& a_topic);
-    virtual void UnRegisterSubscriber(IEventController& a_controller, Topic const& a_topic);
+    virtual void RegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic);
+    virtual void UnRegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic);
 
-    virtual void ExecuteTopic(eventor::Topic const& a_topic, Event a_event) const;
-
-private:
-    typedef HashTable<Topic, ControllerContainer>::iterator Iterator;
+    virtual void ExecuteTopic(eventor::Topic const& a_topic, eventor::Event a_event) const;
 
 private:
-    HashTable<Topic, ControllerContainer> m_subscribers;
+    typedef advcpp::HashTable<eventor::Topic, ControllerContainer>::iterator Iterator;
+
+private:
+    advcpp::HashTable<eventor::Topic, ControllerContainer> m_subscribers;
 };
 
 

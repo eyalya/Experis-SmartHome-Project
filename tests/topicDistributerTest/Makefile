@@ -16,6 +16,7 @@ INC_DIRS += ../../include/
 INC_DIRS += ../../include/inl/
 
 SOURCES  = $(TARGET).cpp
+SOURCES  += $(wildcard ../../source/*.cpp)
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 

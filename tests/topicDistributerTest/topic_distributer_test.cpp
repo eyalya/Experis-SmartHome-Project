@@ -1,11 +1,12 @@
 #include "mu_test.h"
 #include "itopic_distributer.hpp"
 #include "isubscribers_register.hpp"
-#include "topic_subscribers.hpp"
+#include "topic_subscribers.hpp" //TopicSubscribers
 #include "ievent_contorller.hpp"
 
 using namespace smartHome;
 using namespace eventor;
+using namespace hub;
 using namespace advcpp;
 
 

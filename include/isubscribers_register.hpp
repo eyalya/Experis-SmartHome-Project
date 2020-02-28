@@ -13,8 +13,8 @@ class ISubscribersRegister {
 public:
     virtual ~ISubscribersRegister() = default;
     
-    virtual void RegisterSubscriber(IEventController& a_controller, Topic const& a_topic) = 0;
-    virtual void UnRegisterSubscriber(IEventController& a_controller, Topic const& a_topic) = 0;
+    virtual void RegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic) = 0;
+    virtual void UnRegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic) = 0;
 
 protected:
     ISubscribersRegister() = default;

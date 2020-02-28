@@ -64,7 +64,7 @@ private:
     std::list<TripletV> m_list;
 };
 
-template <typename Key, typename Value, typename Hasher>
+template <typename Key, typename Value, typename Hasher = DefaultHasher<Key> >
 //Key:: must have == operator and be assignable, destructable and copyiable
 //Value:: must have default constructor  
 //Hasher:: callable with &Key must return size_t num
@@ -78,7 +78,7 @@ public:
     template <typename T, typename Iter>
     friend class MyHashIter;
 
-	HashTable(size_t a_capacity, Hasher a_func = DefaultHasher<Key>());
+	HashTable(size_t a_capacity = 1000, Hasher a_func = DefaultHasher<Key>());
 	
 	/*
 	~HashTable(); = default

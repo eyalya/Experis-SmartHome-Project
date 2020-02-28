@@ -2,6 +2,7 @@
 #define CONTORLLER_CONTAINER_HPP
 
 #include <vector> //std::vector
+#include <memory> //shared_ptr
 
 #include "ievent_contorller.hpp" //IEventController
 
@@ -12,7 +13,7 @@ namespace hub
 
 class ControllerContainer {
 public:
-    typedef std::vector<IEventController&>::iterator iterator;
+    typedef std::vector<std::shared_ptr<IEventController> >::iterator iterator;
 
     ControllerContainer(IEventController& a_controller);
 
@@ -29,13 +30,8 @@ public:
     size_t Size() const;
     
 private:
-    std::vector<IEventController&> m_controllers;
+    std::vector<std::shared_ptr<IEventController> > m_controllers;
 };
-
-inline size_t ControllerContainer::Size() const
-{
-    return m_controllers.size();
-}
 
 } //namespace hub
 } //namespace smartHome 
