@@ -15,7 +15,7 @@ using namespace smartHome;
 using namespace advcpp;
 using namespace std;
 
-UNIT(full_test)
+UNIT(no_app_test)
     hub::TopicSubscribers subscribers;
     hub::EventsPool eventPool(subscribers);
     hub::EventManger manager(eventPool);
@@ -24,20 +24,12 @@ UNIT(full_test)
 
     eventor::DemoSensor censor(factory);
     
-    // EventType type = 0;
-    Floor floor = 5;
-    Room room = 2;
-    eventor::Location location(floor, room);
-
     boot.LoadControllers();
     censor.Run();
     manager.ShutDown();
     ASSERT_PASS();
-
 END_UNIT
 
 TEST_SUITE(test mvp)
-
-TEST(full_test)
-
+    TEST(no_app_test)
 END_SUITE

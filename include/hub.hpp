@@ -16,6 +16,8 @@ public:
     Hub();
     ~Hub();
 
+    void Run();
+
 private:
     TopicSubscribers m_subscribers;
     Booter m_systemBooter;

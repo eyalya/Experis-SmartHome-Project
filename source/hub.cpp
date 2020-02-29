@@ -12,6 +12,11 @@ Hub::Hub()
 {
 }
 
+void Hub::Run()
+{
+    m_systemBooter.LoadControllers();
+}
+
 Hub::~Hub()
 {
     m_eventManager.ShutDown();
