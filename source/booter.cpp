@@ -3,8 +3,8 @@
 #include "demo_controller.hpp"
 #include "booter.hpp"
 
-namespace smartHome{
-namespace hub{
+namespace smartHome {
+namespace hub {
 
 Booter::Booter(ISubscribersRegister& a_registrator)
 : m_registrator(a_registrator)

@@ -2,10 +2,8 @@
 
 #include "topic_subscribers.hpp" //TopicSubscribers
 
-namespace smartHome 
-{
-namespace hub 
-{
+namespace smartHome {
+namespace hub {
 
 void TopicSubscribers::RegisterSubscriber(std::shared_ptr<IEventController> a_controller, eventor::Topic const& a_topic)
 {
