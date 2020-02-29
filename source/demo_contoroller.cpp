@@ -8,12 +8,19 @@ namespace hub {
 DemoController::DemoController(std::string const& a_name, eventor::Location a_location)
 : m_location(a_location)
 , m_name(a_name)
+, m_nRuns(0)
 {
 }
 
 void DemoController::EventExec(EventPtr a_event)
 {
-    std::cout << "executed an event " << a_event->m_type << std::endl;
+    (void) a_event;
+    ++m_nRuns;
+}
+
+size_t DemoController::GetNRuns() const
+{
+    return m_nRuns;
 }
 
 } //namespace hub
