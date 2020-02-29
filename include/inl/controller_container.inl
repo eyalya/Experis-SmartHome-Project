@@ -25,6 +25,16 @@ inline size_t ControllerContainer::Size() const
     return m_controllers.size();
 }
 
+inline ControllerContainer::ControllerPtr ControllerContainer::operator[](size_t a_index)
+{
+    return m_controllers.operator[](a_index);
+}
+
+inline ControllerContainer::ControllerPtr ControllerContainer::operator[](size_t a_index) const
+{
+    return m_controllers.operator[](a_index);
+}
+
 } //namespace hub
 } //namespace smartHome 
 
