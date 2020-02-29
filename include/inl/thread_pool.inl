@@ -167,11 +167,12 @@ void ThreadPool<SafeCont, Handler>::shutDownNoob()
 {
     m_state = false;
 
-    while (m_taskQue.Size() && m_state == false)
+    while (m_taskQue.Size())
     {
         Sleep(Second(1));
     }
-
+    
+    assert(!m_taskQue.Size());
     shutDownWorkers();
 }
 
