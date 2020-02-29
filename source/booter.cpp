@@ -14,11 +14,9 @@ Booter::Booter(ISubscribersRegister& a_registrator)
 void Booter::LoadControllers()
 {
     //TODO: change to load from file.
-    DemoController controller("demo controller", eventor::Location(5, 2));
+    auto controller = std::make_shared<DemoController>("demo controller", eventor::Location(5, 2));
     m_registrator.RegisterSubscriber(controller, eventor::Topic(0, eventor::Location(5, 2)));
 }
-
-
 
 } //namespace hub
 } //namespace smartHome
