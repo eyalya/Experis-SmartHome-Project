@@ -22,9 +22,8 @@ using namespace advcpp;
 
 UNIT(smoke_test)
     TopicSubscribers subscribers;
-    ThreadPool<> pool;
-    EventManger manager(pool);
-    EventsPool eventPool();
+    EventsPool eventPool(subscribers);
+    EventManger manager(eventPool);
 
     manager.ShutDown();
     ASSERT_PASS();
@@ -33,9 +32,8 @@ END_UNIT
 
 UNIT(events_flow)
     TopicSubscribers subscribers;
-    ThreadPool<> pool;
-    EventManger manager(pool);
-    EventsPool eventPool(subscribers, pool);
+    EventsPool eventPool(subscribers);
+    EventManger manager(eventPool);
 
     EventType type = 1;
     Floor floor = 2;
@@ -47,12 +45,37 @@ UNIT(events_flow)
     std::shared_ptr<IEventController> demo = make_shared<DemoController>(name, location);
     subscribers.RegisterSubscriber(demo, Topic(type, location));
 
-    const size_t nEvents = 5;
+    const size_t nEvents = 10000;
     for (size_t i = 0; i < nEvents; ++i)
     {
         eventPool.Submit(make_shared<Event>(event));
     }
 
+    manager.ShutDown();
+    ASSERT_PASS();
+
+END_UNIT
+
+UNIT(negetive_flow)
+    TopicSubscribers subscribers;
+    EventsPool eventPool(subscribers);
+    EventManger manager(eventPool);
+
+    EventType type = 1;
+    Floor floor = 2;
+    Room room = 3;
+    Location location(floor, room);
+    Event event(type, location, string("test"));
+
+    string name("register");
+    std::shared_ptr<IEventController> demo = make_shared<DemoController>(name, location);
+    subscribers.RegisterSubscriber(demo, Topic(type, location));
+
+    const size_t nEvents = 10000;
+    for (size_t i = 0; i < nEvents; ++i)
+    {
+        eventPool.Submit(make_shared<Event>(event));
+    }
 
     manager.ShutDown();
     ASSERT_PASS();

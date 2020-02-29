@@ -11,10 +11,10 @@ namespace smartHome
 {
 namespace hub 
 {
-//TODO: deside on workers number for pool
-class EventsPool: public advcpp::UnCopiable {
+
+class EventsPool: public advcpp::ThreadPool<> {
 public:
-    EventsPool(ITopicDistributer& a_destributor, advcpp::ThreadPool<>& a_eventsPool);
+    EventsPool(ITopicDistributer& a_destributor, size_t a_nThread = advcpp::getHardwareCores());
 
     ~EventsPool() noexcept = default;
     EventsPool(EventsPool const& a_rhs) = delete; 
@@ -24,7 +24,6 @@ public:
 
 private:
     ITopicDistributer& m_destributor;
-    advcpp::ThreadPool<>& m_eventsPool;
 };
 
 } //namespace smartHome 

@@ -22,7 +22,7 @@ public:
     };
 
     explicit ThreadPool(size_t a_nThread = getHardwareCores());
-    ~ThreadPool() noexcept;
+    virtual ~ThreadPool() noexcept;
 
     ThreadPool(ThreadPool const& a_rhs) = delete; 
     ThreadPool& operator=(ThreadPool const& a_rhs) = delete; 

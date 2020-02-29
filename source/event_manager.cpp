@@ -5,7 +5,7 @@ namespace smartHome
 namespace hub 
 {
 
-EventManger::EventManger(advcpp::ThreadPool<>& a_eventsPool)
+EventManger::EventManger(EventsPool& a_eventsPool)
 : m_eventsPool(a_eventsPool)
 {
 }
@@ -17,7 +17,7 @@ void EventManger::Resume()
 
 void EventManger::ShutDown()
 {
-    m_eventsPool.ShutDown(advcpp::ThreadPool<>::ShutDownModes::NOOB);
+    m_eventsPool.ShutDown(EventsPool::ShutDownModes::NOOB);
 }
 
 } //namespace hub
