@@ -20,17 +20,15 @@ UNIT(full_test)
     hub::EventsPool eventPool(subscribers);
     hub::EventManger manager(eventPool);
     eventor::LightEventFactory factory(eventPool);
-    eventor::DemoSensor censor(factory);
     hub::Booter boot(subscribers);
 
-    EventType type = 0;
+    eventor::DemoSensor censor(factory);
+    
+    // EventType type = 0;
     Floor floor = 5;
     Room room = 2;
     eventor::Location location(floor, room);
 
-    string name("register");
-    shared_ptr<hub::IEventController> demo = make_shared<hub::DemoController>(name, location);
-    subscribers.RegisterSubscriber(demo, eventor::Topic(type, location));
     boot.LoadControllers();
     censor.Run();
     manager.ShutDown();
