@@ -4,6 +4,7 @@
 #include "Ievent_factory.hpp"
 #include "waitable_queue.hpp" //advcpp::WaitableQ
 #include "isensor.hpp" //sensor
+#include "events_pool.hpp" //eventpool
 #include "thread.hpp"
 
 namespace smartHome {
@@ -12,8 +13,7 @@ namespace eventor {
 class LightEventFactory : public IEventFactory
 {
 public:
-
-    explicit LightEventFactory(advcpp::WaitableQ<EventPtr>& a_eventQ);
+    explicit LightEventFactory(hub::EventsPool& a_eventPool);
     LightEventFactory(LightEventFactory const& a_other) = default;
     virtual ~LightEventFactory() = default;
     
@@ -22,7 +22,7 @@ public:
     virtual void GenrateEvent(EventPtr a_event);
 
 private:
-    advcpp::WaitableQ<EventPtr>& m_events;
+    hub::EventsPool & m_events;
 };
 
 class DemoSensor : public ISensor

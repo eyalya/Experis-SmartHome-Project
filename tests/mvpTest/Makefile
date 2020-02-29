@@ -21,7 +21,7 @@ SOURCES  += $(wildcard ../../source/*.cpp )
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 
-TARGET = light_factory_test
+TARGET = mvp_test
 
 .PHONY: clean test all val
 

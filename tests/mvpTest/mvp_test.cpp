@@ -8,8 +8,8 @@ using namespace advcpp;
 
 
 UNIT(full_test)
-    WaitableQ<eventor::LightEventFactory::EventPtr> eventQ(50);
-    eventor::LightEventFactory factory(eventQ);
+    hub::EventsPool pool(50);
+    eventor::LightEventFactory factory(pool);
     eventor::DemoSensor censor(factory);
 
     hub::TopicSubscribers sub;

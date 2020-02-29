@@ -5,14 +5,14 @@
 namespace smartHome {
 namespace eventor {
 
-LightEventFactory::LightEventFactory(advcpp::WaitableQ<EventPtr>& a_eventQ)
-: m_events(a_eventQ)
+LightEventFactory::LightEventFactory(hub::EventsPool& a_eventPool)
+: m_events(a_eventPool)
 {
 }
 
 void LightEventFactory::GenrateEvent(EventPtr a_event)
 {
-    m_events.Enqueue(a_event);
+    m_events.Submit(a_event);
 }
 
 DemoSensor::DemoSensor(IEventFactory& a_factory, size_t a_numOfEvents)
