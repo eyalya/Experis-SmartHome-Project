@@ -7,7 +7,7 @@ namespace smartHome
 namespace hub 
 {
 
-void TopicSubscribers::RegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic)
+void TopicSubscribers::RegisterSubscriber(std::shared_ptr<IEventController> a_controller, eventor::Topic const& a_topic)
 {
     iterator iter = m_subscribers.Find(a_topic.m_id);
     if (iter == m_subscribers.End())
@@ -21,7 +21,7 @@ void TopicSubscribers::RegisterSubscriber(IEventController& a_controller, evento
     }
 }
 
-void TopicSubscribers::UnRegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic)
+void TopicSubscribers::UnRegisterSubscriber(std::shared_ptr<IEventController> a_controller, eventor::Topic const& a_topic)
 {
     iterator iter = m_subscribers.Find(a_topic.m_id);
 

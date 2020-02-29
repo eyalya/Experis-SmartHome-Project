@@ -44,8 +44,8 @@ UNIT(events_flow)
     Event event(type, location, string("test"));
 
     string name("register");
-    DemoController controller(name, location);
-    subscribers.RegisterSubscriber(controller, Topic(type, location));
+    std::shared_ptr<IEventController> demo = make_shared<DemoController>(name, location);
+    subscribers.RegisterSubscriber(demo, Topic(type, location));
 
     const size_t nEvents = 5;
     for (size_t i = 0; i < nEvents; ++i)

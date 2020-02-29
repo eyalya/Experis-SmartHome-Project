@@ -3,11 +3,8 @@
 
 #include "thread.hpp"
 
-namespace smartHome{
-namespace eventor{
-
-} //namespace eventor
-} //namespace smartHome
+namespace smartHome {
+namespace eventor {
 
 class ISensor : advcpp::IRunnable
 {
@@ -21,5 +18,10 @@ protected:
     ISensor(ISensor const& a_rhs) = default;
     ISensor& operator=(ISensor const& a_rhs) = default;
 };
+
+} //namespace eventor
+} //namespace smartHome
+
+
 
 #endif //ISENSOR_HPP

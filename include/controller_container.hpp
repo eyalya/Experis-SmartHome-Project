@@ -12,24 +12,25 @@ namespace hub {
 
 class ControllerContainer {
 public:
-    typedef std::vector<std::shared_ptr<IEventController> >::iterator iterator;
+    typedef std::shared_ptr<IEventController> ControllerPtr;
+    typedef std::vector<ControllerPtr >::iterator iterator;
 
     ControllerContainer() = default;
-    ControllerContainer(IEventController& a_controller);
+    ControllerContainer(ControllerPtr a_controller);
 
     ~ControllerContainer() = default;
     ControllerContainer(ControllerContainer const& a_rhs) = default;
     ControllerContainer& operator=(ControllerContainer const& a_rhs) = default;
 
-    void AddController(IEventController& a_controller);
-    void RemoveController(IEventController& a_controller);
+    void AddController(ControllerPtr a_controller);
+    void RemoveController(ControllerPtr a_controller);
 
     void ControllerExec(std::shared_ptr<eventor::Event> a_event);
 
     size_t Size() const;
     
 private:
-    std::vector<std::shared_ptr<IEventController> > m_controllers;
+    std::vector<ControllerPtr > m_controllers;
 };
 
 } //namespace hub

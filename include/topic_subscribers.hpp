@@ -23,8 +23,8 @@ public:
     TopicSubscribers(TopicSubscribers const& a_rhs) = default;
     TopicSubscribers& operator=(TopicSubscribers const& a_rhs) = default;
 
-    virtual void RegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic);
-    virtual void UnRegisterSubscriber(IEventController& a_controller, eventor::Topic const& a_topic);
+    virtual void RegisterSubscriber(std::shared_ptr<IEventController> a_controller, eventor::Topic const& a_topic);
+    virtual void UnRegisterSubscriber(std::shared_ptr<IEventController> a_controller, eventor::Topic const& a_topic);
 
     virtual void ExecuteTopic(eventor::Topic const& a_topic, std::shared_ptr<eventor::Event> a_event);
 
