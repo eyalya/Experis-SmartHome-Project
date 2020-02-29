@@ -27,6 +27,8 @@ public:
 
     void ControllerExec(std::shared_ptr<eventor::Event> a_event);
 
+    ControllerPtr operator[](size_t a_index);
+    ControllerPtr operator[](size_t a_index) const;
     size_t Size() const;
     
 private:
