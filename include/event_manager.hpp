@@ -6,7 +6,6 @@
 #include "event.hpp" //Event
 #include "events_pool.hpp" //EventsPool
 
-
 namespace smartHome 
 {
 namespace hub 

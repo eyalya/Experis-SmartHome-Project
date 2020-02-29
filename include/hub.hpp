@@ -20,10 +20,10 @@ public:
 
 private:
     TopicSubscribers m_subscribers;
+    eventor::LightEventFactory m_factory;
     Booter m_systemBooter;
     EventsPool m_eventsPool;
     EventManger m_eventManager;
-    eventor::LightEventFactory m_factory;
 };
 
 } //namespace hub

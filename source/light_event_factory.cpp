@@ -25,7 +25,7 @@ const Location DemoSensor::DemoLoc = Location(5, 2);
 
 void DemoSensor::Run() noexcept
 {
-    for (size_t i = 0; i < m_numOfEvents ; ++i)
+    for(size_t i = 0; i < m_numOfEvents ; ++i)
     {
         m_factory.GenrateEvent(std::make_shared<Event>(0, DemoLoc, "5:05"));
     }
