@@ -2,7 +2,7 @@
 
 #include "demo_controller.hpp"
 
-namespace smartHome{
+namespace smartHome {
 namespace hub {
 
 DemoController::DemoController(std::string const& a_name, eventor::Location a_location)
