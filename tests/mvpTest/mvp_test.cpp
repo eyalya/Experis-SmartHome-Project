@@ -10,6 +10,7 @@
 #include "events_pool.hpp"
 #include "demo_controller.hpp"
 #include "hub.hpp"
+#include "demo_censor.hpp"
 
 using namespace smartHome;
 using namespace advcpp;

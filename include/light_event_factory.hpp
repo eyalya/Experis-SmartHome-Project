@@ -2,9 +2,9 @@
 #define LIGHT_EVENT_FACTORY
 
 #include "Ievent_factory.hpp"
-#include "waitable_queue.hpp" //advcpp::WaitableQ
-#include "isensor.hpp" //sensor
-#include "events_pool.hpp" //eventpool
+#include "waitable_queue.hpp" 
+#include "isensor.hpp"
+#include "events_pool.hpp" 
 #include "thread.hpp"
 
 namespace smartHome {
@@ -23,22 +23,6 @@ public:
 
 private:
     hub::EventsPool & m_events;
-};
-
-class DemoSensor : public ISensor
-{
-public:
-    explicit DemoSensor(IEventFactory& a_factory, size_t a_numOfEvents = 30);
-    ~DemoSensor() = default;
-
-    void Run() noexcept;
-
-private:
-    static const EventType DemoType = 0;
-    static const Location DemoLoc;
-
-    IEventFactory& m_factory;
-    size_t m_numOfEvents;
 };
 
 } // namespace eventor

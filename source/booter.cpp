@@ -2,7 +2,7 @@
 
 #include "demo_controller.hpp"
 #include "booter.hpp"
-#include "light_event_factory.hpp" //DemoCensor
+#include "demo_censor.hpp" 
 
 namespace smartHome {
 namespace hub {
