@@ -7,8 +7,7 @@ namespace eventor {
 
 DemoSensor::DemoSensor(IEventReciver& a_reciver, Location a_censorLocation,
                      EventType a_eventType, size_t a_numOfEvents)
-: 
-, m_location(a_censorLocation)
+: m_location(a_censorLocation)
 , m_type(a_eventType)
 , m_eventReciver(a_reciver)
 , m_numOfEvents(a_numOfEvents)

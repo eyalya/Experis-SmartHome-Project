@@ -53,7 +53,7 @@ private:
 struct TopicHash
 {
     TopicHash() = default;
-    size_t operator()(Topic a_topic)
+    size_t operator()(Topic a_topic) const
     {
         return a_topic.hash();
     }
