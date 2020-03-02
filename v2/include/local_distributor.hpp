@@ -1,27 +1,36 @@
-#ifndef IDISTRIBUTOR_HPP
-#define IDISTRIBUTOR_HPP
+#ifndef ILOCAL_DISTRIBUTOR_HPP
+#define ILOCAL_DISTRIBUTOR_HPP
 
-#include "ievent.hpp" 
+
 #include <memory> //std::shared_ptr
 
-namespace smartHome {
-namespace eventor {
+#include "idistributor.hpp" //IDistributor
+#include "ievent.hpp" //IEvent
+#include "ifind_topic_subscriber.hpp" //IFindTopicSubscriber
 
-class IEventReciver
+namespace smartHome {
+namespace hub {
+
+class LocalDistributor: public IDistributor
 {
 public:
     typedef std::shared_ptr<IEvent> EventPtr;
+    typedef std::shared_ptr<IFindTopicSubscriber> FindSubscriberPtr;
 
-    virtual ~IEventReciver() = default;
-    virtual void DistributeToDevice(EventPtr a_event) = 0;
+    LocalDistributor(FindSubscriberPtr a_subscriberContainer);
 
-protected:
-    IEventReciver() = default;
-    IEventReciver(IEventReciver const& a_other) = default;
-    IEventReciver& operator=(IEventReciver const& a_other) = default;
+    virtual ~LocalDistributor() = default;
+    LocalDistributor(LocalDistributor const& a_other) = default;
+    LocalDistributor& operator=(LocalDistributor const& a_other) = default;
+
+    
+    virtual void DistributeToDevice(EventPtr a_event);
+
+private:
+    FindSubscriberPtr m_subscriberContainer;
 };
 
-} // namespace eventor
+} // namespace hub
 } // namespace smartHome
 
-#endif //IDISTRIBUTOR_HPP
+#endif //ILOCAL_DISTRIBUTOR_HPP

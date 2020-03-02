@@ -1,6 +1,8 @@
 #ifndef EVENT_BASE_HPP
 #define EVENT_BASE_HPP
 
+#include <memory> //std::shared_ptr
+
 #include "ievent.hpp"
 
 namespace smartHome {
@@ -36,6 +38,7 @@ private:
 struct Topic
 {
     Topic(EventType a_type, Location a_location);
+    Topic(std::shared_ptr<IEvent> a_event);
     
     EventType m_type;
     Location m_location;
