@@ -66,5 +66,7 @@ private:
 
 
 } // namespace advcpp
-#include "./inl/waitable_queue.inl"
+
+#include "inl/waitable_queue.inl"
+
 #endif //SAFE_QUEUE_HPP

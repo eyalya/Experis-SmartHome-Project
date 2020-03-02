@@ -1,28 +1,36 @@
-#ifndef EVENT_HPP
-#define EVENT_HPP
+#ifndef EVENT_BASE_HPP
+#define EVENT_BASE_HPP
 
 #include "ievent.hpp"
 
 namespace smartHome {
-namespace eventor {
 
 typedef int Floor;
 typedef int Room;
 
 struct Location
 {
+    Location(Floor a_floor, Room a_room);
     Floor m_floorNum;
     Room m_roomNum;
 };
 
-struct Event
+class EventBase : public IEvent
 {
-    Event(EventType a_type, Location a_location, TimeStamp a_timeStamp, Payload a_payload = "");
+public: 
+    virtual Location const& GetLocation() const;
+    virtual EventType const& GetType() const;
+    virtual TimeStamp const& GetTimeStamp() const;
 
-    TimeStamp m_timestamp;
-    EventType m_type;
-    Location m_location;
-    Payload m_payload;
+protected:
+    EventBase(EventType a_type, Location a_location, TimeStamp a_timeStamp);
+    EventBase(EventBase const& a_other) = delete;
+    EventBase& operator=(EventBase const& a_other) = delete;
+
+private:
+    const EventType m_type;
+    const Location m_location;
+    const TimeStamp m_timestamp;
 };
 
 struct Topic
@@ -37,8 +45,8 @@ private:
     void GenerateID();
 };
 
-} //namespace eventor
 } //namespace smartHome
 
 #include "inl/event_base.inl"
-#endif //EVENT_HPP
+
+#endif //EVENT_BASE_HPP

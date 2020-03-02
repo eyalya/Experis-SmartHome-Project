@@ -1,8 +1,9 @@
 #ifndef IEVENT_FACTOR_HPP
 #define IEVENT_FACTOR_HPP
 
-#include "event.hpp"
 #include <memory> //std::shared_ptr
+
+#include "ievent.hpp"
 
 namespace smartHome {
 namespace eventor {
@@ -10,10 +11,8 @@ namespace eventor {
 class IEventReciver
 {
 public:
-    typedef std::shared_ptr<Event> EventPtr;
-
     virtual ~IEventReciver() = default;
-    virtual void GenrateEvent(EventPtr a_event) = 0;
+    virtual void RecvEvent(std::shared_ptr<IEvent> a_event) = 0;
 
 protected:
     IEventReciver() = default;

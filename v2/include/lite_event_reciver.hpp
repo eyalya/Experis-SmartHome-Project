@@ -1,10 +1,10 @@
-#ifndef LIGHT_EVENT_FACTORY
-#define LIGHT_EVENT_FACTORY
+#ifndef LITE_EVENT_FACTORY
+#define LITE_EVENT_FACTORY
 
 #include "ievent_reciver.hpp"
+#include "ievent_store_adder.hpp"
 #include "waitable_queue.hpp" 
 #include "isensor.hpp"
-#include "events_pool.hpp" 
 #include "thread.hpp"
 
 namespace smartHome {
@@ -13,19 +13,19 @@ namespace eventor {
 class LiteEventReciver : public IEventReciver
 {
 public:
-    explicit LiteEventReciver(hub::EventsPool& a_eventPool);
+    explicit LiteEventReciver(IEventStoreAdder& a_eventAdder);
     LiteEventReciver(LiteEventReciver const& a_other) = default;
     virtual ~LiteEventReciver() = default;
     
     LiteEventReciver& operator=(LiteEventReciver const& a_other) = default;
 
-    virtual void GenrateEvent(EventPtr a_event);
+    virtual void RecvEvent(std::shared_ptr<IEvent> a_event);
 
 private:
-    hub::EventsPool & m_events;
+    IEventStoreAdder& m_eventAdder;
 };
 
 } // namespace eventor
 } // namespace smartHome
 
-#endif //LIGHT_EVENT_FACTORY
+#endif //LITE_EVENT_FACTORY
