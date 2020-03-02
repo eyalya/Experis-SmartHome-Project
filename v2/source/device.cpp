@@ -26,7 +26,7 @@ Device::HandlerPtr Device::GetHandler(Topic a_topic)
     return res->second;
 }
 
-std::unordered_map<Topic, Device::HandlerPtr> const& Device::GetTopicHandlers()
+std::unordered_map<Topic, Device::HandlerPtr, TopicHash> const& Device::GetTopicHandlers()
 {
     return m_topicHandlers;
 }

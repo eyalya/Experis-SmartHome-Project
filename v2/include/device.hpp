@@ -22,10 +22,10 @@ public:
     void RegisterToTopic(Topic a_topic, HandlerPtr a_handler); 
     HandlerPtr GetHandler(Topic a_topic);
 
-    std::unordered_map<Topic, HandlerPtr> const& GetTopicHandlers();
+    std::unordered_map<Topic, HandlerPtr, TopicHash> const& GetTopicHandlers();
 
 private:
-    std::unordered_map<Topic, HandlerPtr> m_topicHandlers;
+    std::unordered_map<Topic, HandlerPtr, TopicHash> m_topicHandlers;
     Location m_location;
     std::string m_name;
 };

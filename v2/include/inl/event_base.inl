@@ -42,7 +42,7 @@ inline void Topic::GenerateID()
     m_id += std::to_string(m_location.m_roomNum);
 }
 
-size_t Topic::hash() const
+size_t Topic::hash()
 {
     return advcpp::hash(m_id);
 }

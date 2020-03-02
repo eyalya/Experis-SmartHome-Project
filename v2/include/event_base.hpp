@@ -44,10 +44,19 @@ struct Topic
     Location m_location;
     std::string m_id; //FIXME: maybe remove, used only in hash function
 
-    size_t hash() const;
+    size_t hash();
 
 private:
     void GenerateID();
+};
+
+struct TopicHash
+{
+    TopicHash() = default;
+    size_t operator()(Topic a_topic)
+    {
+        return a_topic.hash();
+    }
 };
 
 } //namespace smartHome
