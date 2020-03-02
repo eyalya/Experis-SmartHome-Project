@@ -15,7 +15,7 @@ void TopicSubscribers::RegisterSubscriber(std::shared_ptr<Device> a_device, Topi
     }
     else
     {
-        iter->m_value.AddController(a_device);
+        iter->m_value.AddDevice(a_device);
     }
 }
 
@@ -25,7 +25,7 @@ void TopicSubscribers::UnRegisterSubscriber(std::shared_ptr<Device> a_device, To
 
     if (iter != m_subscribers.End())
     {
-        iter->m_value.RemoveController(a_device);
+        iter->m_value.RemoveDevice(a_device);
     }
 }
 

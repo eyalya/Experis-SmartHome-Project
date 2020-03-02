@@ -21,8 +21,11 @@ public:
     DeviceGroup(DeviceGroup const& a_rhs) = default;
     DeviceGroup& operator=(DeviceGroup const& a_rhs) = default;
 
-    void AddController(DevicePtr a_device);
-    void RemoveController(DevicePtr a_device);
+    void AddDevice(DevicePtr a_device);
+    void RemoveDevice(DevicePtr a_device);
+
+    template <typename Action>
+    void Foreach(Action a_action); 
 
     //GetHandler(iterator a_iter);
 

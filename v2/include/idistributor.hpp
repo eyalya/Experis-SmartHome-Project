@@ -1,27 +1,28 @@
 #ifndef IDISTRIBUTOR_HPP
 #define IDISTRIBUTOR_HPP
 
-#include "ievent.hpp" 
 #include <memory> //std::shared_ptr
 
-namespace smartHome {
-namespace eventor {
+#include "ievent.hpp" 
 
-class IEventReciver
+namespace smartHome {
+namespace hub {
+
+class IDistributor
 {
 public:
     typedef std::shared_ptr<IEvent> EventPtr;
 
-    virtual ~IEventReciver() = default;
+    virtual ~IDistributor() = default;
     virtual void DistributeToDevice(EventPtr a_event) = 0;
 
 protected:
-    IEventReciver() = default;
-    IEventReciver(IEventReciver const& a_other) = default;
-    IEventReciver& operator=(IEventReciver const& a_other) = default;
+    IDistributor() = default;
+    IDistributor(IDistributor const& a_other) = default;
+    IDistributor& operator=(IDistributor const& a_other) = default;
 };
 
-} // namespace eventor
+} // namespace hub
 } // namespace smartHome
 
 #endif //IDISTRIBUTOR_HPP

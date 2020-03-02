@@ -14,6 +14,13 @@ inline Topic::Topic(EventType a_type, Location a_location)
     GenerateID();
 }
 
+inline Topic::Topic(std::shared_ptr<IEvent> a_event)
+: m_type(a_event->GetType())
+, m_location(a_event->GetLocation())
+{
+    GenerateID();
+}
+
 inline EventBase::EventBase(EventType a_type, Location a_location, TimeStamp a_timeStamp)
 : m_type(a_type)
 , m_location(a_location)
