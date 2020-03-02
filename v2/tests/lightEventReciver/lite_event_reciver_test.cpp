@@ -29,10 +29,10 @@ UNIT(few_censors)
     eventor::LiteEventReciver eventReciver(eventStore);
 
     ThreadsGroup<eventor::DemoSensor> sensors;
-
+    Location loc(5, 3);
     for (size_t i = 0; i < 10; ++i)
     {
-        sensors.AddThreads(10, eventReciver, Location(5, 3), "test event", 50);
+        sensors.AddThreads(10, eventReciver, loc, "test event", 50);
     }
 
     ASSERT_EQUAL(eventStore.NumOfEventsInStore(), 350);
