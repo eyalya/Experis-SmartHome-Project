@@ -3,7 +3,7 @@
 namespace smartHome {
 namespace hub {
 
-Device::Device(std::string const& a_name, eventor::Location a_location)
+Device::Device(std::string const& a_name, Location a_location)
 : m_topics()
 , m_location(a_location)
 , m_name(a_name)

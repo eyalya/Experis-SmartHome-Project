@@ -1,7 +1,7 @@
 #ifndef IFIND_TOPIC_SUBSCRIBER_HPP
 #define IFIND_TOPIC_SUBSCRIBER_HPP
 
-#include "event.hpp" //Topic
+#include "event_base.hpp" //Topic
 #include "device_group.hpp" //DeviceGroup
 
 namespace smartHome 
@@ -14,7 +14,7 @@ public:
     
     virtual ~IFindTopicSubscriber() = default;
     
-    virtual DeviceGroup& FindTopic(eventor::Topic const& a_topic) = 0;
+    virtual DeviceGroup const& FindTopic(Topic const& a_topic) = 0;
 
 protected:
     IFindTopicSubscriber() = default;

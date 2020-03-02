@@ -4,7 +4,7 @@
 #include <vector> //std::vector
 #include <string> //std::string
 
-#include "event.hpp" //location
+#include "event_base.hpp" //location
 
 namespace smartHome {
 namespace hub {
@@ -12,14 +12,14 @@ namespace hub {
 class Device
 {
 public:
-    Device(std::string const& a_name, eventor::Location a_location);
+    Device(std::string const& a_name, Location a_location);
 
     void RegisterToTopic();
-    //EventHandler GetHandler(eventor::Topic a_topic);
+    //EventHandler GetHandler(Topic a_topic);
 
 private:
-    std::vector<eventor::Topic> m_topics;
-    eventor::Location m_location;
+    std::vector<Topic> m_topics;
+    Location m_location;
     std::string m_name;
 };
 

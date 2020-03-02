@@ -5,7 +5,7 @@
 namespace smartHome {
 namespace hub {
 
-void TopicSubscribers::RegisterSubscriber(std::shared_ptr<Device> a_device, eventor::Topic const& a_topic)
+void TopicSubscribers::RegisterSubscriber(std::shared_ptr<Device> a_device, Topic const& a_topic)
 {
     iterator iter = m_subscribers.Find(a_topic.m_id);
     if (iter == m_subscribers.End())
@@ -19,7 +19,7 @@ void TopicSubscribers::RegisterSubscriber(std::shared_ptr<Device> a_device, even
     }
 }
 
-void TopicSubscribers::UnRegisterSubscriber(std::shared_ptr<Device> a_device, eventor::Topic const& a_topic)
+void TopicSubscribers::UnRegisterSubscriber(std::shared_ptr<Device> a_device, Topic const& a_topic)
 {
     iterator iter = m_subscribers.Find(a_topic.m_id);
 
@@ -29,7 +29,7 @@ void TopicSubscribers::UnRegisterSubscriber(std::shared_ptr<Device> a_device, ev
     }
 }
 
-DeviceGroup& TopicSubscribers::FindTopic(eventor::Topic const& a_topic)
+DeviceGroup const& TopicSubscribers::FindTopic(Topic const& a_topic)
 {
     iterator iter = m_subscribers.Find(a_topic.m_id);
 
@@ -37,6 +37,8 @@ DeviceGroup& TopicSubscribers::FindTopic(eventor::Topic const& a_topic)
     {
         return iter->m_value;
     }
+    //TODO: return if not 
+    return iter->m_value;
 }
 
 } //namespace hub

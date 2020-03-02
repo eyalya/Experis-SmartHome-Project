@@ -4,7 +4,7 @@
 #include <string> //std::string
 #include <memory> //std::shared_ptr
 
-#include "event.hpp" //Topic
+#include "event_base.hpp" //Topic
 #include "hash_table.hpp" //HashTable
 #include "ifind_topic_subscriber.hpp" //IFindTopicSubscriber
 #include "isubscribers_register.hpp" //ISubscribersRegister
@@ -22,10 +22,10 @@ public:
     TopicSubscribers(TopicSubscribers const& a_rhs) = default;
     TopicSubscribers& operator=(TopicSubscribers const& a_rhs) = default;
 
-    virtual void RegisterSubscriber(std::shared_ptr<Device> a_device, eventor::Topic const& a_topic);
-    virtual void UnRegisterSubscriber(std::shared_ptr<Device> a_device, eventor::Topic const& a_topic);
+    virtual void RegisterSubscriber(std::shared_ptr<Device> a_device, Topic const& a_topic);
+    virtual void UnRegisterSubscriber(std::shared_ptr<Device> a_device, Topic const& a_topic);
 
-    virtual DeviceGroup& FindTopic(eventor::Topic const& a_topic);
+    virtual DeviceGroup const& FindTopic(Topic const& a_topic);
 
 private:
     typedef std::string TopicId;
