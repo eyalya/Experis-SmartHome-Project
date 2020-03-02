@@ -6,7 +6,8 @@
 
 #include "thread.hpp"
 #include "event.hpp" //Event
-#include "itopic_distributer.hpp" //ITopicDistributer
+#include "idistributor.hpp" //IDistributor
+#include "event_proccesors.hpp" //EventProcessor
 
 namespace smartHome 
 {
@@ -16,7 +17,7 @@ namespace hub
 class EventProcessor: public advcpp::IRunnable{
 public:
 
-    EventProcessor(std::shared_ptr<eventor::Event> a_event, ITopicDistributer& a_destributor);
+    EventProcessor(eventor::IEventStoreRemover& a_storeRemover, IDistributor& a_distributer, std::atomic<bool>& a_state);
 
     ~EventProcessor() = default;
     EventProcessor(const EventProcessor& a_rhs) = default;
@@ -25,8 +26,11 @@ public:
     void Run() noexcept;
 
 private:
+    eventor::IEventStoreRemover& m_storeRemover;
+    IDistributor& m_distributer;
+    std::atomic<bool>& m_state;
+
     std::shared_ptr<eventor::Event> m_event;
-    ITopicDistributer& m_destributor;
 };
 
 
