@@ -44,6 +44,8 @@ struct Topic
     Location m_location;
     std::string m_id; //FIXME: maybe remove, used only in hash function
 
+    size_t hash() const;
+
 private:
     void GenerateID();
 };

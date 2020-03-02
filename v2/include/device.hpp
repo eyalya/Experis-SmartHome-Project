@@ -19,7 +19,7 @@ public:
 
     Device(std::string const& a_name, Location a_location, size_t a_hashSize = 30);
 
-    void RegisterToTopic(Topic a_topic, HandlerPtr a_handler); //TODO:cahnge to shared ptr
+    void RegisterToTopic(Topic a_topic, HandlerPtr a_handler); 
     HandlerPtr GetHandler(Topic a_topic);
 
     std::unordered_map<Topic, HandlerPtr> const& GetTopicHandlers();

@@ -4,6 +4,7 @@
 #include <string> //string, to_string
 
 #include "event_base.hpp"
+#include "hash_funcs.hpp"
 
 namespace smartHome {
 
@@ -39,6 +40,11 @@ inline void Topic::GenerateID()
     m_id = m_type;
     m_id += std::to_string(m_location.m_floorNum);
     m_id += std::to_string(m_location.m_roomNum);
+}
+
+size_t Topic::hash() const
+{
+    return advcpp::hash(m_id);
 }
 
 inline Location const& EventBase::GetLocation() const
