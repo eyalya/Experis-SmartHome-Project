@@ -30,14 +30,12 @@ UNIT(few_censors)
 
     ThreadsGroup<eventor::DemoSensor> sensors;
     Location loc(5, 3);
-    int numOfEvents = 50;
-    for (size_t i = 0; i < 10; ++i)
-    {
-        sensors.AddThreads(10, eventReciver, loc, "test event", numOfEvents);
-    }
-    
+    int numOfEvents = 40;
+
+    sensors.AddThreads(10, eventReciver, loc, "test event", numOfEvents);
+
     sensors.JoinAll();
-    ASSERT_EQUAL(eventStore.NumOfEventsInStore(), 350);
+    ASSERT_EQUAL(eventStore.NumOfEventsInStore(), 400);
 
 END_UNIT 
 
