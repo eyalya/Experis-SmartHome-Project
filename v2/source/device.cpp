@@ -11,21 +11,25 @@ Device::Device(std::string const& a_name, Location a_location, size_t a_hashSize
     
 }
 
-void Device::RegisterToTopic(Topic a_topic, IEventHandler* a_handler)
+void Device::RegisterToTopic(Topic a_topic, HandlerPtr a_handler)
 {
-    m_topicHandlers.insert(std::make_pair(a_topic, a_handler))
+    m_topicHandlers.insert(std::make_pair(a_topic, a_handler));
 }
 
-IEventHandler* Device::GetHandler(Topic a_topic)
+Device::HandlerPtr Device::GetHandler(Topic a_topic)
 {
-    auto res = m_topicHandlers.find(a_topic) ;
-    if(res == m_topicHandlers.end)
+    auto res = m_topicHandlers.find(a_topic);
+    if(res == m_topicHandlers.end())
     {
         return 0;
     }
     return res->second;
 }
 
+std::unordered_map<Topic, Device::HandlerPtr> const& Device::GetTopicHandlers()
+{
+    return m_topicHandlers;
+}
 
 } //namespace smartHome
 } //namespace hub

@@ -2,6 +2,9 @@
 #define IREGISTRATOR_HPP
 
 #include "event_base.hpp" //location
+#include "ievent_handler.hpp"
+#include "device.hpp"
+#include <memory> //std::shared_ptr
 
 namespace smartHome {
 namespace booter {
@@ -11,7 +14,7 @@ class IRegistrator
 public:
     virtual ~IRegistrator() = default;
 
-    void RegisterForTopic(Topic const& a_topic, IEventHandler& a_handler, Device& a_device);
+    virtual void RegisterDevice(std::shared_ptr<hub::Device> a_device) = 0;
 
 protected:
     IRegistrator() = default;
