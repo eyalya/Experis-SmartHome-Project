@@ -6,16 +6,15 @@
 
 #include "event.hpp" //Topic
 #include "hash_table.hpp" //HashTable
-#include "ievent_contorller.hpp" //eventControllers
-#include "itopic_distributer.hpp" //ITopicDistributer
+#include "ifind_topic_subscriber.hpp" //IFindTopicSubscriber
 #include "isubscribers_register.hpp" //ISubscribersRegister
-#include "controller_container.hpp" //ControllerContainer
+#include "device_group.hpp" //DeviceGroup
 
 
 namespace smartHome {
 namespace hub {
 
-class TopicSubscribers: public ITopicDistributer, public ISubscribersRegister {
+class TopicSubscribers: public IFindTopicSubscriber, public ISubscribersRegister {
 public:
     TopicSubscribers() = default;
 
@@ -23,18 +22,18 @@ public:
     TopicSubscribers(TopicSubscribers const& a_rhs) = default;
     TopicSubscribers& operator=(TopicSubscribers const& a_rhs) = default;
 
-    virtual void RegisterSubscriber(std::shared_ptr<IEventController> a_controller, eventor::Topic const& a_topic);
-    virtual void UnRegisterSubscriber(std::shared_ptr<IEventController> a_controller, eventor::Topic const& a_topic);
+    virtual void RegisterSubscriber(std::shared_ptr<Device> a_device, eventor::Topic const& a_topic);
+    virtual void UnRegisterSubscriber(std::shared_ptr<Device> a_device, eventor::Topic const& a_topic);
 
-    virtual void ExecuteTopic(eventor::Topic const& a_topic, std::shared_ptr<eventor::Event> a_event);
+    virtual DeviceGroup& FindTopic(eventor::Topic const& a_topic);
 
 private:
     typedef std::string TopicId;
-    typedef advcpp::HashTable<TopicId, ControllerContainer>::iterator iterator;
-    typedef advcpp::HashTable<TopicId, ControllerContainer>::const_iterator const_iterator;
+    typedef advcpp::HashTable<TopicId, DeviceGroup>::iterator iterator;
+    typedef advcpp::HashTable<TopicId, DeviceGroup>::const_iterator const_iterator;
 
 private:
-    advcpp::HashTable<TopicId, ControllerContainer> m_subscribers;
+    advcpp::HashTable<TopicId, DeviceGroup> m_subscribers;
 };
 
 
