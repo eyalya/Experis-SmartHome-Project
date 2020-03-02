@@ -3,6 +3,7 @@
 #include "lite_event_reciver.hpp"
 #include "demo_sensor.hpp"
 #include "thread.hpp"
+#include "thread_group.hpp"
 
 #include <memory>
 
@@ -27,13 +28,11 @@ UNIT(few_censors)
     eventor::FifoEventStore eventStore(500);
     eventor::LiteEventReciver eventReciver(eventStore);
 
-    vector<eventor::DemoSensor> sensors;
-    vector<unique_ptr<Thread> > threads;
+    ThreadsGroup<eventor::DemoSensor> sensors;
 
-    for (size_t i = 0; i < 10; i++)
+    for (size_t i = 0; i < 10; ++i)
     {
-        sensors.emplace_back(eventReciver, Location(5, 3), "test event", 50);
-        threads.emplace_back(make_unique<Thread>(&sensors[i]));
+        sensors.AddThreads(10, eventReciver, Location(5, 3), "test event", 50);
     }
 
     ASSERT_EQUAL(eventStore.NumOfEventsInStore(), 350);
@@ -41,8 +40,6 @@ UNIT(few_censors)
 END_UNIT 
 
 TEST_SUITE(test light factor)
-
     TEST(smoke_test)
     TEST(few_censors)
-
 END_SUITE
