@@ -10,7 +10,7 @@
 namespace smartHome {
 namespace hub {
 
-class DemoController : public IEventController
+class DemoController: public IEventController
 {
 public:
     DemoController(std::string const& a_name, eventor::Location a_location);

@@ -1,0 +1,43 @@
+#include <cassert> //assert
+
+#include "topic_subscribers.hpp" //TopicSubscribers
+
+namespace smartHome {
+namespace hub {
+
+void TopicSubscribers::RegisterSubscriber(std::shared_ptr<Device> a_device, eventor::Topic const& a_topic)
+{
+    iterator iter = m_subscribers.Find(a_topic.m_id);
+    if (iter == m_subscribers.End())
+    {
+        DeviceGroup deviceGroup(a_device);
+        m_subscribers.Insert(a_topic.m_id, deviceGroup);
+    }
+    else
+    {
+        iter->m_value.AddController(a_device);
+    }
+}
+
+void TopicSubscribers::UnRegisterSubscriber(std::shared_ptr<Device> a_device, eventor::Topic const& a_topic)
+{
+    iterator iter = m_subscribers.Find(a_topic.m_id);
+
+    if (iter != m_subscribers.End())
+    {
+        iter->m_value.RemoveController(a_device);
+    }
+}
+
+DeviceGroup& TopicSubscribers::FindTopic(eventor::Topic const& a_topic)
+{
+    iterator iter = m_subscribers.Find(a_topic.m_id);
+
+    if (iter != m_subscribers.End())
+    {
+        return iter->m_value;
+    }
+}
+
+} //namespace hub
+} //namespace smartHome 

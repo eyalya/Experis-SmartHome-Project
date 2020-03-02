@@ -2,7 +2,7 @@
 #define SUBSCRIBERS_REGISTER_HPP
 
 #include "event.hpp" //Topic
-#include "ievent_contorller.hpp" //eventControllers
+#include "device.hpp" //Device
 
 namespace smartHome {
 namespace hub {
@@ -11,8 +11,8 @@ class ISubscribersRegister {
 public:
     virtual ~ISubscribersRegister() = default;
     
-    virtual void RegisterSubscriber(std::shared_ptr<IEventController> a_controller, eventor::Topic const& a_topic) = 0;
-    virtual void UnRegisterSubscriber(std::shared_ptr<IEventController> a_controller, eventor::Topic const& a_topic) = 0;
+    virtual void RegisterSubscriber(std::shared_ptr<Device> a_device, eventor::Topic const& a_topic) = 0;
+    virtual void UnRegisterSubscriber(std::shared_ptr<Device> a_device, eventor::Topic const& a_topic) = 0;
 
 protected:
     ISubscribersRegister() = default;
