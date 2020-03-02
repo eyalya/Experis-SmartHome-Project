@@ -9,7 +9,7 @@ namespace advcpp
 
 template <typename Runnable>
 template <typename... Args>
-size_t ThreadsGroup<Runnable>::AddThreads(size_t a_nWorkers, Args&... a_args)
+size_t ThreadsGroup<Runnable>::AddThreads(size_t a_nWorkers, Args&&... a_args)
 {
     Guard guard(m_lock);
     size_t nWorkerCreated = 0;  
@@ -74,7 +74,7 @@ size_t ThreadsGroup<Runnable>::NumOfThreads() const
 
 template <typename Runnable>
 template <typename... Args>
-std::shared_ptr<Runnable> ThreadsGroup<Runnable>::createRunnable(Args&... a_args)
+std::shared_ptr<Runnable> ThreadsGroup<Runnable>::createRunnable(Args&&... a_args)
 {
     return std::make_shared<Runnable>(a_args...);
 }
