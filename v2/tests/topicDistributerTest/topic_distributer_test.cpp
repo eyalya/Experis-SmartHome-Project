@@ -69,14 +69,16 @@ void SubmitEvents(ThreadsGroup<eventor::DemoSensor>& a_sensors ,FifoEventStore& 
 {
     string name("temp");
     const size_t topicsSize = a_topics.size();
-    Topic temp = a_topics[0];
+    // Topic temp = a_topics[0];
+
+    a_nEvents /= topicsSize;
 
     eventor::LiteEventReciver eventReciver(a_eventStore);
     for (size_t i = 0; i < topicsSize; ++i)
     {
-        a_sensors.AddThreads(10, eventReciver, temp.m_location, "test event", a_nEvents);
-        temp = a_topics[i % topicsSize];
+        a_sensors.AddThreads(1, eventReciver, a_topics[i % topicsSize].m_location, "test event", a_nEvents);
     }
+    a_sensors.JoinAll();
 }
 
 size_t SumResults(vector<shared_ptr<IEventHandler> > a_handlers)
@@ -263,7 +265,7 @@ UNIT(events_flow_one_topic)
     }
     
     manager.ShutDown();
-   
+    
     ASSERT_NOT_EQUAL(handlerPtr->GetNRuns(), 0);
 END_UNIT
 
@@ -273,8 +275,9 @@ UNIT(events_flow_mul_topic)
     const size_t nEvents = 100000;
     FifoEventStore eventStore(nEvents);
     EventManger manager(eventStore, disributor);
+    manager.Run();
     
-    const size_t nTopics = 1000;
+    const size_t nTopics = 10;
     vector<Topic> topics;
     CreateTopics(topics, nTopics);
     void CreateTopics(std::vector<Topic>& a_topics, size_t a_nTopics);
@@ -290,11 +293,10 @@ UNIT(events_flow_mul_topic)
     ThreadsGroup<eventor::DemoSensor> sensors;
     SubmitEvents(sensors ,eventStore, topics, nEvents);
 
-    sensors.JoinAll();
     manager.ShutDown();
+
     size_t countResults = SumResults(handler);
     ASSERT_NOT_EQUAL(countResults, 0); //nEvents * factor);
-
 END_UNIT
 
 TEST_SUITE(tip# 1588258 we should ot regret our actions_ 
@@ -307,6 +309,6 @@ TEST(check_event_store)
 TEST(check_event_store_and_registration)
 TEST(check_ditributor)
 TEST(events_flow_one_topic)
-// TEST(events_flow_mul_topic)
+TEST(events_flow_mul_topic)
 
 END_SUITE
