@@ -1,0 +1,41 @@
+#ifndef EVENT_MANAGER_HPP
+#define EVENT_MANAGER_HPP
+
+#include <memory> //shared_ptr
+#include <atomic> //std::atomic
+
+#include "ievent.hpp" //IEvent
+#include "ievent_store_remover.hpp" //IEventStoreRemover
+#include "idistributor.hpp" //IDistributor
+#include "event_proccesors.hpp" //EventProcessor
+#include "thread_group.hpp" //ThreadGroup
+
+namespace smartHome 
+{
+namespace hub 
+{
+
+class EventManger {
+public:
+    const size_t nWorkers = 1;
+
+    EventManger(eventor::IEventStoreRemover& a_storeRemover, IDistributor& a_distributer);
+
+    ~EventManger() = default;
+    EventManger(EventManger const& a_rhs) = default;
+    EventManger& operator=(EventManger const& a_rhs) = default;
+
+    void Run(size_t a_nWorkers = 1);
+    void ShutDown();
+
+private:
+    eventor::IEventStoreRemover& m_storeRemover;
+    IDistributor& m_distributer;
+    advcpp::ThreadsGroup<EventProcessor> m_workers;
+    std::atomic<bool> m_state;
+};
+
+} //namespace hub
+} //namespace smartHome 
+
+#endif //EVENT_MANAGER_HPP

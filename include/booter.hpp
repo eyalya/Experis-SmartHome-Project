@@ -6,7 +6,7 @@
 #include "Ievent_factory.hpp"
 
 namespace smartHome{
-namespace hub {
+namespace booter {
 
 class Booter
 {
@@ -14,7 +14,7 @@ public:
     Booter(ISubscribersRegister & a_registrator, eventor::IEventFactory& a_factory);
     ~Booter() = default;
 
-    void LoadControllers();
+    void BootDevices();
 
 private:
     ISubscribersRegister & m_registrator;
