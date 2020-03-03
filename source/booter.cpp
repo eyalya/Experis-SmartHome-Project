@@ -13,7 +13,7 @@ Booter::Booter(ISubscribersRegister & a_registrator, eventor::IEventFactory& a_f
 {
 }
 
-void Booter::LoadControllers()
+void Booter::BootDevices()
 {
     //TODO: change to load from file.
     auto controller = std::make_shared<DemoController>("demo controller", eventor::Location(5, 2));

@@ -12,6 +12,8 @@
 #include "local_distributor.hpp" //LocalDistributor
 #include "demo_event.hpp" //DemoEvent
 #include "demo_device.hpp" //demoDevice, DemoHandler
+#include "demo_sensor.hpp" //DemoSensor
+#include "lite_event_reciver.hpp" //LiteEventReciver
 
 using namespace std;
 using namespace smartHome;
@@ -34,13 +36,27 @@ void CreateTopics(std::vector<Topic>& a_topics, size_t a_nTopics)
     }
 }
 
-void CreateDevices(TopicSubscribers& subscribers, DeviceGroup& a_devices, std::vector<Topic> const& a_topics, size_t a_nControllers)
+void RegisterHandlers(vector<shared_ptr<IEventHandler> > a_handlers, DeviceGroup& a_devices, std::vector<Topic> const& a_topics)
+{
+    string name("temp");
+    const size_t topicsSize = a_topics.size();
+    Topic temp = a_topics[0];
+    const size_t deviceSize = a_devices.Size();
+
+    for (size_t i = 0; i < deviceSize; ++i)
+    {
+        a_devices[i]->RegisterToTopic(temp, a_handlers[i]);
+        temp = a_topics[i % topicsSize];
+    }
+}
+
+void CreateDevices(TopicSubscribers& subscribers, DeviceGroup& a_devices, std::vector<Topic> const& a_topics, size_t a_nDevices)
 {
     string name("temp");
     const size_t topicsSize = a_topics.size();
     Topic temp = a_topics[0];
 
-    for (size_t i = 0; i < a_nControllers; ++i)
+    for (size_t i = 0; i < a_nDevices; ++i)
     {
         std::shared_ptr<Device> demo = make_shared<Device>(name, temp.m_location);
         a_devices.AddDevice(demo);
@@ -49,35 +65,33 @@ void CreateDevices(TopicSubscribers& subscribers, DeviceGroup& a_devices, std::v
     }
 }
 
-// void SubmitEvents(FifoEventStore& a_eventStore, std::vector<Topic> const& a_topics, size_t a_nEvents)
-// {
-//     eventor::FifoEventStore eventStore(500);
-//     eventor::LiteEventReciver eventReciver(eventStore);
+void SubmitEvents(ThreadsGroup<eventor::DemoSensor>& a_sensors ,FifoEventStore& a_eventStore, std::vector<Topic> const& a_topics, size_t a_nEvents)
+{
+    string name("temp");
+    const size_t topicsSize = a_topics.size();
+    Topic temp = a_topics[0];
 
-//     ThreadsGroup<eventor::DemoSensor> sensors;
-//     Location loc(5, 3);
-//     int numOfEvents = 40;
+    eventor::LiteEventReciver eventReciver(a_eventStore);
+    for (size_t i = 0; i < topicsSize; ++i)
+    {
+        a_sensors.AddThreads(10, eventReciver, temp.m_location, "test event", a_nEvents);
+        temp = a_topics[i % topicsSize];
+    }
+}
 
-//     sensors.AddThreads(10, eventReciver, loc, "test event", numOfEvents);
+size_t SumResults(vector<shared_ptr<IEventHandler> > a_handlers)
+{
+    size_t count = 0;
+    const size_t handlersSize = a_handlers.size();
 
-//     sensors.JoinAll();
-//     ASSERT_EQUAL(eventStore.NumOfEventsInStore(), 400);
-// }
-
-// size_t SumResults(DeviceGroup const& a_devices)
-// {
-//     size_t count = 0;
-//     const size_t deviceSize = a_devices.Size();
-
-//     for (size_t i = 0; i < deviceSize; ++i)
-//     {
-//         Device* device = static_cast<DemoController*>(a_devices[i].get());
-//         // cout << "controller run: " << controller->GetNRuns() << endl;
-//         handle device->GetHandler();
-//         count += 
-//     }
-//     return count;
-// }
+    for (size_t i = 0; i < handlersSize; ++i)
+    {
+        DemoHandler* handler = static_cast<DemoHandler*>(a_handlers[i].get());
+        // cout << "controller run: " << controller->GetNRuns() << endl;
+        count += handler->GetNRuns();
+    }
+    return count;
+}
 
 UNIT(smoke_test)
     TopicSubscribers subscribers;
@@ -87,7 +101,6 @@ UNIT(smoke_test)
 
     manager.ShutDown();
     ASSERT_PASS();
-
 END_UNIT
 
 UNIT(check_handler)
@@ -254,29 +267,35 @@ UNIT(events_flow_one_topic)
     ASSERT_NOT_EQUAL(handlerPtr->GetNRuns(), 0);
 END_UNIT
 
-// UNIT(events_flow_mul_topic)
-//     TopicSubscribers subscribers;
-//     EventsPool eventPool(subscribers, 1);
-//     EventManger manager(eventPool);
+UNIT(events_flow_mul_topic)
+    TopicSubscribers subscribers;
+    LocalDistributor disributor(subscribers);
+    const size_t nEvents = 100000;
+    FifoEventStore eventStore(nEvents);
+    EventManger manager(eventStore, disributor);
+    
+    const size_t nTopics = 1000;
+    vector<Topic> topics;
+    CreateTopics(topics, nTopics);
+    void CreateTopics(std::vector<Topic>& a_topics, size_t a_nTopics);
 
-//     const size_t nTopics = 1000;
-//     vector<Topic> topics;
-//     CreateTopics(topics, nTopics);
+    DeviceGroup devices;
+    const size_t factor = 3;
+    const size_t nDevices = nTopics * factor;
+    CreateDevices(subscribers, devices, topics, nDevices);
 
-//     ControllerContainer controllers;
-//     const size_t factor = 3;
-//     const size_t nControllers = nTopics * factor;
-//     CreateDevices(subscribers, controllers, topics, nControllers);
+    vector<shared_ptr<IEventHandler> > handler(nDevices, make_shared<DemoHandler>());
+    RegisterHandlers(handler, devices, topics);
+    
+    ThreadsGroup<eventor::DemoSensor> sensors;
+    SubmitEvents(sensors ,eventStore, topics, nEvents);
 
-//     const size_t nEvents = 100000;
-//     SubmitEvents(eventPool, topics, nEvents);
+    sensors.JoinAll();
+    manager.ShutDown();
+    size_t countResults = SumResults(handler);
+    ASSERT_NOT_EQUAL(countResults, 0); //nEvents * factor);
 
-//     manager.ShutDown();
-   
-//     size_t countResults = SumResults(controllers);
-//     ASSERT_EQUAL(countResults, nEvents * factor);
-
-// END_UNIT
+END_UNIT
 
 TEST_SUITE(tip# 1588258 we should ot regret our actions_ 
 we responded to each event in our life the best we could with the knwoledge we had)
