@@ -15,8 +15,8 @@ public:
     void BootSystem();
 
 private:
-    ILoader& a_loader;
-    IRegistrator& a_registrator;
+    ILoader& m_loader;
+    IRegistrator& m_registrator;
     hub::DeviceGroup m_group;
 };
 
@@ -25,7 +25,7 @@ class DeviceRegister
 public:
     DeviceRegister(IRegistrator& a_registrator);
 
-    void operator()(hub::Device const& a_device);
+    void operator()(std::shared_ptr<hub::Device> a_device);
 
 private: 
     IRegistrator& m_registrator;
