@@ -19,7 +19,7 @@ using namespace std;
 UNIT(no_app_test)
     hub::TopicSubscribers subscribers;
     hub::EventsPool eventPool(subscribers);
-    hub::EventManger manager(eventPool);
+    hub::EventManager manager(eventPool);
     eventor::LightEventFactory factory(eventPool);
     hub::Booter boot(subscribers, factory);
     eventor::DemoSensor censor(factory);

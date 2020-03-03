@@ -2,6 +2,7 @@
 #define THREAD_GROUP_HPP
 
 #include <map> //map
+#include <memory> //std::shared_ptr
 
 // #include "irunnable.hpp" // Runnable
 #include "thread.hpp" // Thread

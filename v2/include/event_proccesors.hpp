@@ -24,6 +24,7 @@ public:
     EventProcessor& operator = (const EventProcessor& a_rhs) = default;
 
     void Run() noexcept;
+    void ShutDown();
 
 private:
     eventor::IEventStoreRemover& m_storeRemover;

@@ -14,6 +14,6 @@ struct DemoEvent : public EventBase
     std::string m_payload;
 };
 
-} // namespace smartHome0
+} // namespace smartHome
 
 #endif //DEMO_EVENT_HPP

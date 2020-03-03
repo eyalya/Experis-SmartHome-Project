@@ -15,15 +15,15 @@ namespace smartHome
 namespace hub 
 {
 
-class EventManger {
+class EventManager {
 public:
     const size_t nWorkers = 1;
 
-    EventManger(eventor::IEventStoreRemover& a_storeRemover, IDistributor& a_distributer);
+    EventManager(eventor::IEventStoreRemover& a_storeRemover, IDistributor& a_distributer);
 
-    ~EventManger() = default;
-    EventManger(EventManger const& a_rhs) = default;
-    EventManger& operator=(EventManger const& a_rhs) = default;
+    ~EventManager() = default;
+    EventManager(EventManager const& a_rhs) = default;
+    EventManager& operator=(EventManager const& a_rhs) = default;
 
     void Run(size_t a_nWorkers = 1);
     void ShutDown();

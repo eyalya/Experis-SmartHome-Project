@@ -99,7 +99,7 @@ UNIT(smoke_test)
     TopicSubscribers subscribers;
     LocalDistributor disributor(subscribers);
     FifoEventStore eventStore;
-    EventManger manager(eventStore, disributor);
+    EventManager manager(eventStore, disributor);
 
     manager.ShutDown();
     ASSERT_PASS();
@@ -238,33 +238,66 @@ UNIT(check_ditributor)
     ASSERT_EQUAL(handlerPtr->GetNRuns(), nEvents);
 END_UNIT
 
+UNIT(check_shutdown_handler)
+    TopicSubscribers subscribers;
+    LocalDistributor disributor(subscribers);
+    FifoEventStore eventStore(10);
+    EventManager manager(eventStore, disributor);
+
+    Floor floor = 2;
+    Room room = 3;
+    Location location(floor, room);
+    
+    EventType shutDowntype = "shutDown";
+    Topic shutDownTopic(shutDowntype, location);
+    string shutdownName("ender");
+    std::shared_ptr<ShutDownHandler> shutDownPtr = make_shared<ShutDownHandler>(manager);
+    std::shared_ptr<Device> ender = make_shared<Device>(shutdownName, location);
+
+    ender->RegisterToTopic(shutDownTopic, shutDownPtr);
+    subscribers.RegisterSubscriber(ender, shutDownTopic);
+    
+    eventStore.AddEvent(make_shared<DemoEvent>(shutDowntype, location, string("test")));
+    ASSERT_EQUAL(eventStore.NumOfEventsInStore(), 1);
+
+    manager.Run();
+    ASSERT_PASS();
+END_UNIT
+
 UNIT(events_flow_one_topic)
     TopicSubscribers subscribers;
     LocalDistributor disributor(subscribers);
     const size_t nEvents = 100000;
     FifoEventStore eventStore(nEvents);
-    EventManger manager(eventStore, disributor);
+    EventManager manager(eventStore, disributor);
 
-    EventType type = "counter";
     Floor floor = 2;
     Room room = 3;
     Location location(floor, room);
+    
+    EventType shutDowntype = "shutDown";
+    Topic shutDownTopic(shutDowntype, location);
+    string shutdownName("ender");
+    std::shared_ptr<ShutDownHandler> shutDownPtr = make_shared<ShutDownHandler>(manager);
+    std::shared_ptr<Device> ender = make_shared<Device>(shutdownName, location);
+    ender->RegisterToTopic(shutDownTopic, shutDownPtr);
+    subscribers.RegisterSubscriber(ender, shutDownTopic);
+
+    EventType type = "counter";
     Topic topic(type, location);
-
     string name("register");
-    std::shared_ptr<Device> demo = make_shared<Device>(name, location);
     std::shared_ptr<DemoHandler> handlerPtr = make_shared<DemoHandler>();
-
+    std::shared_ptr<Device> demo = make_shared<Device>(name, location);
     demo->RegisterToTopic(topic, handlerPtr);
     subscribers.RegisterSubscriber(demo, topic);
+
     manager.Run();
-    
     for (size_t i = 0; i < nEvents; ++i)
     {
         eventStore.AddEvent(make_shared<DemoEvent>(type, location, string("test")));
     }
     
-    manager.ShutDown();
+    eventStore.AddEvent(make_shared<DemoEvent>(shutDowntype, location, string("test")));
     
     ASSERT_NOT_EQUAL(handlerPtr->GetNRuns(), 0);
 END_UNIT
@@ -274,7 +307,7 @@ UNIT(events_flow_mul_topic)
     LocalDistributor disributor(subscribers);
     const size_t nEvents = 100000;
     FifoEventStore eventStore(nEvents);
-    EventManger manager(eventStore, disributor);
+    EventManager manager(eventStore, disributor);
     manager.Run();
     
     const size_t nTopics = 10;
@@ -308,7 +341,8 @@ TEST(check_registration)
 TEST(check_event_store)
 TEST(check_event_store_and_registration)
 TEST(check_ditributor)
-TEST(events_flow_one_topic)
-TEST(events_flow_mul_topic)
+TEST(check_shutdown_handler)
+// TEST(events_flow_one_topic)
+// TEST(events_flow_mul_topic)
 
 END_SUITE

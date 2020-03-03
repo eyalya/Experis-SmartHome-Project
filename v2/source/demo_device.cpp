@@ -1,6 +1,7 @@
 #include <iostream> //std::cout
 
 #include "demo_device.hpp"
+#include "thread.hpp" //Thread
 
 namespace smartHome {
 namespace hub {
@@ -24,6 +25,17 @@ void DemoHandler::Handle(EventPtr a_event)
 size_t DemoHandler::GetNRuns() const
 {
     return m_nRuns;
+}
+
+ShutDownHandler::ShutDownHandler(EventManager& a_manager)
+: m_manager(a_manager)
+{
+}
+
+void ShutDownHandler::Handle(EventPtr a_event)
+{
+    (void) a_event;
+    m_manager.ShutDown();
 }
 
 } //namespace hub

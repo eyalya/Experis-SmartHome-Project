@@ -23,7 +23,7 @@ private:
     eventor::LightEventFactory m_factory;
     Booter m_systemBooter;
     EventsPool m_eventsPool;
-    EventManger m_eventManager;
+    EventManager m_eventManager;
 };
 
 } //namespace hub

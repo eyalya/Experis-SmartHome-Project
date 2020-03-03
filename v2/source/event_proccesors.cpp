@@ -22,6 +22,11 @@ void EventProcessor::Run() noexcept
     }
 }
 
+void EventProcessor::ShutDown()
+{
+    m_state = false;
+}
+
 
 
 } //namespace hub

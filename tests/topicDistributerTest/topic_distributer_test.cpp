@@ -81,7 +81,7 @@ size_t SumResults(ControllerContainer const& a_controllers)
 UNIT(smoke_test)
     TopicSubscribers subscribers;
     EventsPool eventPool(subscribers);
-    EventManger manager(eventPool);
+    EventManager manager(eventPool);
 
     manager.ShutDown();
     ASSERT_PASS();
@@ -91,7 +91,7 @@ END_UNIT
 UNIT(events_flow_one_topic)
     TopicSubscribers subscribers;
     EventsPool eventPool(subscribers, 10);
-    EventManger manager(eventPool);
+    EventManager manager(eventPool);
 
     EventType type = 1;
     Floor floor = 2;
@@ -119,7 +119,7 @@ END_UNIT
 UNIT(events_flow_mul_topic)
     TopicSubscribers subscribers;
     EventsPool eventPool(subscribers, 1);
-    EventManger manager(eventPool);
+    EventManager manager(eventPool);
 
     const size_t nTopics = 1000;
     vector<Topic> topics;
