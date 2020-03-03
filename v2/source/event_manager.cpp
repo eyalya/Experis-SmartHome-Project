@@ -16,12 +16,13 @@ EventManger::EventManger(eventor::IEventStoreRemover& a_storeRemover, IDistribut
 void EventManger::Run(size_t a_nWorkers)
 {
     m_state = true;
-    m_workers.AddThreads(a_nWorkers, m_storeRemover, m_distributer);
+    m_workers.AddThreads(a_nWorkers, m_storeRemover, m_distributer, m_state);
 }
 
 void EventManger::ShutDown()
 {
     m_state = false;
+    m_workers.JoinAll();
 }
 
 } //namespace hub

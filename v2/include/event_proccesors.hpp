@@ -5,9 +5,9 @@
 #include <atomic> //atomic
 
 #include "thread.hpp"
-#include "event.hpp" //Event
+#include "ievent.hpp" //Event
 #include "idistributor.hpp" //IDistributor
-#include "event_proccesors.hpp" //EventProcessor
+#include "ievent_store_remover.hpp" //IEventStoreRemover
 
 namespace smartHome 
 {
@@ -30,7 +30,7 @@ private:
     IDistributor& m_distributer;
     std::atomic<bool>& m_state;
 
-    std::shared_ptr<eventor::Event> m_event;
+    EventPtr m_event;
 };
 
 

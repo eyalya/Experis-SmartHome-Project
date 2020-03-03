@@ -5,9 +5,12 @@
 
 namespace smartHome {
 
+class IEvent;
+
 typedef std::string TimeStamp;
 typedef std::string EventType;
 typedef std::string Payload;
+typedef std::shared_ptr<IEvent> EventPtr;
 
 struct Location;
 

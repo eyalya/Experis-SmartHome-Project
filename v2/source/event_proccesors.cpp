@@ -1,5 +1,4 @@
 #include "event_proccesors.hpp"
-#include "itopic_distributer.hpp"
 
 namespace smartHome 
 {
@@ -8,9 +7,9 @@ namespace hub
 
 EventProcessor::EventProcessor(eventor::IEventStoreRemover& a_storeRemover, IDistributor& a_distributer, std::atomic<bool>& a_state)
 : m_storeRemover(a_storeRemover)
-, m_distributer(a_destributor)
-, m_event()
+, m_distributer(a_distributer)
 , m_state(a_state)
+, m_event()
 {
 }
 
