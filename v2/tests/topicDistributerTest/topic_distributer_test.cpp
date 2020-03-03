@@ -73,7 +73,7 @@ using namespace advcpp;
 
 UNIT(smoke_test)
     TopicSubscribers subscribers;
-    // EventManger manager(eventPool);
+    EventManger manager(eventPool);
 
     // manager.ShutDown();
     ASSERT_PASS();
