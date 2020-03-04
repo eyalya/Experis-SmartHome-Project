@@ -10,12 +10,12 @@ Device::Device(std::string const& a_name, Location a_location, size_t a_hashSize
 {
 }
 
-void Device::RegisterToTopic(Topic a_topic, HandlerPtr a_handler)
+void Device::RegisterHandlerToTopic(Topic a_topic, HandlerPtr a_handler)
 {
     m_topicHandlers.insert(std::make_pair(a_topic, a_handler));
 }
 
-void Device::RegisterToTopic(ISubscribersRegister& a_subscriber)
+void Device::SubscribeTopics(ISubscribersRegister& a_subscriber)
 {
     for (auto const& pair : m_topicHandlers)
     {
