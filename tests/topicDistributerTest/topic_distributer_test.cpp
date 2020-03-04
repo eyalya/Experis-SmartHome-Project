@@ -59,7 +59,7 @@ void SubmitEvents(EventsPool& a_pool, std::vector<Topic> const& a_topics, size_t
     for (size_t i = 0; i < a_nEvents; ++i)
     {
         temp = a_topics[i % topicsSize];
-        a_pool.Submit(make_shared<Event>(type, temp.m_location, string("test")));
+        a_pool.Submit(make_shared<Event>(type, temp.m_location, "test"));
         // cout << "submitting event: 1" << temp.m_location.m_floorNum << temp.m_location.m_room << endl;
     }
 }

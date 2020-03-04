@@ -78,11 +78,11 @@ void SubmitEvents(ThreadsGroup<eventor::DemoSensor>& a_sensors ,FifoEventStore& 
 
     eventor::LiteEventReciver eventReciver(a_eventStore);
     // cout << "submitevents " << endl;
-    for (size_t i = 0; i < a_nEvents; ++i)
+    for (size_t i = 0; i < 10; ++i)
     {
         // cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
-        a_eventStore.AddEvent(make_shared<DemoEvent>(a_topics[i % topicsSize].m_type, a_topics[i % topicsSize].m_location, type));
-        // a_sensors.AddThreads(1, eventReciver, a_topics[i % topicsSize].m_location, type, a_nEvents);
+        // a_eventStore.AddEvent(make_shared<DemoEvent>(a_topics[i % topicsSize].m_type, a_topics[i % topicsSize].m_location, type));
+        a_sensors.AddThreads(1, eventReciver, a_topics[i % topicsSize].m_location, type, a_nEvents);
     }
     a_sensors.JoinAll();
 }

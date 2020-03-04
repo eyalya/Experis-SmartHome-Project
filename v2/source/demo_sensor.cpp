@@ -19,7 +19,7 @@ void DemoSensor::Run() noexcept
     for(size_t i = 0; i < m_numOfEvents ; ++i)
     {
         m_eventReciver.RecvEvent(
-            std::make_shared<DemoEvent>(m_type, m_location, "payload"));
+            std::make_shared<DemoEvent>(m_type, m_location, "FIRE!!!"));
     }
 }
 
