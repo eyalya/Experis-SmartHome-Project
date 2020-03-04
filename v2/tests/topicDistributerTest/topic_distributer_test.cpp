@@ -70,7 +70,8 @@ void CreateDevices(DeviceGroup& a_devices, std::vector<Topic> const& a_topics, s
     }
 }
 
-void SubmitEvents(ThreadsGroup<eventor::DemoSensor>& a_sensors ,FifoEventStore& a_eventStore, std::vector<Topic> const& a_topics, size_t a_nEvents)
+void SubmitEvents(ThreadsGroup<eventor::DemoSensor>& a_sensors ,FifoEventStore& a_eventStore, std::vector<Topic> const& a_topics
+                    , size_t a_nEvents, size_t a_numOfSensors)
 {
     EventType type("counter");
     const size_t topicsSize = a_topics.size();
@@ -78,12 +79,13 @@ void SubmitEvents(ThreadsGroup<eventor::DemoSensor>& a_sensors ,FifoEventStore& 
 
     eventor::LiteEventReciver eventReciver(a_eventStore);
     // cout << "submitevents " << endl;
-    for (size_t i = 0; i < 10; ++i)
+    for (size_t i = 0; i < a_numOfSensors; ++i)
     {
         // cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
         // a_eventStore.AddEvent(make_shared<DemoEvent>(a_topics[i % topicsSize].m_type, a_topics[i % topicsSize].m_location, type));
         a_sensors.AddThreads(1, eventReciver, a_topics[i % topicsSize].m_location, type, a_nEvents);
     }
+
     a_sensors.JoinAll();
 }
 
@@ -308,7 +310,7 @@ END_UNIT
 UNIT(events_flow_mul_topic)
     TopicSubscribers subscribers;
     LocalDistributor disributor(subscribers);
-    const size_t nEvents = 100000;
+    const size_t nEvents = 10;
     FifoEventStore eventStore(nEvents);
     EventManager manager(eventStore, disributor);
     manager.Run();
@@ -326,13 +328,13 @@ UNIT(events_flow_mul_topic)
     RegisterHandlers(subscribers ,handler, devices, topics);
     
     ThreadsGroup<eventor::DemoSensor> sensors;
-    SubmitEvents(sensors ,eventStore, topics, nEvents);
+    SubmitEvents(sensors ,eventStore, topics, nEvents, 10);
 
     SubmitShutdownEvent(manager, subscribers, eventStore, Location(1,2));
     manager.ShutDown();
 
     size_t countResults = SumResults(handler);
-    ASSERT_EQUAL(countResults, nEvents);
+    ASSERT_EQUAL(countResults, nEvents * 10);
 END_UNIT
 
 TEST_SUITE(tip# 1588258 we should ot regret our actions_ 
