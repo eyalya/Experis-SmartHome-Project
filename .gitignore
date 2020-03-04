@@ -17,6 +17,8 @@
 *.zip
 *.vpp.bak*
 *.vpp.lck
+*.vpprefdata
+tmp
 #Ignore depends make product
 depends
 #Verify some important files
