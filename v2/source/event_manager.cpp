@@ -1,3 +1,5 @@
+#include <cassert> //assert
+
 #include "event_manager.hpp"
 
 namespace smartHome 
@@ -11,6 +13,11 @@ EventManager::EventManager(eventor::IEventStoreRemover& a_storeRemover, IDistrib
 , m_workers()
 , m_state(false)
 {
+}
+
+EventManager::~EventManager()
+{
+    assert(m_state == false);
 }
 
 void EventManager::Run(size_t a_nWorkers)
@@ -28,11 +35,6 @@ void EventManager::ShutDown()
 void EventManager::Pause()
 {
     m_state = false;
-}
-
-std::atomic<bool>& EventManager::GetState()
-{
-    return m_state;
 }
 
 } //namespace hub

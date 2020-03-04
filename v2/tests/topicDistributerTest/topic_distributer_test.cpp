@@ -36,16 +36,19 @@ void CreateTopics(std::vector<Topic>& a_topics, size_t a_nTopics)
     }
 }
 
-void RegisterHandlers(vector<shared_ptr<IEventHandler> > a_handlers, DeviceGroup& a_devices, std::vector<Topic> const& a_topics)
+void RegisterHandlers(vector<shared_ptr<IEventHandler> >& a_handlers, DeviceGroup& a_devices, std::vector<Topic> const& a_topics)
 {
     string name("temp");
     const size_t topicsSize = a_topics.size();
     Topic temp = a_topics[0];
     const size_t deviceSize = a_devices.Size();
 
+    cout << "registerHandlers " << endl;
     for (size_t i = 0; i < deviceSize; ++i)
     {
-        a_devices[i]->RegisterToTopic(temp, a_handlers[i]);
+        cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
+        a_handlers.push_back(make_shared<DemoHandler>());
+        a_devices[i]->RegisterToTopic(temp, a_handlers.back());
         temp = a_topics[i % topicsSize];
     }
 }
@@ -56,8 +59,10 @@ void CreateDevices(TopicSubscribers& subscribers, DeviceGroup& a_devices, std::v
     const size_t topicsSize = a_topics.size();
     Topic temp = a_topics[0];
 
+    cout << "createDevice " << endl;
     for (size_t i = 0; i < a_nDevices; ++i)
     {
+        cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
         std::shared_ptr<Device> demo = make_shared<Device>(name, temp.m_location);
         a_devices.AddDevice(demo);
         subscribers.RegisterSubscriber(demo, temp);
@@ -67,16 +72,19 @@ void CreateDevices(TopicSubscribers& subscribers, DeviceGroup& a_devices, std::v
 
 void SubmitEvents(ThreadsGroup<eventor::DemoSensor>& a_sensors ,FifoEventStore& a_eventStore, std::vector<Topic> const& a_topics, size_t a_nEvents)
 {
-    string name("temp");
+    EventType type("counter");
     const size_t topicsSize = a_topics.size();
     // Topic temp = a_topics[0];
 
     a_nEvents /= topicsSize;
 
     eventor::LiteEventReciver eventReciver(a_eventStore);
+    cout << "submitevents " << endl;
     for (size_t i = 0; i < topicsSize; ++i)
     {
-        a_sensors.AddThreads(1, eventReciver, a_topics[i % topicsSize].m_location, "test event", a_nEvents);
+        cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
+        // a_eventStore.AddEvent(make_shared<DemoEvent>(a_topics[i % topicsSize].m_type, a_topics[i % topicsSize].m_location, name));
+        a_sensors.AddThreads(1, eventReciver, a_topics[i % topicsSize].m_location, type, a_nEvents);
     }
     a_sensors.JoinAll();
 }
@@ -93,6 +101,20 @@ size_t SumResults(vector<shared_ptr<IEventHandler> > a_handlers)
         count += handler->GetNRuns();
     }
     return count;
+}
+
+void SubmitShutdownEvent(EventManager& a_manager, TopicSubscribers& a_subscribers, FifoEventStore& a_eventStore, Location const& a_location)
+{
+    EventType shutDowntype = "shutDown";
+    Topic shutDownTopic(shutDowntype, a_location);
+    string shutdownName("ender");
+
+    std::shared_ptr<ShutDownHandler> shutDownPtr = make_shared<ShutDownHandler>(a_manager);
+    std::shared_ptr<Device> ender = make_shared<Device>(shutdownName, a_location);
+    ender->RegisterToTopic(shutDownTopic, shutDownPtr);
+    a_subscribers.RegisterSubscriber(ender, shutDownTopic);
+
+    a_eventStore.AddEvent(make_shared<DemoEvent>(shutDowntype, a_location, string("test")));
 }
 
 UNIT(smoke_test)
@@ -244,27 +266,16 @@ UNIT(check_shutdown_handler)
     LocalDistributor disributor(subscribers);
     FifoEventStore eventStore(10);
     EventManager manager(eventStore, disributor);
+    manager.Run();
 
     Floor floor = 2;
     Room room = 3;
     Location location(floor, room);
     
-    EventType shutDowntype = "shutDown";
-    Topic shutDownTopic(shutDowntype, location);
-    string shutdownName("ender");
-    std::shared_ptr<ShutDownHandler> shutDownPtr = make_shared<ShutDownHandler>(manager.GetState());
-    std::shared_ptr<Device> ender = make_shared<Device>(shutdownName, location);
-
-    ender->RegisterToTopic(shutDownTopic, shutDownPtr);
-    subscribers.RegisterSubscriber(ender, shutDownTopic);
-    
-    eventStore.AddEvent(make_shared<DemoEvent>(shutDowntype, location, string("test")));
+    SubmitShutdownEvent(manager, subscribers, eventStore, location);
     ASSERT_EQUAL(eventStore.NumOfEventsInStore(), 1);
 
-    manager.Run();
-    // manager.Pause();
     manager.ShutDown();
-    ASSERT_PASS();
 END_UNIT
 
 UNIT(events_flow_one_topic)
@@ -278,14 +289,6 @@ UNIT(events_flow_one_topic)
     Room room = 3;
     Location location(floor, room);
     
-    EventType shutDowntype = "shutDown";
-    Topic shutDownTopic(shutDowntype, location);
-    string shutdownName("ender");
-    std::shared_ptr<ShutDownHandler> shutDownPtr = make_shared<ShutDownHandler>(manager.GetState());
-    std::shared_ptr<Device> ender = make_shared<Device>(shutdownName, location);
-    ender->RegisterToTopic(shutDownTopic, shutDownPtr);
-    subscribers.RegisterSubscriber(ender, shutDownTopic);
-
     EventType type = "counter";
     Topic topic(type, location);
     string name("register");
@@ -300,9 +303,9 @@ UNIT(events_flow_one_topic)
         eventStore.AddEvent(make_shared<DemoEvent>(type, location, string("test")));
     }
     
-    eventStore.AddEvent(make_shared<DemoEvent>(shutDowntype, location, string("test")));
-    
-    ASSERT_NOT_EQUAL(handlerPtr->GetNRuns(), 0);
+    SubmitShutdownEvent(manager, subscribers, eventStore, location);
+    manager.ShutDown();
+    ASSERT_EQUAL(handlerPtr->GetNRuns(), nEvents);
 END_UNIT
 
 UNIT(events_flow_mul_topic)
@@ -313,27 +316,27 @@ UNIT(events_flow_mul_topic)
     EventManager manager(eventStore, disributor);
     manager.Run();
     
-    const size_t nTopics = 10;
+    const size_t nTopics = 1000;
     vector<Topic> topics;
     CreateTopics(topics, nTopics);
     void CreateTopics(std::vector<Topic>& a_topics, size_t a_nTopics);
 
     DeviceGroup devices;
-    const size_t factor = 3;
+    const size_t factor = 10;
     const size_t nDevices = nTopics * factor;
     CreateDevices(subscribers, devices, topics, nDevices);
 
-    vector<shared_ptr<IEventHandler> > handler(nDevices, make_shared<DemoHandler>());
+    vector<shared_ptr<IEventHandler> > handler;
     RegisterHandlers(handler, devices, topics);
     
     ThreadsGroup<eventor::DemoSensor> sensors;
     SubmitEvents(sensors ,eventStore, topics, nEvents);
 
-    manager.Pause();
+    SubmitShutdownEvent(manager, subscribers, eventStore, Location(1,2));
     manager.ShutDown();
 
     size_t countResults = SumResults(handler);
-    ASSERT_NOT_EQUAL(countResults, 0); //nEvents * factor);
+    ASSERT_EQUAL(countResults, nEvents * factor);
 END_UNIT
 
 TEST_SUITE(tip# 1588258 we should ot regret our actions_ 
@@ -346,7 +349,7 @@ TEST(check_event_store)
 TEST(check_event_store_and_registration)
 TEST(check_ditributor)
 TEST(check_shutdown_handler)
-// TEST(events_flow_one_topic)
-// TEST(events_flow_mul_topic)
+TEST(events_flow_one_topic)
+TEST(events_flow_mul_topic)
 
 END_SUITE
