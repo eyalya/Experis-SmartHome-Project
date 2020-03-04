@@ -4,7 +4,7 @@
 #include <string> //std::string
 #include <atomic> //atomic
 
-#include "event_base.hpp" //location
+#include "event_base.hpp" //location, Topic
 #include "device.hpp" //Device
 #include "ievent_handler.hpp" //IEventHandler
 #include "event_manager.hpp" //EventManager
@@ -18,9 +18,13 @@ public:
     const size_t nTopics = 10;
     
     DemoDevice(std::string const& a_name, Location a_location);
+    std::vector<Topic> GetTopics() const; //TODO: possible for making it virtual
+
 private:
     void RegisterHandlers();
-    void CreateTopics(std::vector<Topic>& a_topics, size_t a_nTopics);
+
+private:
+    std::vector<Topic> m_topics;
 };
 
 class DemoHandler: public IEventHandler
