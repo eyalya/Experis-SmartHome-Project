@@ -16,6 +16,11 @@ void Device::RegisterToTopic(Topic a_topic, HandlerPtr a_handler)
     m_topicHandlers.insert(std::make_pair(a_topic, a_handler));
 }
 
+void Device::RegisterToTopic(ISubscribersRegister& a_subscriber)
+{
+    a_subscriber.RegisterSubscriber(this, );
+}
+
 Device::HandlerPtr Device::GetHandler(Topic a_topic)
 {
     auto res = m_topicHandlers.find(a_topic);

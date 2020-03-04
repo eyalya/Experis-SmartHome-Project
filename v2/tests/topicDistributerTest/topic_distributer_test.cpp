@@ -36,36 +36,36 @@ void CreateTopics(std::vector<Topic>& a_topics, size_t a_nTopics)
     }
 }
 
-void RegisterHandlers(vector<shared_ptr<IEventHandler> >& a_handlers, DeviceGroup& a_devices, std::vector<Topic> const& a_topics)
+void RegisterHandlers(TopicSubscribers& subscribers, vector<shared_ptr<IEventHandler> >& a_handlers, DeviceGroup& a_devices, std::vector<Topic> const& a_topics)
 {
     string name("temp");
     const size_t topicsSize = a_topics.size();
     Topic temp = a_topics[0];
     const size_t deviceSize = a_devices.Size();
 
-    cout << "registerHandlers " << endl;
+    // cout << "registerHandlers " << endl;
     for (size_t i = 0; i < deviceSize; ++i)
     {
-        cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
+        // cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
         a_handlers.push_back(make_shared<DemoHandler>());
         a_devices[i]->RegisterToTopic(temp, a_handlers.back());
+        subscribers.RegisterSubscriber(a_devices[i], temp);
         temp = a_topics[i % topicsSize];
     }
 }
 
-void CreateDevices(TopicSubscribers& subscribers, DeviceGroup& a_devices, std::vector<Topic> const& a_topics, size_t a_nDevices)
+void CreateDevices(DeviceGroup& a_devices, std::vector<Topic> const& a_topics, size_t a_nDevices)
 {
     string name("temp");
     const size_t topicsSize = a_topics.size();
     Topic temp = a_topics[0];
 
-    cout << "createDevice " << endl;
+    // cout << "createDevice " << endl;
     for (size_t i = 0; i < a_nDevices; ++i)
     {
-        cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
+        // cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
         std::shared_ptr<Device> demo = make_shared<Device>(name, temp.m_location);
         a_devices.AddDevice(demo);
-        subscribers.RegisterSubscriber(demo, temp);
         temp = a_topics[i % topicsSize];
     }
 }
@@ -76,15 +76,13 @@ void SubmitEvents(ThreadsGroup<eventor::DemoSensor>& a_sensors ,FifoEventStore& 
     const size_t topicsSize = a_topics.size();
     // Topic temp = a_topics[0];
 
-    a_nEvents /= topicsSize;
-
     eventor::LiteEventReciver eventReciver(a_eventStore);
-    cout << "submitevents " << endl;
-    for (size_t i = 0; i < topicsSize; ++i)
+    // cout << "submitevents " << endl;
+    for (size_t i = 0; i < a_nEvents; ++i)
     {
-        cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
-        // a_eventStore.AddEvent(make_shared<DemoEvent>(a_topics[i % topicsSize].m_type, a_topics[i % topicsSize].m_location, name));
-        a_sensors.AddThreads(1, eventReciver, a_topics[i % topicsSize].m_location, type, a_nEvents);
+        // cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
+        a_eventStore.AddEvent(make_shared<DemoEvent>(a_topics[i % topicsSize].m_type, a_topics[i % topicsSize].m_location, type));
+        // a_sensors.AddThreads(1, eventReciver, a_topics[i % topicsSize].m_location, type, a_nEvents);
     }
     a_sensors.JoinAll();
 }
@@ -273,9 +271,8 @@ UNIT(check_shutdown_handler)
     Location location(floor, room);
     
     SubmitShutdownEvent(manager, subscribers, eventStore, location);
-    ASSERT_EQUAL(eventStore.NumOfEventsInStore(), 1);
-
     manager.ShutDown();
+    ASSERT_PASS();
 END_UNIT
 
 UNIT(events_flow_one_topic)
@@ -322,12 +319,11 @@ UNIT(events_flow_mul_topic)
     void CreateTopics(std::vector<Topic>& a_topics, size_t a_nTopics);
 
     DeviceGroup devices;
-    const size_t factor = 10;
-    const size_t nDevices = nTopics * factor;
-    CreateDevices(subscribers, devices, topics, nDevices);
+    const size_t nDevices = nTopics;
+    CreateDevices(devices, topics, nDevices);
 
     vector<shared_ptr<IEventHandler> > handler;
-    RegisterHandlers(handler, devices, topics);
+    RegisterHandlers(subscribers ,handler, devices, topics);
     
     ThreadsGroup<eventor::DemoSensor> sensors;
     SubmitEvents(sensors ,eventStore, topics, nEvents);
@@ -336,7 +332,7 @@ UNIT(events_flow_mul_topic)
     manager.ShutDown();
 
     size_t countResults = SumResults(handler);
-    ASSERT_EQUAL(countResults, nEvents * factor);
+    ASSERT_EQUAL(countResults, nEvents);
 END_UNIT
 
 TEST_SUITE(tip# 1588258 we should ot regret our actions_ 

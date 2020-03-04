@@ -7,7 +7,8 @@
 #include <memory> //shared_ptr
 
 #include "event_base.hpp" //Topic, Location
-#include "ievent_handler.hpp"
+#include "ievent_handler.hpp" //HandlerPtr
+#include "isubscribers_register.hpp" //ISubscribersRegister
 
 namespace smartHome {
 namespace hub {
@@ -20,6 +21,7 @@ public:
     Device(std::string const& a_name, Location a_location, size_t a_hashSize = 30);
 
     void RegisterToTopic(Topic a_topic, HandlerPtr a_handler); 
+    void RegisterToTopic(ISubscribersRegister& a_subscriber); 
     HandlerPtr GetHandler(Topic a_topic);
 
     std::unordered_map<Topic, HandlerPtr, TopicHash> const& GetTopicHandlers();
