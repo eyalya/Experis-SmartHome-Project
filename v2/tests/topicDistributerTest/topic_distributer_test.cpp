@@ -101,6 +101,7 @@ UNIT(smoke_test)
     FifoEventStore eventStore;
     EventManager manager(eventStore, disributor);
 
+    manager.Pause();
     manager.ShutDown();
     ASSERT_PASS();
 END_UNIT
@@ -251,7 +252,7 @@ UNIT(check_shutdown_handler)
     EventType shutDowntype = "shutDown";
     Topic shutDownTopic(shutDowntype, location);
     string shutdownName("ender");
-    std::shared_ptr<ShutDownHandler> shutDownPtr = make_shared<ShutDownHandler>(manager);
+    std::shared_ptr<ShutDownHandler> shutDownPtr = make_shared<ShutDownHandler>(manager.GetState());
     std::shared_ptr<Device> ender = make_shared<Device>(shutdownName, location);
 
     ender->RegisterToTopic(shutDownTopic, shutDownPtr);
@@ -261,6 +262,8 @@ UNIT(check_shutdown_handler)
     ASSERT_EQUAL(eventStore.NumOfEventsInStore(), 1);
 
     manager.Run();
+    // manager.Pause();
+    manager.ShutDown();
     ASSERT_PASS();
 END_UNIT
 
@@ -278,7 +281,7 @@ UNIT(events_flow_one_topic)
     EventType shutDowntype = "shutDown";
     Topic shutDownTopic(shutDowntype, location);
     string shutdownName("ender");
-    std::shared_ptr<ShutDownHandler> shutDownPtr = make_shared<ShutDownHandler>(manager);
+    std::shared_ptr<ShutDownHandler> shutDownPtr = make_shared<ShutDownHandler>(manager.GetState());
     std::shared_ptr<Device> ender = make_shared<Device>(shutdownName, location);
     ender->RegisterToTopic(shutDownTopic, shutDownPtr);
     subscribers.RegisterSubscriber(ender, shutDownTopic);
@@ -326,6 +329,7 @@ UNIT(events_flow_mul_topic)
     ThreadsGroup<eventor::DemoSensor> sensors;
     SubmitEvents(sensors ,eventStore, topics, nEvents);
 
+    manager.Pause();
     manager.ShutDown();
 
     size_t countResults = SumResults(handler);

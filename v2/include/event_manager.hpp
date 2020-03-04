@@ -27,6 +27,8 @@ public:
 
     void Run(size_t a_nWorkers = 1);
     void ShutDown();
+    void Pause();
+    std::atomic<bool>& GetState();
 
 private:
     eventor::IEventStoreRemover& m_storeRemover;

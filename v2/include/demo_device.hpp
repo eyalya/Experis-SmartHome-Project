@@ -7,7 +7,7 @@
 #include "event_base.hpp" //location
 #include "device.hpp" //Device
 #include "ievent_handler.hpp" //IEventHandler
-#include "event_manager.hpp" //EventManager
+// #include "event_manager.hpp" //EventManager
 
 namespace smartHome {
 namespace hub {
@@ -33,12 +33,12 @@ private:
 class ShutDownHandler: public IEventHandler
 {
 public:
-    ShutDownHandler(EventManager& a_manager);
+    ShutDownHandler(std::atomic<bool>& a_state);
 
     virtual void Handle(EventPtr a_event);
 
 private:
-    EventManager& m_manager;
+    std::atomic<bool>& m_state;
 };
 
 } //namespace smartHome

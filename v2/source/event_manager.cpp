@@ -21,8 +21,18 @@ void EventManager::Run(size_t a_nWorkers)
 
 void EventManager::ShutDown()
 {
-    m_state = false;
+    // m_state = false;
     m_workers.JoinAll();
+}
+
+void EventManager::Pause()
+{
+    m_state = false;
+}
+
+std::atomic<bool>& EventManager::GetState()
+{
+    return m_state;
 }
 
 } //namespace hub

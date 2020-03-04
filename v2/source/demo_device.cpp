@@ -27,15 +27,15 @@ size_t DemoHandler::GetNRuns() const
     return m_nRuns;
 }
 
-ShutDownHandler::ShutDownHandler(EventManager& a_manager)
-: m_manager(a_manager)
+ShutDownHandler::ShutDownHandler(std::atomic<bool>& a_state)
+: m_state(a_state)
 {
 }
 
 void ShutDownHandler::Handle(EventPtr a_event)
 {
     (void) a_event;
-    m_manager.ShutDown();
+    m_state = false;
 }
 
 } //namespace hub
