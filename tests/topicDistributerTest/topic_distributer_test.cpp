@@ -29,6 +29,7 @@ void CreateTopics(std::vector<Topic>& a_topics, size_t a_nTopics)
     
     while(a_nTopics --> 0)
     {
+        // cout << "create topic: 1" << floor << room << endl;
         a_topics.push_back(Topic(type, Location(floor, room)));
         ++room;            
         ++floor;
@@ -42,8 +43,10 @@ void RegisterHandlers(TopicSubscribers& a_subscribers, vector<shared_ptr<IEventH
     Topic temp = a_topics[0];
     const size_t deviceSize = a_devices.Size();
 
+    // cout << "registerHandlers " << endl;
     for (size_t i = 0; i < deviceSize; ++i)
     {
+        // cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
         a_handlers.push_back(make_shared<DemoHandler>());
         a_devices[i]->RegisterHandlerToTopic(temp, a_handlers.back());
         a_devices[i]->SubscribeTopics(a_subscribers);
@@ -57,27 +60,32 @@ void CreateDevices(DeviceGroup& a_devices, std::vector<Topic> const& a_topics, s
     const size_t topicsSize = a_topics.size();
     Topic temp = a_topics[0];
 
+    // cout << "createDevice " << endl;
     for (size_t i = 0; i < a_nDevices; ++i)
     {
+        // cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
         std::shared_ptr<Device> demo = make_shared<Device>(name, temp.m_location);
         a_devices.AddDevice(demo);
         temp = a_topics[i % topicsSize];
-        a_pool.Submit(make_shared<Event>(type, temp.m_location, "test"));
-        // cout << "submitting event: 1" << temp.m_location.m_floorNum << temp.m_location.m_room << endl;
     }
 }
 
-void SubmitEvents(ThreadsGroup<eventor::DemoSensor>& a_sensors ,FifoEventStore& a_eventStore, std::vector<Topic> const& a_topics, size_t a_nEvents)
+void SubmitEvents(ThreadsGroup<eventor::DemoSensor>& a_sensors ,FifoEventStore& a_eventStore, std::vector<Topic> const& a_topics
+                    , size_t a_nEvents, size_t a_numOfSensors)
 {
     EventType type("counter");
     const size_t topicsSize = a_topics.size();
+    // Topic temp = a_topics[0];
 
     eventor::LiteEventReciver eventReciver(a_eventStore);
-    for (size_t i = 0; i < a_nEvents; ++i)
+    // cout << "submitevents " << endl;
+    for (size_t i = 0; i < a_numOfSensors; ++i)
     {
-        a_eventStore.AddEvent(make_shared<DemoEvent>(a_topics[i % topicsSize].m_type, a_topics[i % topicsSize].m_location, type));
-        // a_sensors.AddThreads(1, eventReciver, a_topics[i % topicsSize].m_location, type, a_nEvents);
+        // cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
+        // a_eventStore.AddEvent(make_shared<DemoEvent>(a_topics[i % topicsSize].m_type, a_topics[i % topicsSize].m_location, type));
+        a_sensors.AddThreads(1, eventReciver, a_topics[i % topicsSize].m_location, type, a_nEvents);
     }
+
     a_sensors.JoinAll();
 }
 
@@ -89,6 +97,7 @@ size_t SumResults(vector<shared_ptr<IEventHandler> > a_handlers)
     for (size_t i = 0; i < handlersSize; ++i)
     {
         DemoHandler* handler = static_cast<DemoHandler*>(a_handlers[i].get());
+        // cout << "controller run: " << controller->GetNRuns() << endl;
         count += handler->GetNRuns();
     }
     return count;
@@ -301,7 +310,7 @@ END_UNIT
 UNIT(events_flow_mul_topic)
     TopicSubscribers subscribers;
     LocalDistributor disributor(subscribers);
-    const size_t nEvents = 100000;
+    const size_t nEvents = 10;
     FifoEventStore eventStore(nEvents);
     EventManager manager(eventStore, disributor);
     manager.Run();
@@ -319,13 +328,13 @@ UNIT(events_flow_mul_topic)
     RegisterHandlers(subscribers ,handler, devices, topics);
     
     ThreadsGroup<eventor::DemoSensor> sensors;
-    SubmitEvents(sensors ,eventStore, topics, nEvents);
+    SubmitEvents(sensors ,eventStore, topics, nEvents, 10);
 
     SubmitShutdownEvent(manager, subscribers, eventStore, Location(1,2));
     manager.ShutDown();
 
     size_t countResults = SumResults(handler);
-    ASSERT_EQUAL(countResults, nEvents);
+    ASSERT_EQUAL(countResults, nEvents * 10);
 END_UNIT
 
 TEST_SUITE(tip# 1588258 we should ot regret our actions_ 
