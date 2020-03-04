@@ -62,6 +62,8 @@ void CreateDevices(DeviceGroup& a_devices, std::vector<Topic> const& a_topics, s
         std::shared_ptr<Device> demo = make_shared<Device>(name, temp.m_location);
         a_devices.AddDevice(demo);
         temp = a_topics[i % topicsSize];
+        a_pool.Submit(make_shared<Event>(type, temp.m_location, "test"));
+        // cout << "submitting event: 1" << temp.m_location.m_floorNum << temp.m_location.m_room << endl;
     }
 }
 
