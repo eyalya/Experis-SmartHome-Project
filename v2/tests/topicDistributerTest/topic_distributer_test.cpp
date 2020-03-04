@@ -36,7 +36,7 @@ void CreateTopics(std::vector<Topic>& a_topics, size_t a_nTopics)
     }
 }
 
-void RegisterHandlers(TopicSubscribers& subscribers, vector<shared_ptr<IEventHandler> >& a_handlers, DeviceGroup& a_devices, std::vector<Topic> const& a_topics)
+void RegisterHandlers(TopicSubscribers& a_subscribers, vector<shared_ptr<IEventHandler> >& a_handlers, DeviceGroup& a_devices, std::vector<Topic> const& a_topics)
 {
     string name("temp");
     const size_t topicsSize = a_topics.size();
@@ -48,8 +48,8 @@ void RegisterHandlers(TopicSubscribers& subscribers, vector<shared_ptr<IEventHan
     {
         // cout << "topicId " << a_topics[i % topicsSize].m_id << endl;
         a_handlers.push_back(make_shared<DemoHandler>());
-        a_devices[i]->RegisterToTopic(temp, a_handlers.back());
-        subscribers.RegisterSubscriber(a_devices[i], temp);
+        a_devices[i]->RegisterHandlerToTopic(temp, a_handlers.back());
+        a_devices[i]->SubscribeTopics(a_subscribers);
         temp = a_topics[i % topicsSize];
     }
 }
@@ -109,7 +109,7 @@ void SubmitShutdownEvent(EventManager& a_manager, TopicSubscribers& a_subscriber
 
     std::shared_ptr<ShutDownHandler> shutDownPtr = make_shared<ShutDownHandler>(a_manager);
     std::shared_ptr<Device> ender = make_shared<Device>(shutdownName, a_location);
-    ender->RegisterToTopic(shutDownTopic, shutDownPtr);
+    ender->RegisterHandlerToTopic(shutDownTopic, shutDownPtr);
     a_subscribers.RegisterSubscriber(ender, shutDownTopic);
 
     a_eventStore.AddEvent(make_shared<DemoEvent>(shutDowntype, a_location, string("test")));
@@ -155,8 +155,8 @@ UNIT(check_registration)
     std::shared_ptr<Device> demo = make_shared<Device>(name, location);
     std::shared_ptr<DemoHandler> handlerPtr = make_shared<DemoHandler>();
 
-    demo->RegisterToTopic(topic, handlerPtr);
-    subscribers.RegisterSubscriber(demo, topic);
+    demo->RegisterHandlerToTopic(topic, handlerPtr);
+    demo->SubscribeTopics(subscribers);
 
     DeviceGroup devices = subscribers.FindTopic(topic);
     std::shared_ptr<IEventHandler> ihandler = devices[0]->GetHandler(topic);
@@ -212,8 +212,8 @@ UNIT(check_event_store_and_registration)
     string name("register");
     std::shared_ptr<Device> demo = make_shared<Device>(name, location);
     std::shared_ptr<DemoHandler> handlerPtr = make_shared<DemoHandler>();
-    demo->RegisterToTopic(topic, handlerPtr);
-    subscribers.RegisterSubscriber(demo, topic);
+    demo->RegisterHandlerToTopic(topic, handlerPtr);
+    demo->SubscribeTopics(subscribers);
 
     for (size_t i = 0; i < nEvents; ++i)
     {
@@ -247,8 +247,8 @@ UNIT(check_ditributor)
     string name("register");
     std::shared_ptr<Device> demo = make_shared<Device>(name, location);
     std::shared_ptr<DemoHandler> handlerPtr = make_shared<DemoHandler>();
-    demo->RegisterToTopic(topic, handlerPtr);
-    subscribers.RegisterSubscriber(demo, topic);
+    demo->RegisterHandlerToTopic(topic, handlerPtr);
+    demo->SubscribeTopics(subscribers);
 
     for (size_t i = 0; i < nEvents; ++i)
     {
@@ -291,7 +291,7 @@ UNIT(events_flow_one_topic)
     string name("register");
     std::shared_ptr<DemoHandler> handlerPtr = make_shared<DemoHandler>();
     std::shared_ptr<Device> demo = make_shared<Device>(name, location);
-    demo->RegisterToTopic(topic, handlerPtr);
+    demo->RegisterHandlerToTopic(topic, handlerPtr);
     subscribers.RegisterSubscriber(demo, topic);
 
     manager.Run();

@@ -20,8 +20,8 @@ public:
 
     Device(std::string const& a_name, Location a_location, size_t a_hashSize = 30);
 
-    void RegisterToTopic(Topic a_topic, HandlerPtr a_handler); 
-    void RegisterToTopic(ISubscribersRegister& a_subscriber); 
+    void RegisterHandlerToTopic(Topic a_topic, HandlerPtr a_handler); 
+    void SubscribeTopics(ISubscribersRegister& a_subscriber); 
     HandlerPtr GetHandler(Topic a_topic);
 
     std::unordered_map<Topic, HandlerPtr, TopicHash> const& GetTopicHandlers();
