@@ -2,6 +2,7 @@
 #define THREAD_GROUP_HPP
 
 #include <map> //map
+#include <memory> //std::shared_ptr
 
 // #include "irunnable.hpp" // Runnable
 #include "thread.hpp" // Thread
@@ -36,7 +37,7 @@ public:
     ThreadsGroup& operator=( ThreadsGroup const& a_rhs) = default;
 
     template <typename... Args>
-    size_t AddThreads(size_t a_nWorkers, Args&&... a_args);
+    size_t AddThreads(size_t a_nWorkers, Args&... a_args);
 
     bool RemoveThread(int a_threadId);
     void JoinAll();
@@ -51,7 +52,7 @@ public:
     size_t NumOfThreads() const;
 private:
     template <typename ...Args>
-    std::shared_ptr<Runnable> createRunnable(Args&&... a_args);
+    std::shared_ptr<Runnable> createRunnable(Args&... a_args);
 
     struct ThreadJoin;
     template <typename UnaryAction>

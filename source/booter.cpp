@@ -1,27 +1,30 @@
-#include <memory> //shared_ptr
-
-#include "demo_controller.hpp"
 #include "booter.hpp"
-#include "demo_censor.hpp" 
 
 namespace smartHome {
-namespace hub {
+namespace booter{
 
-Booter::Booter(ISubscribersRegister & a_registrator, eventor::IEventFactory& a_factory)
+Booter::Booter(ILoader& a_loader, IRegistrator& a_registrator)
+: m_loader(a_loader)
+, m_registrator(a_registrator)
+{
+}
+
+void Booter::BootSystem()
+{
+    m_loader.LoadDevices();
+    
+    m_group.Foreach(DeviceRegister(m_registrator));
+}
+
+DeviceRegister::DeviceRegister(IRegistrator& a_registrator)
 : m_registrator(a_registrator)
-, m_factory(a_factory)
 {
 }
 
-void Booter::BootDevices()
+void DeviceRegister::operator()(std::shared_ptr<hub::Device> a_device)
 {
-    //TODO: change to load from file.
-    auto controller = std::make_shared<DemoController>("demo controller", eventor::Location(5, 2));
-    m_registrator.RegisterSubscriber(controller, eventor::Topic(0, eventor::Location(5, 2)));
-
-    eventor::DemoSensor censor(m_factory);
-    censor.Run();
+    m_registrator.RegisterDevice(a_device);
 }
 
-} //namespace hub
-} //namespace smartHome
+}// namespace booter
+} // namespace smartHome

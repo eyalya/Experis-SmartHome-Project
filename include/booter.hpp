@@ -1,28 +1,37 @@
 #ifndef BOOTER_HPP
 #define BOOTER_HPP
 
-#include "isubscribers_register.hpp" //ISubscribersRegister
-#include "controller_container.hpp"//ControllerContainer
-#include "Ievent_factory.hpp"
-
-namespace smartHome{
-namespace booter {
-
+#include "iregistrator.hpp"
+#include "iloader.hpp"
+#include "device_group.hpp"
+#include "device.hpp"
+namespace smartHome {
+namespace booter{
 class Booter
 {
 public:
-    Booter(ISubscribersRegister & a_registrator, eventor::IEventFactory& a_factory);
-    ~Booter() = default;
+    Booter(ILoader& a_loader, IRegistrator& a_registrator);
 
-    void BootDevices();
+    void BootSystem();
 
 private:
-    ISubscribersRegister & m_registrator;
-    eventor::IEventFactory& m_factory;
-    ControllerContainer m_controllers;
+    ILoader& m_loader;
+    IRegistrator& m_registrator;
+    hub::DeviceGroup m_group;
 };
 
-} //namespace eventor 
-} //namespace smartHome
+class DeviceRegister
+{
+public:
+    DeviceRegister(IRegistrator& a_registrator);
 
+    void operator()(std::shared_ptr<hub::Device> a_device);
+
+private: 
+    IRegistrator& m_registrator;
+};
+
+
+} //namespace booter
+} //namespace smartHome
 #endif //BOOTER_HPP
