@@ -15,7 +15,12 @@ namespace hub {
 class DemoDevice: public Device
 {
 public:
+    const size_t nTopics = 10;
+    
     DemoDevice(std::string const& a_name, Location a_location);
+private:
+    void RegisterHandlers();
+    void CreateTopics(std::vector<Topic>& a_topics, size_t a_nTopics);
 };
 
 class DemoHandler: public IEventHandler

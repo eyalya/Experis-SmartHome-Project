@@ -1,5 +1,6 @@
-#include "basic_loader.hpp"
+#include <memory> //std::shared_ptr
 
+#include "basic_loader.hpp"
 #include "device.hpp"
 
 namespace smartHome {
@@ -12,8 +13,9 @@ BasicLoader::BasicLoader(hub::DeviceGroup& a_devices)
 
 void BasicLoader::LoadDevices()
 {
-    hub::Device device("demo device", Location(2, 5));
-    // device.RegisterToTopic()
+    using namespace std;
+
+    m_devices.AddDevice(make_shared<hub::DemoDevice>("demo device", Location(1, 1)));
 }
 
 } // namespace booter

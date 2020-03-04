@@ -25,9 +25,10 @@ public:
     HandlerPtr GetHandler(Topic a_topic);
 
     std::unordered_map<Topic, HandlerPtr, TopicHash> const& GetTopicHandlers();
-
-private:
+protected:
     std::unordered_map<Topic, HandlerPtr, TopicHash> m_topicHandlers;
+    
+private:
     Location m_location;
     std::string m_name;
 };

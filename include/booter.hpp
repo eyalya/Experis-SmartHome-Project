@@ -7,6 +7,7 @@
 #include "device.hpp"
 namespace smartHome {
 namespace booter{
+    
 class Booter
 {
 public:
