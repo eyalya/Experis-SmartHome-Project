@@ -8,7 +8,6 @@ Device::Device(std::string const& a_name, Location a_location, size_t a_hashSize
 , m_location(a_location)
 , m_name(a_name)
 {
-    
 }
 
 void Device::RegisterToTopic(Topic a_topic, HandlerPtr a_handler)
@@ -18,7 +17,10 @@ void Device::RegisterToTopic(Topic a_topic, HandlerPtr a_handler)
 
 void Device::RegisterToTopic(ISubscribersRegister& a_subscriber)
 {
-    a_subscriber.RegisterSubscriber(this, );
+    for (auto const& pair : m_topicHandlers)
+    {
+        a_subscriber.RegisterSubscriber(shared_from_this(), pair.first);
+    }
 }
 
 Device::HandlerPtr Device::GetHandler(Topic a_topic)

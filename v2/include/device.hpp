@@ -4,7 +4,7 @@
 #include <vector> //std::vector
 #include <string> //std::string
 #include <unordered_map> //std::unordered_map
-#include <memory> //shared_ptr
+#include <memory> //shared_ptr, std::enable_shared_from_this
 
 #include "event_base.hpp" //Topic, Location
 #include "ievent_handler.hpp" //HandlerPtr
@@ -13,7 +13,7 @@
 namespace smartHome {
 namespace hub {
 
-class Device
+class Device : public std::enable_shared_from_this<Device>
 {
 public:
     typedef std::shared_ptr<IEventHandler> HandlerPtr;

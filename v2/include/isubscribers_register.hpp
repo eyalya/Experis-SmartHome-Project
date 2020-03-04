@@ -2,10 +2,12 @@
 #define SUBSCRIBERS_REGISTER_HPP
 
 #include "event_base.hpp" //Topic
-#include "device.hpp" //Device
+// #include "device.hpp" //Device
 
 namespace smartHome {
 namespace hub {
+
+class Device;
 
 class ISubscribersRegister {
 public:
