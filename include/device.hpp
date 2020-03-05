@@ -1,39 +1,40 @@
 #ifndef DEVICE_HPP
 #define DEVICE_HPP
 
-#include <vector> //std::vector
-#include <string> //std::string
-#include <unordered_map> //std::unordered_map
-#include <memory> //shared_ptr, std::enable_shared_from_this
+#include <memory> //std::shared_ptr
 
+#include "system_connector_api.hpp" //SystemConnectorApi
 #include "event_base.hpp" //Topic, Location
-#include "ievent_handler.hpp" //HandlerPtr
+#include "common_types.hpp" //EventHandlerPtr
 #include "isubscribers_register.hpp" //ISubscribersRegister
 
 namespace smartHome {
-namespace hub {
+
+struct DeviceData {
+    DeviceData(std::string a_type, Location a_location, std::string a_log = "");
+
+    std::string m_type;
+    std::string m_log;
+    Location m_location;
+};
 
 class Device : public std::enable_shared_from_this<Device>
 {
 public:
-    typedef std::shared_ptr<IEventHandler> HandlerPtr;
-
-    Device(std::string const& a_name, Location a_location, size_t a_hashSize = 30);
-
-    void RegisterHandlerToTopic(Topic a_topic, HandlerPtr a_handler); 
-    void SubscribeTopics(ISubscribersRegister& a_subscriber); 
-    HandlerPtr GetHandler(Topic a_topic);
-
-    std::unordered_map<Topic, HandlerPtr, TopicHash> const& GetTopicHandlers();
-protected:
-    std::unordered_map<Topic, HandlerPtr, TopicHash> m_topicHandlers;
     
+    Device(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector);
+
+    virtual booter::EventHandlerPtr GetHandler(Topic a_topic) = 0;
+
+    DeviceDataPtr GetData();
+    booter::SystemConnectorApi& GetConnector();
+
 private:
-    Location m_location;
-    std::string m_name;
+    DeviceDataPtr m_data;
+    booter::SystemConnectorApi& m_connector;
 };
 
 } //namespace smartHome
-} //namespace hub
 
+#include "inl/device.inl"
 #endif //DEVICE_HPP

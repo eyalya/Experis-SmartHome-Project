@@ -14,12 +14,12 @@ inline size_t DeviceGroup::Size() const
     return m_devices.size();
 }
 
-inline DeviceGroup::DevicePtr DeviceGroup::operator[](size_t a_index)
+inline DevicePtr DeviceGroup::operator[](size_t a_index)
 {
     return m_devices.operator[](a_index);
 }
 
-inline DeviceGroup::DevicePtr DeviceGroup::operator[](size_t a_index) const
+inline DevicePtr DeviceGroup::operator[](size_t a_index) const
 {
     return m_devices.operator[](a_index);
 }

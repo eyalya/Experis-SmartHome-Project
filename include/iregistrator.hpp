@@ -14,7 +14,7 @@ class IRegistrator
 public:
     virtual ~IRegistrator() = default;
 
-    virtual void RegisterDevice(std::shared_ptr<hub::Device> a_device) = 0;
+    virtual void RegisterDevice(std::shared_ptr<Device> a_agent) = 0;
 
 protected:
     IRegistrator() = default;

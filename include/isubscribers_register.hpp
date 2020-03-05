@@ -5,9 +5,10 @@
 // #include "device.hpp" //Device
 
 namespace smartHome {
-namespace hub {
 
 class Device;
+
+namespace hub {
 
 class ISubscribersRegister {
 public:

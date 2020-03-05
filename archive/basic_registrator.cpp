@@ -12,7 +12,7 @@ BasicRegistrator::BasicRegistrator(hub::ISubscribersRegister& a_subRegister)
 {
 }
 
-void BasicRegistrator::RegisterDevice(std::shared_ptr<hub::Device> a_device)
+void BasicRegistrator::RegisterDevice(std::shared_ptr<Device> a_device)
 {
     auto iter = a_device->GetTopicHandlers().begin();
     const auto end = a_device->GetTopicHandlers().end();

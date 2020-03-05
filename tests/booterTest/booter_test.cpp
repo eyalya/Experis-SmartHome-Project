@@ -2,30 +2,35 @@
 
 #include <string> //std::string
 
-#include "booter.hpp" //Booter
-#include "basic_registrator.hpp" //BasicRegistrator
-#include "basic_loader.hpp" //BasicLoader
-#include "topic_subscribers.hpp" //TopicSubscribers
-#include "demo_device.hpp" //demoDevice, DemoHandler
+// #include "booter.hpp" //Booter
+// #include "basic_registrator.hpp" //BasicRegistrator
+// #include "basic_loader.hpp" //BasicLoader
+// #include "topic_subscribers.hpp" //TopicSubscribers
+// #include "demo_devices.hpp" //demoDevice, DemoHandler
+// #include "fifo_event_store.hpp" //FifoEventStore
+// #include "thread_group.hpp" //ThreadGroup
+// #include "local_distributor.hpp" //LocalDistributor
+
 #include "device_group.hpp" //DeviceGroup
-#include "fifo_event_store.hpp" //FifoEventStore
-#include "demo_config_file.hpp" //SubmitEvents
-#include "thread_group.hpp" //ThreadGroup
-#include "demo_sensor.hpp" //DemoSensor
-#include "local_distributor.hpp" //LocalDistributor
+#include "fire_sensor.hpp" //FireSensor
+#include "device_data_factory.hpp" //DeviceDataFactory
+#include "system_connector.hpp" //SystemConnectors
 
 
 using namespace std;
 using namespace smartHome;
 using namespace hub;
 using namespace booter;
-using namespace eventor;
+// using namespace eventor;
 
 
 UNIT(smoke_test)
     DeviceGroup group;
-    TopicSubscribers susbscriber;
-    BasicRegistrator registrator(susbscriber);
+    DeviceDataFactory factory;
+    // SystemConnectors connector;
+    // FireSensor sensors(factory.GetDeviceData(), ); 
+    // TopicSubscribers susbscriber;
+    // BasicRegistrator registrator(susbscriber);
     // BasicLoader loader(group);
     // Booter booter(loader, registrator);
 

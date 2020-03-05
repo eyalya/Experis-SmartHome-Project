@@ -1,4 +1,4 @@
-#include "device.hpp"
+#include "devices.hpp"
 
 namespace smartHome {
 namespace hub {

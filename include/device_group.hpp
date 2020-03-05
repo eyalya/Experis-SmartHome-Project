@@ -5,13 +5,13 @@
 #include <memory> //shared_ptr
 
 #include "device.hpp" //Device
+#include "common_types.hpp" //DevicePtr
 
 namespace smartHome {
 namespace hub {
 
 class DeviceGroup {
 public:
-    typedef std::shared_ptr<Device> DevicePtr;
     typedef std::vector<DevicePtr>::iterator iterator;
 
     DeviceGroup() = default;
