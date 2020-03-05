@@ -26,33 +26,33 @@ UNIT(smoke_test)
     DeviceGroup group;
     TopicSubscribers susbscriber;
     BasicRegistrator registrator(susbscriber);
-    BasicLoader loader(group);
-    Booter booter(loader, registrator);
+    // BasicLoader loader(group);
+    // Booter booter(loader, registrator);
 
     ASSERT_PASS();
 END_UNIT
 
 UNIT(boting_and_submiting)
-    DeviceGroup group;
-    TopicSubscribers susbscriber;
-    BasicRegistrator registrator(susbscriber);
-    BasicLoader loader(group);
-    Booter booter(loader, registrator);
+    // DeviceGroup group;
+    // TopicSubscribers susbscriber;
+    // BasicRegistrator registrator(susbscriber);
+    // BasicLoader loader(group);
+    // Booter booter(loader, registrator);
 
-    LocalDistributor disributor(susbscriber);
-    const size_t nEvents = 1000000;
-    FifoEventStore eventStore(nEvents);
+    // LocalDistributor disributor(susbscriber);
+    // const size_t nEvents = 1000000;
+    // FifoEventStore eventStore(nEvents);
 
-    EventManager manager(eventStore, disributor);
-    manager.Run();
+    // EventManager manager(eventStore, disributor);
+    // manager.Run();
 
-    advcpp::ThreadsGroup<eventor::DemoSensor> sensors;
-    // SubmitEvents(sensors ,eventStore, group[0]-> topics, nEvents);
+    // advcpp::ThreadsGroup<eventor::DemoSensor> sensors;
+    // // SubmitEvents(sensors ,eventStore, group[0]-> topics, nEvents);
 
-    SubmitShutdownEvent(manager, susbscriber, eventStore, Location(1,2));
-    manager.ShutDown();
+    // SubmitShutdownEvent(manager, susbscriber, eventStore, Location(1,2));
+    // manager.ShutDown();
 
-    // size_t countResults = SumResults(handler);
+    // // size_t countResults = SumResults(handler);
     // ASSERT_EQUAL(countResults, nEvents);
     
 

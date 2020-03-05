@@ -22,7 +22,7 @@ void BasicLoader::LoadDevices()
     const size_t nDevices = 100;
     
     CreateDevices(m_devices, nDevices);
-    CreateSensors(m_sensors, m_storeRemover);
+    // CreateSensors(m_sensors, m_storeRemover);
 }
 
 
