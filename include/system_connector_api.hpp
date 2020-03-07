@@ -17,8 +17,8 @@ public:
 
 protected:
     SystemConnectorApi() = default;
-    SystemConnectorApi(SystemConnectorApi const& a_other) = default;
-    SystemConnectorApi& operator=(SystemConnectorApi const& a_other) = default;
+    SystemConnectorApi(SystemConnectorApi const& a_other) = delete;
+    SystemConnectorApi& operator=(SystemConnectorApi const& a_other) = delete;
 };
 
 } //namespace booter

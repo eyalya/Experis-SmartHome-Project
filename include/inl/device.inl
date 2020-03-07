@@ -3,10 +3,11 @@
 
 namespace smartHome {
 
-inline DeviceData::DeviceData(std::string a_type, Location a_location, std::string a_log)
+inline DeviceData::DeviceData(std::string a_type, Location a_location, std::string a_log, std::string a_config)
 : m_type(a_type)
 , m_log(a_log)
 , m_location(a_location)
+, m_config(a_config)
 {
 }
 

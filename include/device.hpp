@@ -11,11 +11,12 @@
 namespace smartHome {
 
 struct DeviceData {
-    DeviceData(std::string a_type, Location a_location, std::string a_log = "");
+    DeviceData(std::string a_type, Location a_location, std::string a_log = "", std::string a_config = "");
 
     std::string m_type;
     std::string m_log;
     Location m_location;
+    std::string m_config;
 };
 
 class Device : public std::enable_shared_from_this<Device>

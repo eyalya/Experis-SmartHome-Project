@@ -1,20 +1,20 @@
-// #include "booter.hpp"
+#include "booter.hpp"
 
-// namespace smartHome {
-// namespace booter{
+namespace smartHome {
+namespace booter{
 
-// Booter::Booter(ILoader& a_loader, IRegistrator& a_registrator)
-// : m_loader(a_loader)
-// , m_registrator(a_registrator)
-// {
-// }
+Booter::Booter(SystemConnectorApi& a_connectors, IDeviceMaker& a_maker, IDeviceDataFactory& a_factory)
+: m_connectors(a_connectors)
+, m_maker(a_maker)
+, m_factory(a_factory)
+, m_group()
+{
+}
 
-// void Booter::BootSystem()
-// {
-//     // m_loader.LoadDevices();
-    
-//     m_group.Foreach(DeviceRegister(m_registrator));
-// }
+void Booter::BootSystem()
+{
+    m_maker.CreateDevices(m_group, m_connectors, m_factory);
+}
 
 // DeviceRegister::DeviceRegister(IRegistrator& a_registrator)
 // : m_registrator(a_registrator)
@@ -26,5 +26,5 @@
 //     m_registrator.RegisterDevice(a_device);
 // }
 
-// }// namespace booter
-// } // namespace smartHome
+}// namespace booter
+} // namespace smartHome

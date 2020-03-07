@@ -6,7 +6,7 @@
 namespace smartHome {
 namespace booter {
 
-class DeviceDataFactory {
+class DeviceDataFactory: public IDeviceDataFactory {
 public:
     DeviceDataFactory() = default;
 

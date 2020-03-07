@@ -1,25 +1,27 @@
 #ifndef BOOTER_HPP
 #define BOOTER_HPP
 
-#include "iregistrator.hpp"
-#include "system_connector_api.hpp"
-#include "device_group.hpp"
-#include "device.hpp"
+#include "system_connector_api.hpp" //SystemConnectorApi
+#include "device_group.hpp" //DeviceGroup
+#include "idevice_maker.hpp" //IDeviceMaker
+#include "idevice_data_factory.hpp" //IDeviceDataFactory
+
 namespace smartHome {
 namespace booter{
     
-// class Booter
-// {
-// public:
-//     Booter(ILoader& a_loader, IRegistrator& a_registrator);
+class Booter
+{
+public:
+    Booter(SystemConnectorApi& a_connectors, IDeviceMaker& a_maker, IDeviceDataFactory& a_factory);
 
-//     void BootSystem();
+    void BootSystem();
 
-// private:
-//     ILoader& m_loader;
-//     IRegistrator& m_registrator;
-//     hub::DeviceGroup m_group;
-// };
+private:
+    SystemConnectorApi& m_connectors;
+    IDeviceMaker& m_maker;
+    IDeviceDataFactory& m_factory;
+    hub::DeviceGroup m_group;
+};
 
 // class DeviceRegister
 // {

@@ -9,7 +9,6 @@
 #include "thread.hpp" //IRunnable
 #include "ievent_handler.hpp" //IEventHandler
 #include "event_manager.hpp" //EventManager
-#include "iregistrator.hpp" //IRegistrator
 #include "ievent_reciver.hpp" //IEventReciver
 #include "common_types.hpp" //EventHandlerPtr
 

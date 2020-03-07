@@ -2,37 +2,39 @@
 
 #include <string> //std::string
 
-// #include "booter.hpp" //Booter
-// #include "basic_registrator.hpp" //BasicRegistrator
-// #include "basic_loader.hpp" //BasicLoader
-// #include "topic_subscribers.hpp" //TopicSubscribers
-// #include "demo_devices.hpp" //demoDevice, DemoHandler
-// #include "fifo_event_store.hpp" //FifoEventStore
-// #include "thread_group.hpp" //ThreadGroup
+#include "booter.hpp" //Booter
+#include "topic_subscribers.hpp" //TopicSubscribers
+#include "fifo_event_store.hpp" //FifoEventStore
+#include "lite_event_reciver.hpp" //LiteEventReciver 
+#include "thread_group.hpp" //ThreadGroup
+
 // #include "local_distributor.hpp" //LocalDistributor
 
 #include "device_group.hpp" //DeviceGroup
 #include "fire_sensor.hpp" //FireSensor
 #include "device_data_factory.hpp" //DeviceDataFactory
 #include "system_connector.hpp" //SystemConnectors
+#include "hardcoded_device_maker.hpp" //HardCodedDeviceMaker
 
 
 using namespace std;
 using namespace smartHome;
 using namespace hub;
 using namespace booter;
-// using namespace eventor;
+using namespace eventor;
 
 
 UNIT(smoke_test)
     DeviceGroup group;
     DeviceDataFactory factory;
-    // SystemConnectors connector;
-    // FireSensor sensors(factory.GetDeviceData(), ); 
-    // TopicSubscribers susbscriber;
-    // BasicRegistrator registrator(susbscriber);
-    // BasicLoader loader(group);
-    // Booter booter(loader, registrator);
+    HardCodedDeviceMaker deviceMaker;
+
+    TopicSubscribers susbscriber;
+    FifoEventStore fifoEventStore;
+    LiteEventReciver eventReciever(fifoEventStore);
+    SystemConnectors connectors(susbscriber, eventReciever);
+
+    Booter booter(connectors, deviceMaker, factory);
 
     ASSERT_PASS();
 END_UNIT

@@ -8,12 +8,17 @@ namespace booter {
 
 DeviceDataPtr DeviceDataFactory::GetDeviceData()
 {
-    return make_shared<DeviceData>()
+    return std::make_shared<DeviceData>("temp", Location (1,1));
 }
 
 bool DeviceDataFactory::HasMore()
 {
-    return true;    
+    static size_t nLoops = 1;
+    while(nLoops > 0)
+    {
+        return true;
+    }
+    return false;
 }
 
 
