@@ -7,9 +7,9 @@ namespace smartHome {
 namespace booter {
 
 template <typename AgentType>
-GenralBuilder<AgentType>::GenralBuilder(std::string const& m_agentTypeID)
+DevicePtr GenralBuilder<AgentType>::Build(DeviceDataPtr a_data, SystemConnectorApi& a_connector)
 {
-    
+    return make_shared(new AgentType(a_data, a_connector));
 }
 
 

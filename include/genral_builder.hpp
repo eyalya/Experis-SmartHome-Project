@@ -4,6 +4,7 @@
 #include <string> //std::string
 
 #include "ibuilder.hpp" //ibuilder
+#include "device_builders.hpp"
 
 namespace smartHome {
 namespace booter {
@@ -12,8 +13,10 @@ template <typename AgentType>
 class GenralBuilder : public IBuilder
 {
 public:
-    GenralBuilder(std::string const& m_agentTypeID);
+    GenralBuilder() = default;
+    ~GenralBuilder() = default;
 
+    static void Register(std::string const& m_agentTypeID, DeviceBuilders& a_builders);
     virtual DevicePtr Build(DeviceDataPtr a_data, SystemConnectorApi& a_connector);    
 };
 

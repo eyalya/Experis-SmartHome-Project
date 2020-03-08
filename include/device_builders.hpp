@@ -3,8 +3,8 @@
 
 #include <unordered_map> //std::unordered map
 
-#include "ievent.hpp" //eventType
 #include "ibuilder.hpp" // IBuilder
+#include "idevice_registrator.hpp"
 
 namespace smartHome {
 namespace booter {
@@ -12,13 +12,18 @@ namespace booter {
 class DeviceBuilders
 {
 public:
-    DeviceBuilders(/* args */);
-    ~DeviceBuilders();
+    typedef std::unique_ptr<IBuilder> BuilderPtr;
 
-    IBuilder& operator[](EventType const& a_type) const;
+    DeviceBuilders() = default;
+    ~DeviceBuilders() = default;
+
+    IBuilder& operator[](DeviceType const& a_type) const;
+
+    void AddBuilder(DeviceType const& a_type, BuilderPtr a_builder);
 
 private:
-    std::unordered_map<EventType, IBuilder> m_builders;
+    std::unordered_map<DeviceType, std::unique_ptr<IBuilder> > m_builders;
+    IDeviceRegistrator& m_registrator;
 };
 
 } // namespace booter
