@@ -11,8 +11,8 @@ Sprinklers::Sprinklers(DeviceDataPtr a_data, booter::SystemConnectorApi& a_conne
 : BaseAgent(a_data, a_connector)
 , m_topics()
 , m_state(true)
+, m_sprinklerOn(std::make_shared<SprinklersOn>(m_state, shared_from_this()))
 , m_shutDown(std::make_shared<SprinklersShutDownHandler>(m_state))
-, m_sprinklerOn(std::make_shared<SprinklersOn>(m_state, this))
 {
 }
 
@@ -37,42 +37,53 @@ booter::EventHandlerPtr Sprinklers::GetHandler(Topic a_topic)
     }
 }
 
-void Sprinklers::Run() noexcept
+RunSprinkles::RunSprinkles(std::atomic<bool>& a_state)
+: m_state(a_state)
 {
+}
+
+void RunSprinkles::Run() noexcept
+{
+    std::cout << "sprinkler on" << std::endl;
     while(m_state)
     {
     }
     std::cout << "sprinkler off" << std::endl;
 }
 
-void Sprinklers::ActivateSprinklers()
-{
-    std::cout << "sprinkler on" << std::endl;
-}
-
-SprinklersShutDownHandler::SprinklersShutDownHandler(std::atomic<bool>& a_state)
+SprinklersOn::SprinklersOn(std::atomic<bool>& a_state, std::shared_ptr<Sprinklers> a_sprinkler)
 : m_state(a_state)
+, m_sprinklerPtr(a_sprinkler)
+, m_sprinklerThread()
 {
 }
 
-void SprinklersShutDownHandler::Handle(EventPtr a_event)
-{
-    (void) a_event;
-    m_state = false;
-}
 
-SprinklersOn::SprinklersOn(std::atomic<bool>& a_state, Sprinklers* a_sprinkler)
-: m_state(a_state)
-, m_sprinkler(a_sprinkler)
+void SprinklersOn::Handle(EventPtr)
 {
-}
-
-void SprinklersOn::Handle(EventPtr a_event)
-{
-    (void) a_event;
     m_state = true;
-    m_sprinkler->ActivateSprinklers();
+    m_sprinklerThread.AddThreads(m_sprinklerPtr);
 }
+
+advcpp::ThreadsGroup<Sprinklers>& SprinklersOn::GetThread()
+{
+    return m_sprinklerThread;
+}
+
+SprinklersShutDownHandler::SprinklersShutDownHandler(std::atomic<bool>& a_state, 
+                                                     advcpp::ThreadsGroup<Sprinklers>& a_sprinklerThread)
+: m_state(a_state)
+, m_sprinklerThread(a_sprinklerThread)
+{
+}
+
+void SprinklersShutDownHandler::Handle(EventPtr)
+{
+    m_state = false;
+    m_sprinklerThread.JoinAll();
+}
+
+
 
 } //namespace hub
 

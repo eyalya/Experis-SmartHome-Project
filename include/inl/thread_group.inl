@@ -27,6 +27,18 @@ size_t ThreadsGroup<Runnable>::AddThreads(size_t a_nWorkers, Args&... a_args)
 }
 
 template <typename Runnable>
+size_t ThreadsGroup<Runnable>::AddThreads(std::shared_ptr<Runnable> a_runnable)
+{
+    Guard guard(m_lock);
+
+    std::shared_ptr<Thread> spThread = std::make_shared<Thread>(a_runnable.get());
+    m_threads.emplace(std::make_pair(spThread->GetId() ,Worker(spThread, a_runnable)));
+    ++nWorkerCreated;
+
+    return nWorkerCreated;
+}
+
+template <typename Runnable>
 const size_t ThreadsGroup<Runnable>::maxnThread = GetMaxThreadsNum();
 
 template <typename Runnable>
