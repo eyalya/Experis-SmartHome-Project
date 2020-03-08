@@ -5,10 +5,10 @@
 
 namespace smartHome {
 
-class Device;
+class BaseAgent;
 class DeviceData; 
 
-using DevicePtr = std::shared_ptr<Device>;
+using DevicePtr = std::shared_ptr<BaseAgent>;
 using DeviceDataPtr = std::shared_ptr<DeviceData>;
 
 namespace booter {

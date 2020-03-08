@@ -13,6 +13,7 @@ std::vector<DeviceDataPtr> const& DeviceDataFactory::GetDeviceData()
 
 void DeviceDataFactory::LoadDeviceData()
 {
+    //TODO: change to read from file
     const size_t nPerDevice = 10;
     CreateFireSensorData(nPerDevice);
     CreateSprinklerData(nPerDevice);
@@ -20,6 +21,7 @@ void DeviceDataFactory::LoadDeviceData()
 
 void DeviceDataFactory::CreateFireSensorData(size_t a_nTopics)
 {
+    //FIXME: temp function
     EventType type = "FireSensor";
     Floor floor = 0;
     Room room = 0;
@@ -34,6 +36,7 @@ void DeviceDataFactory::CreateFireSensorData(size_t a_nTopics)
 
 void DeviceDataFactory::CreateSprinklerData(size_t a_nTopics)
 {
+    //FIXME: temp function
     EventType type = "Sprinkler";
     Floor floor = 0;
     Room room = 0;

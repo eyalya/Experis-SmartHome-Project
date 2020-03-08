@@ -22,8 +22,8 @@ public:
     TopicSubscribers(TopicSubscribers const& a_rhs) = default;
     TopicSubscribers& operator=(TopicSubscribers const& a_rhs) = default;
 
-    virtual void RegisterSubscriber(std::shared_ptr<Device> a_device, Topic const& a_topic);
-    virtual void UnRegisterSubscriber(std::shared_ptr<Device> a_device, Topic const& a_topic);
+    virtual void RegisterSubscriber(std::shared_ptr<BaseAgent> a_device, Topic const& a_topic);
+    virtual void UnRegisterSubscriber(std::shared_ptr<BaseAgent> a_device, Topic const& a_topic);
 
     virtual DeviceGroup const& FindTopic(Topic const& a_topic);
 

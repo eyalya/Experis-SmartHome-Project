@@ -9,7 +9,7 @@ namespace smartHome {
 namespace hub {
 
 DemoDevice::DemoDevice(std::string const& a_name, Location a_location)
-: Device(a_name, a_location)
+: BaseAgent(a_name, a_location)
 {   
     RegisterHandlers();
 }
@@ -21,7 +21,7 @@ void DemoDevice::RegisterHandlers()
 
     for (size_t i = 0; i < nTopics; ++i)
     {
-        Device::m_topicHandlers.emplace(topics[i], std::make_shared<DemoHandler>());
+        BaseAgent::m_topicHandlers.emplace(topics[i], std::make_shared<DemoHandler>());
     }
 }
 

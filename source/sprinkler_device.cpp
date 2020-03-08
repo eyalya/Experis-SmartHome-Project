@@ -8,7 +8,7 @@
 namespace smartHome {
 
 Sprinklers::Sprinklers(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector)
-: Device(a_data, a_connector)
+: BaseAgent(a_data, a_connector)
 , m_topics()
 , m_state(true)
 , m_shutDown(std::make_shared<SprinklersShutDownHandler>(m_state))

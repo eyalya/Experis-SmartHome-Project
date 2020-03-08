@@ -4,7 +4,7 @@
 #include <vector> //std::vector
 #include <memory> //shared_ptr
 
-#include "device.hpp" //Device
+#include "device.hpp" //BaseAgent
 #include "common_types.hpp" //DevicePtr
 
 namespace smartHome {
@@ -34,7 +34,7 @@ public:
     size_t Size() const;
     
 private:
-    std::vector<DevicePtr > m_devices;
+    std::vector<DevicePtr> m_devices;
 };
 
 } //namespace hub

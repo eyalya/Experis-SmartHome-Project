@@ -7,13 +7,12 @@
 namespace smartHome {
 
 FireSensor::FireSensor(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector)
-: Device(a_data, a_connector)
+: BaseAgent(a_data, a_connector)
 , m_topics()
 , m_state(true)
 , m_shutDown(std::make_shared<FireSensorShutDownHandler>(m_state))
 {
 }
-
 
 void FireSensor::LoadToSystem()
 {
@@ -49,9 +48,8 @@ FireSensorShutDownHandler::FireSensorShutDownHandler(std::atomic<bool>& a_state)
 {
 }
 
-void FireSensorShutDownHandler::Handle(EventPtr a_event)
+void FireSensorShutDownHandler::Handle(EventPtr)
 {
-    (void) a_event;
     m_state = false;
 }
 

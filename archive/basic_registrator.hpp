@@ -12,7 +12,7 @@ class BasicRegistrator : public IRegistrator
 public:
     BasicRegistrator(hub::ISubscribersRegister& a_subRegister);
 
-    virtual void RegisterDevice(std::shared_ptr<hub::Device> a_device);
+    virtual void RegisterDevice(std::shared_ptr<hub::BaseAgent> a_device);
 
 private:
     hub::ISubscribersRegister& m_subRegister;

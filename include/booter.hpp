@@ -20,7 +20,7 @@ private:
     SystemConnectorApi& m_connectors;
     IDeviceMaker& m_maker;
     IDeviceDataFactory& m_factory;
-    hub::DeviceGroup m_group;
+    hub::DeviceGroup m_group;    
 };
 
 } //namespace booter

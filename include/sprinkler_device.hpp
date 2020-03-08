@@ -5,7 +5,7 @@
 #include <atomic> //atomic
 
 #include "event_base.hpp" //location, Topic, Event
-#include "device.hpp" //Device
+#include "device.hpp" //BaseAgent
 #include "thread.hpp" //IRunnable
 #include "ievent_handler.hpp" //IEventHandler
 #include "event_manager.hpp" //EventManager
@@ -14,7 +14,7 @@
 
 namespace smartHome {
 
-class Sprinklers: public Device, public advcpp::IRunnable {
+class Sprinklers: public BaseAgent, public advcpp::IRunnable {
 public:
     explicit Sprinklers(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector);
 

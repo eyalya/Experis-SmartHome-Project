@@ -7,6 +7,7 @@
 #include "event_base.hpp" //Topic, Location
 #include "common_types.hpp" //EventHandlerPtr
 #include "isubscribers_register.hpp" //ISubscribersRegister
+#include "iagent.hpp"
 
 namespace smartHome {
 
@@ -20,10 +21,10 @@ struct DeviceData
     std::string m_config;
 };
 
-class Device : public std::enable_shared_from_this<Device>
+class BaseAgent : public IAgent, public std::enable_shared_from_this<BaseAgent>
 {
 public:
-    Device(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector);
+    BaseAgent(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector);
 
     virtual booter::EventHandlerPtr GetHandler(Topic a_topic) = 0;
 

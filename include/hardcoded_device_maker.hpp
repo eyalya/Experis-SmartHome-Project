@@ -3,7 +3,7 @@
 
 #include "idevice_maker.hpp" //IDeviceMaker
 #include "idevice_data_factory.hpp" //IDeviceDataFactory
-#include "device.hpp" //Device
+#include "device.hpp" //BaseAgent
 #include "common_types.hpp" //DevicePtr, DeviceDataPtr
 
 namespace smartHome {

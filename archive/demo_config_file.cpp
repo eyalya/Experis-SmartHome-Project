@@ -41,7 +41,7 @@ void CreateDevices(hub::DeviceGroup& a_devices, size_t a_nDevices)
 {
     for (size_t i = 0; i < a_nDevices; ++i)
     {
-        std::shared_ptr<hub::Device> demo = std::make_shared<hub::Device>("temp", Location(i, i));
+        std::shared_ptr<hub::BaseAgent> demo = std::make_shared<hub::BaseAgent>("temp", Location(i, i));
         a_devices.AddDevice(demo);
     }
 }
@@ -83,7 +83,7 @@ void SubmitShutdownEvent(hub::EventManager& a_manager, hub::TopicSubscribers& a_
     std::string shutdownName("ender");
 
     std::shared_ptr<hub::ShutDownHandler> shutDownPtr = std::make_shared<hub::ShutDownHandler>(a_manager);
-    std::shared_ptr<hub::Device> ender = std::make_shared<hub::Device>(shutdownName, a_location);
+    std::shared_ptr<hub::BaseAgent> ender = std::make_shared<hub::BaseAgent>(shutdownName, a_location);
     ender->RegisterHandlerToTopic(shutDownTopic, shutDownPtr);
     a_subscribers.RegisterSubscriber(ender, shutDownTopic);
 

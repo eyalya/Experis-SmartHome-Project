@@ -5,14 +5,14 @@
 #include <atomic> //atomic
 
 #include "event_base.hpp" //location, Topic
-#include "device.hpp" //Device
+#include "device.hpp" //BaseAgent
 #include "ievent_handler.hpp" //IEventHandler
 #include "event_manager.hpp" //EventManager
 
 namespace smartHome {
 namespace hub {
 
-class DemoDevice: public Device
+class DemoDevice: public BaseAgent
 {
 public:
     const size_t nTopics = 10;

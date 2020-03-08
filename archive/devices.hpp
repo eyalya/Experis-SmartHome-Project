@@ -13,12 +13,12 @@
 namespace smartHome {
 namespace hub {
 
-class Device : public std::enable_shared_from_this<Device>
+class BaseAgent : public std::enable_shared_from_this<BaseAgent>
 {
 public:
     typedef std::shared_ptr<IEventHandler> HandlerPtr;
 
-    Device(std::string const& a_name, Location a_location, size_t a_hashSize = 30);
+    BaseAgent(std::string const& a_name, Location a_location, size_t a_hashSize = 30);
 
     void RegisterHandlerToTopic(Topic a_topic, HandlerPtr a_handler); 
     void SubscribeTopics(ISubscribersRegister& a_subscriber); 

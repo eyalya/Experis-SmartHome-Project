@@ -11,19 +11,19 @@ inline DeviceData::DeviceData(std::string a_type, Location a_location, std::stri
 {
 }
 
-inline Device::Device(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector)
+inline BaseAgent::BaseAgent(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector)
 : m_data(a_data)
 , m_connector(a_connector)
 {
 
 }
 
-inline DeviceDataPtr Device::GetData()
+inline DeviceDataPtr BaseAgent::GetData()
 {
     return m_data;
 }
 
-inline booter::SystemConnectorApi& Device::GetConnector()
+inline booter::SystemConnectorApi& BaseAgent::GetConnector()
 {
     return m_connector;
 }

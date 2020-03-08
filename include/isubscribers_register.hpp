@@ -2,11 +2,11 @@
 #define SUBSCRIBERS_REGISTER_HPP
 
 #include "event_base.hpp" //Topic
-// #include "device.hpp" //Device
+// #include "device.hpp" //BaseAgent
 
 namespace smartHome {
 
-class Device;
+class BaseAgent;
 
 namespace hub {
 
@@ -14,8 +14,8 @@ class ISubscribersRegister {
 public:
     virtual ~ISubscribersRegister() = default;
     
-    virtual void RegisterSubscriber(std::shared_ptr<Device> a_device, Topic const& a_topic) = 0;
-    virtual void UnRegisterSubscriber(std::shared_ptr<Device> a_device, Topic const& a_topic) = 0;
+    virtual void RegisterSubscriber(std::shared_ptr<BaseAgent> a_device, Topic const& a_topic) = 0;
+    virtual void UnRegisterSubscriber(std::shared_ptr<BaseAgent> a_device, Topic const& a_topic) = 0;
 
 protected:
     ISubscribersRegister() = default;

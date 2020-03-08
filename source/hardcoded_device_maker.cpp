@@ -16,6 +16,7 @@ void HardCodedDeviceMaker::CreateDevices(hub::DeviceGroup& a_devices, SystemConn
     std::vector<DeviceDataPtr> datas = a_factory.GetDeviceData();
     for(DeviceDataPtr data: datas)
     {
+        //
         a_devices.AddDevice(CreateDevice(data, a_connectors));
     }
 }
@@ -29,9 +30,7 @@ DevicePtr HardCodedDeviceMaker::CreateDevice(DeviceDataPtr a_data, SystemConnect
     else
     {
         return  std::make_shared<Sprinklers>(a_data, a_connectors);
-    }
-    
-    
+    }   
 }
 
 } //namespace booter

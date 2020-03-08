@@ -11,16 +11,6 @@
 namespace advcpp
 {
 
-// class ThreadCreateException: public EnrichedExeption {
-// public:
-//     explicit ThreadCreateException (InfoException a_info, const char* a_msg = "thread create failed")
-//     : EnrichedExeption(a_msg, a_info) 
-//     {};
-// };
-
-
-
-
 template <typename Runnable>
 class ThreadsGroup {
 public: 
@@ -50,6 +40,7 @@ public:
     std::shared_ptr<Runnable> GetRunnable(int a_threadId);
 
     size_t NumOfThreads() const;
+    
 private:
     template <typename ...Args>
     std::shared_ptr<Runnable> createRunnable(Args&... a_args);
@@ -57,6 +48,7 @@ private:
     struct ThreadJoin;
     template <typename UnaryAction>
     struct RunnableAction;
+
 private:
     ThreadContainer m_threads;
     mutable Mutex m_lock;

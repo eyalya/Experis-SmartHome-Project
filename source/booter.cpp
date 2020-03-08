@@ -21,7 +21,7 @@ void Booter::BootSystem()
 // {
 // }
 
-// void DeviceRegister::operator()(std::shared_ptr<hub::Device> a_device)
+// void DeviceRegister::operator()(std::shared_ptr<hub::BaseAgent> a_device)
 // {
 //     m_registrator.RegisterDevice(a_device);
 // }

@@ -8,9 +8,9 @@
 namespace smartHome {
 namespace booter {
 
-class DeviceDataFactory: public IDeviceDataFactory  {
+class DeviceDataFactory: public IDeviceDataFactory  
+{
 public:
-    
     DeviceDataFactory() = default;
 
     ~DeviceDataFactory() = default;
@@ -23,6 +23,7 @@ public:
 private:
     void CreateFireSensorData(size_t a_nTopics);
     void CreateSprinklerData(size_t a_nTopics);
+
 private: 
     std::vector<DeviceDataPtr> a_datas;
 };

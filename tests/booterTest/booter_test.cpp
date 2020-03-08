@@ -25,7 +25,7 @@ using namespace eventor;
 
 
 UNIT(smoke_test)
-    DeviceGroup group;
+    // DeviceGroup group;
     DeviceDataFactory factory;
     HardCodedDeviceMaker deviceMaker;
 
@@ -40,15 +40,15 @@ UNIT(smoke_test)
 END_UNIT
 
 UNIT(boting_and_submiting)
-    DeviceGroup group;
-    DeviceDataFactory factory;
-    HardCodedDeviceMaker deviceMaker;
+    // DeviceGroup group;
 
-    TopicSubscribers susbscriber;
     FifoEventStore fifoEventStore;
     LiteEventReciver eventReciever(fifoEventStore);
+    TopicSubscribers susbscriber;
     SystemConnectors connectors(susbscriber, eventReciever);
 
+    DeviceDataFactory factory;
+    HardCodedDeviceMaker deviceMaker;
     Booter booter(connectors, deviceMaker, factory);
     booter.BootSystem();
     
