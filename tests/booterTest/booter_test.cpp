@@ -50,8 +50,11 @@ UNIT(boting_and_submiting)
     SystemConnectors connectors(susbscriber, eventReciever);
 
     Booter booter(connectors, deviceMaker, factory);
+    booter.BootSystem();
     
-
+    cout << "press key to finish" << endl; 
+    int a;
+    cin >> a; 
     ASSERT_PASS();
 END_UNIT
 

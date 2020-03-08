@@ -12,7 +12,7 @@ Sprinklers::Sprinklers(DeviceDataPtr a_data, booter::SystemConnectorApi& a_conne
 , m_topics()
 , m_state(true)
 , m_shutDown(std::make_shared<SprinklersShutDownHandler>(m_state))
-, m_sprinklerOn(std::make_shared<SprinklersOn>(m_state))
+, m_sprinklerOn(std::make_shared<SprinklersOn>(m_state, this))
 {
 }
 
@@ -71,7 +71,7 @@ void SprinklersOn::Handle(EventPtr a_event)
 {
     (void) a_event;
     m_state = true;
-    
+    m_sprinkler->ActivateSprinklers();
 }
 
 } //namespace hub

@@ -14,15 +14,6 @@
 
 namespace smartHome {
 
-class FireSensorShutDownHandler: public hub::IEventHandler {
-public:
-
-    FireSensorShutDownHandler(std::atomic<bool>& a_state);
-
-    virtual void Handle(EventPtr a_event);
-private: 
-    std::atomic<bool>& m_state;
-};
 
 class FireSensor: public Device, public advcpp::IRunnable {
 public:
@@ -48,6 +39,26 @@ struct FireEvent: public EventBase {
     FireEvent(EventType a_type, Location a_location, std::string const& Payload = " ", TimeStamp a_timeStamp = "00:00");
     
     std::string m_payload;
+};
+
+class FireSensorShutDownHandler: public hub::IEventHandler {
+public:
+
+    FireSensorShutDownHandler(std::atomic<bool>& a_state);
+
+    virtual void Handle(EventPtr a_event);
+private: 
+    std::atomic<bool>& m_state;
+};
+
+class FireSensorOnHandler: public hub::IEventHandler {
+public:
+
+    FireSensorOnHandler(std::atomic<bool>& a_state);
+
+    virtual void Handle(EventPtr a_event);
+private: 
+    std::atomic<bool>& m_state;
 };
 
 } //namespace smartHome

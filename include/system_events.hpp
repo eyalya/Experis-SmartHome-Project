@@ -7,7 +7,7 @@ namespace smartHome {
 namespace systemEvents {
 
 const Topic g_shutDownTopic("ShutDown", Location(0,0));
-
+const Topic g_systemOnTopic("SystemOn", Location(0,0));
 
 } //namespace systemEvents
 } //namespace smartHome
