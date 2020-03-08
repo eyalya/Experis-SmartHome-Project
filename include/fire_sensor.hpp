@@ -40,24 +40,26 @@ struct FireEvent: public EventBase {
     std::string m_payload;
 };
 
-class FireSensorShutDownHandler: public hub::IEventHandler {
-public:
-
-    FireSensorShutDownHandler(std::atomic<bool>& a_state);
-
-    virtual void Handle(EventPtr a_event);
-private: 
-    std::atomic<bool>& m_state;
-};
-
 class FireSensorOnHandler: public hub::IEventHandler {
 public:
 
-    FireSensorOnHandler(std::atomic<bool>& a_state);
+    FireSensorOnHandler(std::atomic<bool>& a_state, std::shared_ptr<FireSensor> a_fireSensor);
 
     virtual void Handle(EventPtr a_event);
 private: 
     std::atomic<bool>& m_state;
+    std::shared_ptr<FireSensor> a_fireSensor
+};
+
+class FireSensorShutDownHandler: public hub::IEventHandler {
+public:
+
+    FireSensorShutDownHandler(std::atomic<bool>& a_state, advcpp::ThreadsGroup<FireSensor>& a_fireSensorThread);
+
+    virtual void Handle(EventPtr a_event);
+private: 
+    std::atomic<bool>& m_state;
+    advcpp::ThreadsGroup<FireSensor>& m_fireSensorThread;
 };
 
 } //namespace smartHome

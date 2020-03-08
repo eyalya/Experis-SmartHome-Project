@@ -43,14 +43,17 @@ FireEvent::FireEvent(EventType a_type, Location a_location, std::string const& a
 {
 }
 
-FireSensorShutDownHandler::FireSensorShutDownHandler(std::atomic<bool>& a_state)
+FireSensorShutDownHandler::FireSensorShutDownHandler(std::atomic<bool>& a_state, 
+                                                     advcpp::ThreadsGroup<FireSensor>& a_fireSensorThread)
 : m_state(a_state)
+, m_fireSensorThread(a_fireSensorThread)
 {
 }
 
 void FireSensorShutDownHandler::Handle(EventPtr)
 {
     m_state = false;
+    m_sprinklerThread.JoinAll();
 }
 
 } //namespace hub

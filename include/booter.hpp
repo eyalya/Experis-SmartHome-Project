@@ -2,7 +2,7 @@
 #define BOOTER_HPP
 
 #include "system_connector_api.hpp" //SystemConnectorApi
-#include "device_group.hpp" //DeviceGroup
+#include "thread_group.hpp" //ThreadsGroup
 #include "idevice_maker.hpp" //IDeviceMaker
 #include "idevice_data_factory.hpp" //IDeviceDataFactory
 

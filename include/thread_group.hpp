@@ -28,6 +28,7 @@ public:
 
     template <typename... Args>
     size_t AddThreads(size_t a_nWorkers, Args&... a_args);
+    size_t AddThreads(std::shared_ptr<Runnable> a_runnable);
 
     void push_back(IRunnbable);
 
