@@ -10,11 +10,11 @@ namespace booter {
 class TestRegistrator : public IDeviceRegistrator
 {
 public:
-    virtual void Registrate(DeviceType const& a_type, DeviceBuilders& a_builders);
+    virtual void Register(DeviceType const& a_type, DeviceBuilders& a_builders);
 };
 
-void RegistrateFireBuilder(DeviceBuilders& a_builders);
-void RegistrateSprinklerBuilder(DeviceBuilders& a_builders);
+void RegisterFireBuilder(DeviceBuilders& a_builders);
+void RegisterSprinklerBuilder(DeviceBuilders& a_builders);
 
 } // namespace booter
 } // namespace smartHome

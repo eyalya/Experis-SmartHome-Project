@@ -12,7 +12,13 @@ IBuilder& DeviceBuilders::operator[](DeviceType const& a_type) const
         return *(builder->second);
     }
 
-    m_deviceRegistrator.Registrate(a_type);
+    m_registrator.Register(a_type, *this);
+
+    auto builder = m_builders.find(a_type);
+    if(builder != m_builders.end())
+    {
+        return *(builder->second);
+    }
 }
     
 } // namespace booter

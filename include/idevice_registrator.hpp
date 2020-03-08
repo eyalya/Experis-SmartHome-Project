@@ -1,18 +1,20 @@
 #ifndef IDEVICE_REGISTRATOR_HPP
 #define IDEVICE_REGISTRATOR_HPP
 
-#include "common_types.hpp"
+#include "common_types.hpp" //DeviceType
 
 namespace smartHome {
 namespace booter
 {
-    
+
+class DeviceBuilders; //implemnt later
+
 class IDeviceRegistrator
 {
 public:
     virtual ~IDeviceRegistrator() = default;
 
-    virtual void Registrate(DeviceType const& a_type, DeviceBuilders& a_builders);
+    virtual void Register(DeviceType const& a_type, DeviceBuilders& a_builders);
 
 protected:
     IDeviceRegistrator() = default;
