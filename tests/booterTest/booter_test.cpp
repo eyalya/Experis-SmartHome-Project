@@ -40,29 +40,17 @@ UNIT(smoke_test)
 END_UNIT
 
 UNIT(boting_and_submiting)
-    // DeviceGroup group;
-    // TopicSubscribers susbscriber;
-    // BasicRegistrator registrator(susbscriber);
-    // BasicLoader loader(group);
-    // Booter booter(loader, registrator);
+    DeviceGroup group;
+    DeviceDataFactory factory;
+    HardCodedDeviceMaker deviceMaker;
 
-    // LocalDistributor disributor(susbscriber);
-    // const size_t nEvents = 1000000;
-    // FifoEventStore eventStore(nEvents);
+    TopicSubscribers susbscriber;
+    FifoEventStore fifoEventStore;
+    LiteEventReciver eventReciever(fifoEventStore);
+    SystemConnectors connectors(susbscriber, eventReciever);
 
-    // EventManager manager(eventStore, disributor);
-    // manager.Run();
-
-    // advcpp::ThreadsGroup<eventor::DemoSensor> sensors;
-    // // SubmitEvents(sensors ,eventStore, group[0]-> topics, nEvents);
-
-    // SubmitShutdownEvent(manager, susbscriber, eventStore, Location(1,2));
-    // manager.ShutDown();
-
-    // // size_t countResults = SumResults(handler);
-    // ASSERT_EQUAL(countResults, nEvents);
+    Booter booter(connectors, deviceMaker, factory);
     
-
 
     ASSERT_PASS();
 END_UNIT

@@ -11,8 +11,8 @@ class IDeviceDataFactory
 public:
     virtual ~IDeviceDataFactory() = default;
 
-    virtual DeviceDataPtr GetDeviceData() = 0;
-    virtual bool HasMore() = 0;
+    virtual void LoadDeviceData() = 0;
+    virtual std::vector<DeviceDataPtr> const& GetDeviceData() = 0;
 
 protected:
     IDeviceDataFactory() = default;
