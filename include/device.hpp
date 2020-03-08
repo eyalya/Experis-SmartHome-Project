@@ -10,7 +10,8 @@
 
 namespace smartHome {
 
-struct DeviceData {
+struct DeviceData 
+{
     DeviceData(std::string a_type, Location a_location, std::string a_log = "", std::string a_config = "");
 
     std::string m_type;
@@ -22,11 +23,11 @@ struct DeviceData {
 class Device : public std::enable_shared_from_this<Device>
 {
 public:
-    
     Device(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector);
 
     virtual booter::EventHandlerPtr GetHandler(Topic a_topic) = 0;
 
+protected:
     DeviceDataPtr GetData();
     booter::SystemConnectorApi& GetConnector();
 

@@ -7,7 +7,7 @@
 #include "idevice_data_factory.hpp" //IDeviceDataFactory
 
 namespace smartHome {
-namespace booter{
+namespace booter {
     
 class Booter
 {
@@ -23,18 +23,7 @@ private:
     hub::DeviceGroup m_group;
 };
 
-// class DeviceRegister
-// {
-// public:
-//     DeviceRegister(IRegistrator& a_registrator);
-
-//     void operator()(std::shared_ptr<hub::Device> a_device);
-
-// private: 
-//     IRegistrator& m_registrator;
-// };
-
-
 } //namespace booter
 } //namespace smartHome
+
 #endif //BOOTER_HPP

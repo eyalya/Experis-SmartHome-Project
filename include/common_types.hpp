@@ -4,6 +4,7 @@
 #include "ievent_handler.hpp" //IEventHandler
 
 namespace smartHome {
+
 class Device;
 class DeviceData; 
 
