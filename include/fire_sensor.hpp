@@ -48,7 +48,7 @@ public:
     virtual void Handle(EventPtr a_event);
 private: 
     std::atomic<bool>& m_state;
-    std::shared_ptr<FireSensor> a_fireSensor
+    std::shared_ptr<FireSensor> a_fireSensor;
 };
 
 class FireSensorShutDownHandler: public hub::IEventHandler {

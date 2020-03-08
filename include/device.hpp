@@ -4,10 +4,10 @@
 #include <memory> //std::shared_ptr
 
 #include "system_connector_api.hpp" //SystemConnectorApi
+#include "iagent.hpp"
 #include "event_base.hpp" //Topic, Location
 #include "common_types.hpp" //EventHandlerPtr
 #include "isubscribers_register.hpp" //ISubscribersRegister
-#include "iagent.hpp"
 
 namespace smartHome {
 

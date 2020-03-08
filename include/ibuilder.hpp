@@ -3,6 +3,7 @@
 
 #include "iagent.hpp"
 #include "system_connector_api.hpp"
+#include "common_types.hpp" //DevicePtr
 
 namespace smartHome {
 namespace booter {
@@ -12,7 +13,7 @@ class IBuilder
 public:
     virtual ~IBuilder() = default;
 
-    virtual IAgent Build(DeviceDataPtr a_data, SystemConnectorApi& a_connector) = 0;
+    virtual DevicePtr Build(DeviceDataPtr a_data, SystemConnectorApi& a_connector) = 0;
     
 protected:      
     IBuilder() = default;

@@ -1,9 +1,9 @@
 #ifndef IAGENT_HPP
 #define IAGENT_HPP 
 
-#include "common_types.hpp" // booter::EventHandlerPtr, DeviceDataPtr
 #include "event_base.hpp" //Topic
 #include "system_connector_api.hpp" //booter::SystemConnectorApi
+#include "common_types.hpp" // booter::EventHandlerPtr, DeviceDataPtr
 
 namespace smartHome {
 

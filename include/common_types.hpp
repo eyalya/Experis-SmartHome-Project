@@ -2,11 +2,10 @@
 #define COMMON_TYPES_HPP
 
 #include "ievent_handler.hpp" //IEventHandler
-#include "iagent.hpp"
 
 namespace smartHome {
 
-class BaseAgent;
+class IAgent;
 class DeviceData; 
 
 using DevicePtr = std::shared_ptr<IAgent>;
