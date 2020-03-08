@@ -7,15 +7,15 @@
 
 #include "event_base.hpp" //location, Topic, Event
 #include "device.hpp" //BaseAgent
-#include "thread.hpp" //Thread
+#include "thread_group.hpp" //Thread
 #include "ievent_handler.hpp" //IEventHandler
 #include "common_types.hpp" //EventHandlerPtr
 
 namespace smartHome {
 
-class RunSprinkles: public advcpp::IRunnable {
+class RunSprinkle: public advcpp::IRunnable {
 public:
-    RunSprinkles(std::atomic<bool>& a_state);
+    RunSprinkle(std::atomic<bool>& a_state);
 
     virtual void Run() noexcept;
 private: 
@@ -25,25 +25,24 @@ private:
 class SprinklersOn: public hub::IEventHandler {
 public:
 
-    SprinklersOn(std::atomic<bool>& a_state, std::shared_ptr<Sprinklers> a_sprinkler);
+    SprinklersOn(std::atomic<bool>& a_state, advcpp::ThreadsGroup<RunSprinkle>& a_sprinklerThread);
 
     virtual void Handle(EventPtr a_event);
 
 private: 
     std::atomic<bool>& m_state;
-    std::shared_ptr<Sprinklers> m_sprinklerPtr;
-    advcpp::ThreadsGroup<Sprinklers> m_sprinklerThread;
+    advcpp::ThreadsGroup<RunSprinkle>& m_sprinklerThread;
 };
 
 class SprinklersShutDownHandler: public hub::IEventHandler {
 public:
 
-    SprinklersShutDownHandler(std::atomic<bool>& a_state, advcpp::ThreadsGroup<Sprinklers>& a_sprinklerThread);
+    SprinklersShutDownHandler(std::atomic<bool>& a_state, advcpp::ThreadsGroup<RunSprinkle>& a_sprinklerThread);
 
     virtual void Handle(EventPtr a_event);
 private: 
     std::atomic<bool>& m_state;
-    advcpp::ThreadsGroup<Sprinklers>& m_sprinklerThread;
+    advcpp::ThreadsGroup<RunSprinkle>& m_sprinklerThread;
 };
 
 class Sprinklers: public BaseAgent {
@@ -56,14 +55,13 @@ public:
 
     virtual booter::EventHandlerPtr GetHandler(Topic a_topic);
     
-    
 private: 
     void LoadToSystem();
 
 private:
     std::vector<Topic> m_topics;
     std::atomic<bool> m_state;
-    std::shared_ptr<advcpp::Thread > m_sprinklerRunner;
+    advcpp::ThreadsGroup<RunSprinkle> m_sprinklerRunner;
     booter::EventHandlerPtr m_shutDown;
     booter::EventHandlerPtr m_sprinklerOn;
 };
