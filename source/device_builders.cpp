@@ -25,7 +25,7 @@ IBuilder& DeviceBuilders::operator[](DeviceType const& a_type)
 
 void DeviceBuilders::AddBuilder(DeviceType const& a_type, BuilderPtr a_builder)
 {
-    m_builders.insert({a_type, a_builder});
+    m_builders.insert({a_type, std::move(a_builder)});
 }
     
 } // namespace booter
