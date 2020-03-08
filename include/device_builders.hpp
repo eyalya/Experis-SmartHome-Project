@@ -17,7 +17,7 @@ public:
     DeviceBuilders() = default;
     ~DeviceBuilders() = default;
 
-    IBuilder& operator[](DeviceType const& a_type) const;
+    IBuilder& operator[](DeviceType const& a_type);
 
     void AddBuilder(DeviceType const& a_type, BuilderPtr a_builder);
 

@@ -14,7 +14,7 @@ class IDeviceRegistrator
 public:
     virtual ~IDeviceRegistrator() = default;
 
-    virtual void Register(DeviceType const& a_type, DeviceBuilders& a_builders);
+    virtual void Register(DeviceType const& a_type, DeviceBuilders& a_builders) = 0;
 
 protected:
     IDeviceRegistrator() = default;

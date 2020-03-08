@@ -4,7 +4,7 @@ namespace smartHome {
 namespace booter
 {
 
-IBuilder& DeviceBuilders::operator[](DeviceType const& a_type) const
+IBuilder& DeviceBuilders::operator[](DeviceType const& a_type)
 {
     auto builder = m_builders.find(a_type);
     if(builder != m_builders.end())
@@ -14,11 +14,13 @@ IBuilder& DeviceBuilders::operator[](DeviceType const& a_type) const
 
     m_registrator.Register(a_type, *this);
 
-    auto builder = m_builders.find(a_type);
-    if(builder != m_builders.end())
-    {
-        return *(builder->second);
-    }
+    builder = m_builders.find(a_type);
+    // FIXME: return if not found
+    // if(builder != m_builders.end())
+    // {
+    //     return *(builder->second);
+    // }
+    return *(builder->second);
 }
     
 } // namespace booter

@@ -62,8 +62,8 @@ private:
     std::vector<Topic> m_topics;
     std::atomic<bool> m_state;
     advcpp::ThreadsGroup<RunSprinkle> m_sprinklerRunner;
-    booter::EventHandlerPtr m_shutDown;
     booter::EventHandlerPtr m_sprinklerOn;
+    booter::EventHandlerPtr m_shutDown;
 };
 
 

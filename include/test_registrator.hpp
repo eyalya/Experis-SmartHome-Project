@@ -13,7 +13,7 @@ public:
     virtual void Register(DeviceType const& a_type, DeviceBuilders& a_builders);
 };
 
-void RegisterFireBuilder(DeviceBuilders& a_builders);
+void RegisterSmokeDetectorBuilder(DeviceBuilders& a_builders);
 void RegisterSprinklerBuilder(DeviceBuilders& a_builders);
 
 } // namespace booter

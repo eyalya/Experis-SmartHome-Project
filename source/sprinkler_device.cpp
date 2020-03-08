@@ -62,7 +62,7 @@ SprinklersOn::SprinklersOn(std::atomic<bool>& a_state, advcpp::ThreadsGroup<RunS
 void SprinklersOn::Handle(EventPtr)
 {
     m_state = true;
-    m_sprinklerThread.AddThreads(m_state);
+    m_sprinklerThread.AddThreads(1, m_state);
 }
 
 SprinklersShutDownHandler::SprinklersShutDownHandler(std::atomic<bool>& a_state, advcpp::ThreadsGroup<RunSprinkle>& a_sprinklerThread)
