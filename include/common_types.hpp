@@ -2,6 +2,7 @@
 #define COMMON_TYPES_HPP
 
 #include "ievent_handler.hpp" //IEventHandler
+#include "iagent.hpp"
 
 namespace smartHome {
 

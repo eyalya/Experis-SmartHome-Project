@@ -34,8 +34,10 @@ class Thread : private UnCopyable
 public:
     Thread(IRunnable *a_prun) THROW1(ThreadException);
     ~Thread() NOEXCEPT;
+
     void Detach() NOEXCEPT;
     void Join(void* a_retVal = 0) THROW1(ThreadException);
+
     // void TryJoin(timeOut);
     void Cancel() NOEXCEPT;
     void Kill(int a_sig = SIGINT) THROW1(ThreadException);

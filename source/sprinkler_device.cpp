@@ -11,8 +11,9 @@ Sprinklers::Sprinklers(DeviceDataPtr a_data, booter::SystemConnectorApi& a_conne
 : BaseAgent(a_data, a_connector)
 , m_topics()
 , m_state(true)
-, m_sprinklerOn(std::make_shared<SprinklersOn>(m_state, shared_from_this()))
-, m_shutDown(std::make_shared<SprinklersShutDownHandler>(m_state))
+, m_sprinklerRunner()
+, m_sprinklerOn(std::make_shared<SprinklersOn>(m_state, m_sprinklerRunner))
+, m_shutDown(std::make_shared<SprinklersShutDownHandler>(m_state, m_sprinklerRunner))
 {
 }
 
@@ -37,12 +38,12 @@ booter::EventHandlerPtr Sprinklers::GetHandler(Topic a_topic)
     }
 }
 
-RunSprinkles::RunSprinkles(std::atomic<bool>& a_state)
+RunSprinkle::RunSprinkle(std::atomic<bool>& a_state)
 : m_state(a_state)
 {
 }
 
-void RunSprinkles::Run() noexcept
+void RunSprinkle::Run() noexcept
 {
     std::cout << "sprinkler on" << std::endl;
     while(m_state)
@@ -51,10 +52,9 @@ void RunSprinkles::Run() noexcept
     std::cout << "sprinkler off" << std::endl;
 }
 
-SprinklersOn::SprinklersOn(std::atomic<bool>& a_state, std::shared_ptr<Sprinklers> a_sprinkler)
+SprinklersOn::SprinklersOn(std::atomic<bool>& a_state, advcpp::ThreadsGroup<RunSprinkle>& a_sprinklerThread)
 : m_state(a_state)
-, m_sprinklerPtr(a_sprinkler)
-, m_sprinklerThread()
+, m_sprinklerThread(a_sprinklerThread)
 {
 }
 
@@ -62,16 +62,10 @@ SprinklersOn::SprinklersOn(std::atomic<bool>& a_state, std::shared_ptr<Sprinkler
 void SprinklersOn::Handle(EventPtr)
 {
     m_state = true;
-    m_sprinklerThread.AddThreads(m_sprinklerPtr);
+    m_sprinklerThread.AddThreads(m_state);
 }
 
-advcpp::ThreadsGroup<Sprinklers>& SprinklersOn::GetThread()
-{
-    return m_sprinklerThread;
-}
-
-SprinklersShutDownHandler::SprinklersShutDownHandler(std::atomic<bool>& a_state, 
-                                                     advcpp::ThreadsGroup<Sprinklers>& a_sprinklerThread)
+SprinklersShutDownHandler::SprinklersShutDownHandler(std::atomic<bool>& a_state, advcpp::ThreadsGroup<RunSprinkle>& a_sprinklerThread)
 : m_state(a_state)
 , m_sprinklerThread(a_sprinklerThread)
 {

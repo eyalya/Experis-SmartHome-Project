@@ -33,9 +33,8 @@ size_t ThreadsGroup<Runnable>::AddThreads(std::shared_ptr<Runnable> a_runnable)
 
     std::shared_ptr<Thread> spThread = std::make_shared<Thread>(a_runnable.get());
     m_threads.emplace(std::make_pair(spThread->GetId() ,Worker(spThread, a_runnable)));
-    ++nWorkerCreated;
 
-    return nWorkerCreated;
+    return 1;
 }
 
 template <typename Runnable>
