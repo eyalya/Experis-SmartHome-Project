@@ -29,6 +29,8 @@ public:
     template <typename... Args>
     size_t AddThreads(size_t a_nWorkers, Args&... a_args);
 
+    void push_back(IRunnbable);
+
     bool RemoveThread(int a_threadId);
     void JoinAll();
 
