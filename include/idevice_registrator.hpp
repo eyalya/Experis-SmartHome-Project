@@ -1,7 +1,7 @@
 #ifndef IDEVICE_REGISTRATOR_HPP
 #define IDEVICE_REGISTRATOR_HPP
 
-#include "common_types"
+#include "common_types.hpp"
 
 namespace smartHome {
 namespace booter

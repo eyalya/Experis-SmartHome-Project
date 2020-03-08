@@ -2,7 +2,7 @@
 #include <vector> //std::vector
 
 #include "hardcoded_device_maker.hpp"
-#include "fire_sensor.hpp" //FireSensor
+#include "smoke_detector.hpp" //SmokeDetector
 #include "sprinkler_device.hpp" //Sprinklers
 
 namespace smartHome {
@@ -25,7 +25,7 @@ DevicePtr HardCodedDeviceMaker::CreateDevice(DeviceDataPtr a_data, SystemConnect
 {
     if (a_data->m_type == std::string("Fire"))
     {
-        return  std::make_shared<FireSensor>(a_data, a_connectors);
+        return  std::make_shared<SmokeDetector>(a_data, a_connectors);
     }
     else
     {

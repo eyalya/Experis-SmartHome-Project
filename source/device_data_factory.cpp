@@ -22,7 +22,7 @@ void DeviceDataFactory::LoadDeviceData()
 void DeviceDataFactory::CreateFireSensorData(size_t a_nTopics)
 {
     //FIXME: temp function
-    EventType type = "FireSensor";
+    EventType type = "SmokeDetector";
     Floor floor = 0;
     Room room = 0;
     

@@ -15,7 +15,7 @@ struct HandleEvent {
 
     HandleEvent(Topic const& a_topic, std::shared_ptr<IEvent> a_event);
 
-    void operator()(std::shared_ptr<BaseAgent> a_device);
+    void operator()(std::shared_ptr<IAgent> a_device);
 
     Topic m_topic;
     std::shared_ptr<IEvent> m_event;
@@ -27,7 +27,7 @@ HandleEvent::HandleEvent(Topic const& a_topic, std::shared_ptr<IEvent> a_event)
 {
 }
 
-void HandleEvent::operator()(std::shared_ptr<BaseAgent> a_device)
+void HandleEvent::operator()(std::shared_ptr<IAgent> a_device)
 {
     (void) a_device;
     std::shared_ptr<IEventHandler> handler = a_device->GetHandler(m_topic);

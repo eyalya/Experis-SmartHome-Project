@@ -11,7 +11,7 @@
 // #include "local_distributor.hpp" //LocalDistributor
 
 #include "device_group.hpp" //DeviceGroup
-#include "fire_sensor.hpp" //FireSensor
+#include "smoke_detector.hpp" //SmokeDetector
 #include "device_data_factory.hpp" //DeviceDataFactory
 #include "system_connector.hpp" //SystemConnectors
 #include "hardcoded_device_maker.hpp" //HardCodedDeviceMaker
