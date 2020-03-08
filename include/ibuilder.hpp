@@ -10,11 +10,14 @@ namespace booter {
 class IBuilder
 {
 public:
-    //TODO: add interface stuff
-
     virtual ~IBuilder() = default;
 
     virtual IAgent Build(DeviceDataPtr a_data, SystemConnectorApi& a_connector) = 0;
+    
+protected:      
+    IBuilder() = default;
+    IBuilder(IBuilder const& a_other) = default;
+    IBuilder& operator=(IBuilder const& a_rhs) = default;
 };
 
 } // namespace Booter    
