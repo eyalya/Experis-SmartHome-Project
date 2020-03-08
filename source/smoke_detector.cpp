@@ -16,18 +16,28 @@ SmokeDetector::SmokeDetector(DeviceDataPtr a_data, booter::SystemConnectorApi& a
                 m_smokeThread, a_data))
 , m_shutDown(std::make_shared<SmokeDetectorShutDownHandler>(m_state, m_smokeThread))
 {
+    LoadToSystem();
 }
 
 void SmokeDetector::LoadToSystem()
 {
     booter::SystemConnectorApi& connector = GetConnector();
 
+    std::shared_ptr<BaseAgent> pt = shared_from_this(); 
+    connector.GetRegistrator().RegisterSubscriber(pt, systemEvents::g_systemOnTopic);
     connector.GetRegistrator().RegisterSubscriber(shared_from_this(), systemEvents::g_shutDownTopic);
 }
 
 booter::EventHandlerPtr SmokeDetector::GetHandler(Topic a_topic)
 {
-    assert(a_topic == systemEvents::g_shutDownTopic);
+    if (a_topic.m_type == systemEvents::g_systemOnTopic.m_type)
+    {
+        return m_detectorOn;
+    }
+    else
+    {
+        return m_shutDown;
+    }
     return m_shutDown;
 }
 
@@ -66,6 +76,7 @@ SmokeDetectorOnHandler::SmokeDetectorOnHandler(std::atomic<bool>& a_state, event
 void SmokeDetectorOnHandler::Handle(EventPtr)
 {
     m_state = true;
+    std::cout << "smoke detector on" << std::endl; 
     m_smokeThread.AddThreads(1, m_state, m_reciver, m_data);
 }
 

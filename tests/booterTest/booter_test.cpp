@@ -8,7 +8,8 @@
 #include "lite_event_reciver.hpp" //LiteEventReciver 
 #include "thread_group.hpp" //ThreadGroup
 
-// #include "local_distributor.hpp" //LocalDistributor
+#include "local_distributor.hpp" //LocalDistributor
+#include "event_manager.hpp" //EventManager
 
 #include "device_group.hpp" //DeviceGroup
 #include "smoke_detector.hpp" //SmokeDetector
@@ -25,7 +26,6 @@ using namespace eventor;
 
 
 UNIT(smoke_test)
-    // DeviceGroup group;
     DeviceDataFactory factory;
     HardCodedDeviceMaker deviceMaker;
 
@@ -40,18 +40,23 @@ UNIT(smoke_test)
 END_UNIT
 
 UNIT(boting_and_submiting)
-    // DeviceGroup group;
-
-    FifoEventStore fifoEventStore;
-    LiteEventReciver eventReciever(fifoEventStore);
-    TopicSubscribers susbscriber;
-    SystemConnectors connectors(susbscriber, eventReciever);
-
     DeviceDataFactory factory;
     HardCodedDeviceMaker deviceMaker;
+
+    TopicSubscribers susbscriber;
+    FifoEventStore fifoEventStore;
+    LiteEventReciver eventReciever(fifoEventStore);
+    SystemConnectors connectors(susbscriber, eventReciever);
+
     Booter booter(connectors, deviceMaker, factory);
     booter.BootSystem();
-    
+
+    LocalDistributor disributor(susbscriber);
+    EventManager manager(fifoEventStore, disributor);
+    manager.Run();
+
+    manager.Pause();
+    manager.ShutDown();
     cout << "press key to finish" << endl; 
     int a;
     cin >> a; 

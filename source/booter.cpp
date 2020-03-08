@@ -1,4 +1,5 @@
 #include "booter.hpp"
+#include "system_events.hpp"
 
 namespace smartHome {
 namespace booter{
@@ -14,6 +15,11 @@ Booter::Booter(SystemConnectorApi& a_connectors, IDeviceMaker& a_maker, IDeviceD
 void Booter::BootSystem()
 {
     m_maker.CreateDevices(m_group, m_connectors, m_factory);
+    m_connectors.GetEventReciever().RecvEvent(std::make_shared<systemEvents::SystemEvent>
+                                                (
+                                                    systemEvents::g_systemOnTopic.m_type, 
+                                                    systemEvents::g_systemOnTopic.m_location
+                                                ));
 }
 
 

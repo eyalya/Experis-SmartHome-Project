@@ -81,7 +81,7 @@ private:
 
 class SmokeDetectorBuilder: public booter::IBuilder {
 public:
-    SmokeDetectorBuilder();
+    SmokeDetectorBuilder() = default;
 
     ~SmokeDetectorBuilder() = default;
     SmokeDetectorBuilder(SmokeDetectorBuilder const& a_rhs) = delete;

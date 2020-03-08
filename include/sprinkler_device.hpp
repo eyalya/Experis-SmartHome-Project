@@ -10,6 +10,7 @@
 #include "thread_group.hpp" //Thread
 #include "ievent_handler.hpp" //IEventHandler
 #include "common_types.hpp" //EventHandlerPtr
+#include "ibuilder.hpp" //IBuilder
 
 namespace smartHome {
 
@@ -66,7 +67,16 @@ private:
     booter::EventHandlerPtr m_shutDown;
 };
 
+class SprinkelBuilder: public booter::IBuilder {
+public:
+    SprinkelBuilder() = default;
 
+    ~SprinkelBuilder() = default;
+    SprinkelBuilder(SprinkelBuilder const& a_rhs) = delete;
+    SprinkelBuilder& operator=(SprinkelBuilder const& a_rhs) = delete;
+
+    virtual DevicePtr Build(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector);
+};
 
 
 } //namespace smartHome

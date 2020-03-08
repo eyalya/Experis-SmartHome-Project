@@ -25,10 +25,10 @@ void RegisterSmokeDetectorBuilder(DeviceBuilders& a_builders)
     a_builders.AddBuilder("Fire", std::move(s_fireBuilder));
 }
 
-void RegisterSprinklerBuilder(DeviceBuilders&)
+void RegisterSprinklerBuilder(DeviceBuilders& a_builders)
 {
-    // static std::unique_ptr<FireSensorBuilder> s_fireBuilder;
-    // a_builders.AddBuilder("Fire", std::move(s_fireBuilder));
+    static std::unique_ptr<SprinkelBuilder> s_sprinklerBuilder;
+    a_builders.AddBuilder("Sprinkler", std::move(s_sprinklerBuilder));
 }
 
 

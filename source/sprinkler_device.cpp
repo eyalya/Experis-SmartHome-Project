@@ -77,7 +77,10 @@ void SprinklersShutDownHandler::Handle(EventPtr)
     m_sprinklerThread.JoinAll();
 }
 
-
+DevicePtr SprinkelBuilder::Build(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector)
+{
+    return std::make_shared<Sprinklers>(a_data, a_connector);
+}
 
 } //namespace hub
 
