@@ -83,5 +83,10 @@ void SmokeDetectorShutDownHandler::Handle(EventPtr)
     m_smokeThread.JoinAll();
 }
 
+DevicePtr SmokeDetectorBuilder::Build(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector)
+{
+    return std::make_shared<SmokeDetector>(a_data, a_connector);
+}
+
 } //namespace hub
 

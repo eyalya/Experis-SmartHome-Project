@@ -1,3 +1,4 @@
+#include <utility>      // std::move
 #include "test_registrator.hpp"
 #include "smoke_detector.hpp"
 #include "sprinkler_device.hpp"
@@ -18,10 +19,10 @@ void TestRegistrator::Register(DeviceType const& a_type, DeviceBuilders& a_build
     }   
 }
 
-void RegisterSmokeDetectorBuilder(DeviceBuilders&)
+void RegisterSmokeDetectorBuilder(DeviceBuilders& a_builders)
 {
-    // static std::unique_ptr<FireSensorBuilder> s_fireBuilder;
-    // a_builders.AddBuilder("Fire", std::move(s_fireBuilder));
+    static std::unique_ptr<SmokeDetectorBuilder> s_fireBuilder;
+    a_builders.AddBuilder("Fire", std::move(s_fireBuilder));
 }
 
 void RegisterSprinklerBuilder(DeviceBuilders&)

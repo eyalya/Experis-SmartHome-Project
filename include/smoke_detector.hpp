@@ -3,14 +3,15 @@
 
 #include <string> //std::string
 #include <atomic> //atomic
+#include <vector> //std::vector
 
 #include "event_base.hpp" //location, Topic, Event
 #include "device.hpp" //BaseAgent
-#include "thread.hpp" //IRunnable
+#include "thread_group.hpp" //ThreadGroup, IRunnable
 #include "ievent_handler.hpp" //IEventHandler
-#include "event_manager.hpp" //EventManager
 #include "ievent_reciver.hpp" //IEventReciver
 #include "common_types.hpp" //EventHandlerPtr
+#include "ibuilder.hpp" //IBuilder
 
 namespace smartHome {
 
@@ -77,6 +78,18 @@ private:
     std::atomic<bool>& m_state;
     advcpp::ThreadsGroup<RunSmokeDetector>& m_smokeThread;
 };
+
+class SmokeDetectorBuilder: public booter::IBuilder {
+public:
+    SmokeDetectorBuilder();
+
+    ~SmokeDetectorBuilder() = default;
+    SmokeDetectorBuilder(SmokeDetectorBuilder const& a_rhs) = delete;
+    SmokeDetectorBuilder& operator=(SmokeDetectorBuilder const& a_rhs) = delete;
+
+    virtual DevicePtr Build(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector);
+};
+
 } //namespace smartHome
 
 #endif //FIRE_SENSOR_HPP
