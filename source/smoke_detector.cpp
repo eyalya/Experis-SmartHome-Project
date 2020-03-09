@@ -1,6 +1,7 @@
 #include <cassert> //assert
 #include <memory> //shared_from_this
 #include <iostream> //cout
+#include <unistd.h> //sleep
 
 #include "smoke_detector.hpp"
 #include "system_events.hpp" //g_shutDownTopic
@@ -16,10 +17,9 @@ SmokeDetector::SmokeDetector(DeviceDataPtr a_data, booter::SystemConnectorApi& a
                 m_smokeThread, a_data))
 , m_shutDown(std::make_shared<SmokeDetectorShutDownHandler>(m_state, m_smokeThread))
 {
-    LoadToSystem();
 }
 
-void SmokeDetector::LoadToSystem()
+void SmokeDetector::Connect()
 {
     booter::SystemConnectorApi& connector = GetConnector();
 
@@ -51,10 +51,16 @@ RunSmokeDetector::RunSmokeDetector(std::atomic<bool>& a_state, eventor::IEventRe
 
 void RunSmokeDetector::Run() noexcept
 {
+    EventType fireStopped("fireStopped");
+    
     while(m_state)
     {
+        EventPtr fire = std::make_shared<FireEvent>(m_data->m_type, m_data->m_location, "FIRE!!!");
+        m_reciver.RecvEvent(fire);
+        std::cout << "Details: " << fire <<std::endl;
+        sleep(2);
         m_reciver.RecvEvent(
-            std::make_shared<FireEvent>(m_data->m_type, m_data->m_location, "FIRE!!!"));
+            std::make_shared<FireEvent>(fireStopped, m_data->m_location, "FireStopped"));
     }
 }
 

@@ -24,6 +24,8 @@ public:
     virtual Location const& GetLocation() const = 0 ;
     virtual EventType const& GetType() const = 0;
     virtual TimeStamp const& GetTimeStamp() const = 0;
+
+    virtual std::ostream& Print(std::ostream& a_os) const = 0;
     
     //virtual Payload& TimeStamp(); //TODO: solution without dynamic cast
 };

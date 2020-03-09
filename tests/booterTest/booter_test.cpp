@@ -25,19 +25,19 @@ using namespace booter;
 using namespace eventor;
 
 
-UNIT(smoke_test)
-    DeviceDataFactory factory;
-    HardCodedDeviceMaker deviceMaker;
+// UNIT(smoke_test)
+//     DeviceDataFactory factory;
+//     HardCodedDeviceMaker deviceMaker;
 
-    TopicSubscribers susbscriber;
-    FifoEventStore fifoEventStore;
-    LiteEventReciver eventReciever(fifoEventStore);
-    SystemConnectors connectors(susbscriber, eventReciever);
+//     TopicSubscribers susbscriber;
+//     FifoEventStore fifoEventStore;
+//     LiteEventReciver eventReciever(fifoEventStore);
+//     SystemConnectors connectors(susbscriber, eventReciever);
 
-    Booter booter(connectors, deviceMaker, factory);
+//     Booter booter(connectors, deviceMaker, factory);
 
-    ASSERT_PASS();
-END_UNIT
+//     ASSERT_PASS();
+// END_UNIT
 
 UNIT(boting_and_submiting)
     DeviceDataFactory factory;
@@ -55,11 +55,11 @@ UNIT(boting_and_submiting)
     EventManager manager(fifoEventStore, disributor);
     manager.Run();
 
-    manager.Pause();
-    manager.ShutDown();
     cout << "press key to finish" << endl; 
     int a;
     cin >> a; 
+    manager.Pause();
+    manager.ShutDown();
     ASSERT_PASS();
 END_UNIT
 
@@ -67,7 +67,7 @@ END_UNIT
 TEST_SUITE(tip# 1588258 we should ot regret our actions_ 
 we responded to each event in our life the best we could with the knwoledge we had)
 
-TEST(smoke_test)
+// TEST(smoke_test)
 TEST(boting_and_submiting)
 
 END_SUITE

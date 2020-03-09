@@ -16,11 +16,12 @@ namespace smartHome {
 
 class RunSprinkle: public advcpp::IRunnable {
 public:
-    RunSprinkle(std::atomic<bool>& a_state);
+    RunSprinkle(std::atomic<bool>& a_state, EventPtr a_event);
 
     virtual void Run() noexcept;
 private: 
     std::atomic<bool>& m_state;
+    EventPtr m_event;
 };
 
 class SprinklersOn: public hub::IEventHandler {
@@ -55,10 +56,8 @@ public:
     Sprinklers& operator=(Sprinklers const& a_rhs) = delete;
 
     virtual booter::EventHandlerPtr GetHandler(Topic a_topic);
+    virtual void Connect();
     
-private: 
-    void LoadToSystem();
-
 private:
     std::vector<Topic> m_topics;
     std::atomic<bool> m_state;

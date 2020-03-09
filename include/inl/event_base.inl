@@ -29,6 +29,15 @@ inline EventBase::EventBase(EventType a_type, Location a_location, TimeStamp a_t
 {
 }
 
+inline std::ostream& EventBase::Print(std::ostream& a_os) const
+{
+    a_os << "Type: " << m_type << std::endl;
+    a_os << "Room: " << m_location.m_roomNum << std::endl;
+    a_os << "Floor: " << m_location.m_floorNum << std::endl;
+    a_os << "timestamp: " << m_timestamp << std::endl;
+    return a_os;
+}
+
 inline Location::Location(Floor a_floor, Room a_room)
 : m_floorNum(a_floor)
 , m_roomNum(a_room)
@@ -65,6 +74,11 @@ inline EventType const& EventBase::GetType() const
 inline TimeStamp const& EventBase::GetTimeStamp() const
 {
     return m_timestamp;
+}
+
+inline std::ostream& operator<<(std::ostream& a_os, EventPtr a_event)
+{
+    return a_event->Print(a_os);
 }
 
 } //namespace smartHome

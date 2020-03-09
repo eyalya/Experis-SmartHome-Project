@@ -18,12 +18,13 @@ Sprinklers::Sprinklers(DeviceDataPtr a_data, booter::SystemConnectorApi& a_conne
 }
 
 
-void Sprinklers::LoadToSystem()
+void Sprinklers::Connect()
 {
     booter::SystemConnectorApi& connector = GetConnector();
 
     connector.GetRegistrator().RegisterSubscriber(shared_from_this(), systemEvents::g_shutDownTopic);
     connector.GetRegistrator().RegisterSubscriber(shared_from_this(), Topic("Fire", GetData()->m_location));
+    connector.GetRegistrator().RegisterSubscriber(shared_from_this(), Topic("fireStopped", GetData()->m_location));
 }
 
 booter::EventHandlerPtr Sprinklers::GetHandler(Topic a_topic)
@@ -38,18 +39,21 @@ booter::EventHandlerPtr Sprinklers::GetHandler(Topic a_topic)
     }
 }
 
-RunSprinkle::RunSprinkle(std::atomic<bool>& a_state)
+RunSprinkle::RunSprinkle(std::atomic<bool>& a_state, EventPtr a_event)
 : m_state(a_state)
+, m_event(a_event)
 {
 }
 
 void RunSprinkle::Run() noexcept
 {
-    std::cout << "sprinkler on" << std::endl;
+    std::cout << "sprinkler on: " << std::endl;
+    std::cout << "Details: " << m_event <<std::endl;
     while(m_state)
     {
     }
     std::cout << "sprinkler off" << std::endl;
+    std::cout << "Details: " << m_event <<std::endl;
 }
 
 SprinklersOn::SprinklersOn(std::atomic<bool>& a_state, advcpp::ThreadsGroup<RunSprinkle>& a_sprinklerThread)
@@ -59,10 +63,10 @@ SprinklersOn::SprinklersOn(std::atomic<bool>& a_state, advcpp::ThreadsGroup<RunS
 }
 
 
-void SprinklersOn::Handle(EventPtr)
+void SprinklersOn::Handle(EventPtr a_event)
 {
     m_state = true;
-    m_sprinklerThread.AddThreads(1, m_state);
+    m_sprinklerThread.AddThreads(1, m_state, a_event);
 }
 
 SprinklersShutDownHandler::SprinklersShutDownHandler(std::atomic<bool>& a_state, advcpp::ThreadsGroup<RunSprinkle>& a_sprinklerThread)

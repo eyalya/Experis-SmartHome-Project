@@ -27,6 +27,7 @@ public:
     BaseAgent(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector);
 
     virtual booter::EventHandlerPtr GetHandler(Topic a_topic) = 0;
+    virtual void Connect() = 0;
 
 protected:
     DeviceDataPtr GetData();

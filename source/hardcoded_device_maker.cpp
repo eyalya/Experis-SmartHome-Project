@@ -25,11 +25,15 @@ DevicePtr HardCodedDeviceMaker::CreateDevice(DeviceDataPtr a_data, SystemConnect
 {
     if (a_data->m_type == std::string("Fire"))
     {
-        return  std::make_shared<SmokeDetector>(a_data, a_connectors);
+        DevicePtr device = std::make_shared<SmokeDetector>(a_data, a_connectors);
+        device->Connect();
+        return device;
     }
     else
     {
-        return  std::make_shared<Sprinklers>(a_data, a_connectors);
+        DevicePtr device = std::make_shared<Sprinklers>(a_data, a_connectors);
+        device->Connect();
+        return device;
     }   
 }
 

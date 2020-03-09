@@ -2,6 +2,7 @@
 #define EVENT_BASE_HPP
 
 #include <memory> //std::shared_ptr
+#include <iostream> //std::ostream
 
 #include "ievent.hpp"
 
@@ -24,6 +25,7 @@ public:
     virtual EventType const& GetType() const;
     virtual TimeStamp const& GetTimeStamp() const;
 
+    virtual std::ostream& Print(std::ostream& a_os) const;
 protected:
     EventBase(EventType a_type, Location a_location, TimeStamp a_timeStamp);
     EventBase(EventBase const& a_other) = delete;
@@ -60,6 +62,8 @@ struct TopicHash
         return a_topic.hash();
     }
 };
+
+std::ostream& operator<<(std::ostream& a_os, EventPtr a_event);
 
 } //namespace smartHome
 

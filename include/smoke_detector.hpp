@@ -36,9 +36,7 @@ public:
     SmokeDetector& operator=(SmokeDetector const& a_rhs) = delete;
 
     virtual booter::EventHandlerPtr GetHandler(Topic a_topic);
-
-private: 
-    void LoadToSystem();
+    virtual void Connect();
 
 private:
     std::vector<Topic> m_topics;
