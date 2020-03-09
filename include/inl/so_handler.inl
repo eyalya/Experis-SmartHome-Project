@@ -33,7 +33,7 @@ void SOHandler::GetFunc(std::string const& a_funcName, Func& a_func)
     a_func = *(Func*)a_res;
 }
 
-SOException::SOException(std::string const& a_msg, Information const& a_info)
+inline SOException::SOException(std::string const& a_msg, Information const& a_info)
 : InformativeException(a_msg, a_info)
 {
 }

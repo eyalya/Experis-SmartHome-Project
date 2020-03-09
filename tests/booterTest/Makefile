@@ -4,13 +4,13 @@ CXX = $(CC)
 CPPFLAGS += $(addprefix -I,$(INC_DIRS))
 CPPFLAGS += -MMD -MP
 
-CFLAGS = -g3 -pedantic -Wall -Werror -Wextra
+CFLAGS = -fPIC -g3 -pedantic -Wall -Werror -Wextra
 
 CXXFLAGS = $(CFLAGS) 
 CXXFLAGS += -std=c++17
 
-# LDFLAGS += 
-LDLIBS += -lpthread
+LDFLAGS += -lpthread -fPIC
+LDLIBS += -shared
 
 INC_DIRS += ../../include/
 INC_DIRS += ../../include/inl/
