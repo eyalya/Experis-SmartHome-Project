@@ -16,6 +16,7 @@
 #include "device_data_factory.hpp" //DeviceDataFactory
 #include "system_connector.hpp" //SystemConnectors
 #include "hardcoded_device_maker.hpp" //HardCodedDeviceMaker
+#include "system_events.hpp" //g_shutDownTopic
 
 
 using namespace std;
@@ -55,9 +56,8 @@ UNIT(boting_and_submiting)
     EventManager manager(fifoEventStore, disributor);
     manager.Run();
 
-    cout << "press key to finish" << endl; 
-    int a;
-    cin >> a; 
+    booter.DisconnectDevices();
+
     manager.Pause();
     manager.ShutDown();
     ASSERT_PASS();

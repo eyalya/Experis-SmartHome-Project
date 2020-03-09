@@ -57,6 +57,7 @@ public:
 
     virtual booter::EventHandlerPtr GetHandler(Topic a_topic);
     virtual void Connect();
+    virtual void Disconnect();
     
 private:
     std::vector<Topic> m_topics;
