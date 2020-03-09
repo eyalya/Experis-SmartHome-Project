@@ -15,12 +15,13 @@ public:
     Booter(SystemConnectorApi& a_connectors, IDeviceMaker& a_maker, IDeviceDataFactory& a_factory);
 
     void BootSystem();
+    void DisconnectDevices();
 
 private:
     SystemConnectorApi& m_connectors;
     IDeviceMaker& m_maker;
     IDeviceDataFactory& m_factory;
-    hub::DeviceGroup m_group;    
+    hub::DeviceGroup m_deviceGroup;    
 };
 
 } //namespace booter

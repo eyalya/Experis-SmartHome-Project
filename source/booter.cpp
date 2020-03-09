@@ -8,18 +8,23 @@ Booter::Booter(SystemConnectorApi& a_connectors, IDeviceMaker& a_maker, IDeviceD
 : m_connectors(a_connectors)
 , m_maker(a_maker)
 , m_factory(a_factory)
-, m_group()
+, m_deviceGroup()
 {
 }
 
 void Booter::BootSystem()
 {
-    m_maker.CreateDevices(m_group, m_connectors, m_factory);
+    m_maker.CreateDevices(m_deviceGroup, m_connectors, m_factory);
     m_connectors.GetEventReciever().RecvEvent(std::make_shared<systemEvents::SystemEvent>
                                                 (
                                                     systemEvents::g_systemOnTopic.m_type, 
                                                     systemEvents::g_systemOnTopic.m_location
                                                 ));
+}
+
+void Booter::DisconnectDevices()
+{
+    m_deviceGroup.Foreach([](DevicePtr a_device){a_device->Disconnect();});
 }
 
 

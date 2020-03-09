@@ -28,6 +28,7 @@ public:
 
     virtual booter::EventHandlerPtr GetHandler(Topic a_topic) = 0;
     virtual void Connect() = 0;
+    virtual void Disconnect() = 0;
 
 protected:
     DeviceDataPtr GetData();

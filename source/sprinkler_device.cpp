@@ -22,9 +22,14 @@ void Sprinklers::Connect()
 {
     booter::SystemConnectorApi& connector = GetConnector();
 
-    connector.GetRegistrator().RegisterSubscriber(shared_from_this(), systemEvents::g_shutDownTopic);
     connector.GetRegistrator().RegisterSubscriber(shared_from_this(), Topic("Fire", GetData()->m_location));
     connector.GetRegistrator().RegisterSubscriber(shared_from_this(), Topic("fireStopped", GetData()->m_location));
+}
+
+void Sprinklers::Disconnect()
+{
+    m_state = false;
+    m_sprinklerRunner.JoinAll();
 }
 
 booter::EventHandlerPtr Sprinklers::GetHandler(Topic a_topic)
