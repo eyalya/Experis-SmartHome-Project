@@ -4,31 +4,26 @@ CXX = $(CC)
 CPPFLAGS += $(addprefix -I,$(INC_DIRS))
 CPPFLAGS += -MMD -MP 
 
-CFLAGS = -g3 -pedantic -Wall -Werror -Wextra -shared
+CFLAGS = -fpic -g3 -pedantic -Wall -Werror -Wextra 
 
 CXXFLAGS = $(CFLAGS) 
 CXXFLAGS += -std=c++17
 
-# LDFLAGS += 
-LDLIBS += -lpthread -fpic
+LDFLAGS += -shared -lpthread  
 
 INC_DIRS += ../include/
 INC_DIRS += ../include/inl/
 
-SOURCES  = $(TARGET).cpp
 SOURCES  += $(wildcard ../source/*.cpp)
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 
-TARGET = demo_devices
+TARGET = ./demo_devices.so
 
 .PHONY: clean test all val
 
 all:  $(TARGET)
 
-test: $(TARGET)
-	./$(TARGET)
-    
 $(TARGET): $(OBJECTS)
 
 clean:
