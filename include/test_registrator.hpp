@@ -13,8 +13,11 @@ public:
     virtual void Register(DeviceType const& a_type, DeviceBuilders& a_builders);
 };
 
-void RegisterSmokeDetectorBuilder(DeviceBuilders& a_builders);
-void RegisterSprinklerBuilder(DeviceBuilders& a_builders);
+extern "C"
+{
+    void RegisterSmokeDetectorBuilder(DeviceBuilders& a_builders);
+    void RegisterSprinklerBuilder(DeviceBuilders& a_builders);
+}
 
 } // namespace booter
 } // namespace smartHome
