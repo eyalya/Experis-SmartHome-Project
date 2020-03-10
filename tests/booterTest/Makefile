@@ -9,8 +9,8 @@ CFLAGS = -fPIC -g3 -pedantic -Wall -Werror -Wextra
 CXXFLAGS = $(CFLAGS) 
 CXXFLAGS += -std=c++17
 
-LDFLAGS += -lpthread -fPIC
-LDLIBS += -shared
+LDFLAGS += -lpthread -shared -ldl
+LDLIBS += 
 
 INC_DIRS += ../../include/
 INC_DIRS += ../../include/inl/
