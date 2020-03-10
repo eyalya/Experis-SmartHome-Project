@@ -18,7 +18,7 @@ INC_DIRS += ../../include/inl/
 
 SOURCES  = $(TARGET).cpp
 SOURCES  += $(wildcard ../../source/*.cpp)
-SOURCES  += ../../libs/source/smoke_detector.cpp ../../libs/source/sprinkler_device.cpp
+SOURCES  += ../../libs/smokeDetector/smoke_detector.cpp ../../libs/sprinkler/sprinkler_device.cpp
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 
