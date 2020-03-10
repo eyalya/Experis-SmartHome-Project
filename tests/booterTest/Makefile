@@ -13,10 +13,12 @@ LDFLAGS += -pthread
 LDLIBS += -ldl
 
 INC_DIRS += ../../include/
+INC_DIRS += ../../libs/include/
 INC_DIRS += ../../include/inl/
 
 SOURCES  = $(TARGET).cpp
 SOURCES  += $(wildcard ../../source/*.cpp)
+SOURCES  += ../../libs/source/smoke_detector.cpp ../../libs/source/sprinkler_device.cpp
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 

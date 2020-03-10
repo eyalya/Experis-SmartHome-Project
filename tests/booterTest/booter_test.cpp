@@ -56,7 +56,7 @@ UNIT(boting_and_submiting)
     LocalDistributor disributor(susbscriber);
     EventManager manager(fifoEventStore, disributor);
     manager.Run();
-    sleep(1);
+    
     booter.DisconnectDevices();
     manager.Pause();
     connectors.GetEventReciever().RecvEvent(std::make_shared<systemEvents::SystemEvent>
