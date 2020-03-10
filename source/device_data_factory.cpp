@@ -14,7 +14,7 @@ std::vector<DeviceDataPtr> const& DeviceDataFactory::GetDeviceData()
 void DeviceDataFactory::LoadDeviceData()
 {
     //TODO: change to read from file
-    const size_t nPerDevice = 10;
+    const size_t nPerDevice = 50;
     CreateFireSensorData(nPerDevice);
     CreateSprinklerData(nPerDevice);
 }

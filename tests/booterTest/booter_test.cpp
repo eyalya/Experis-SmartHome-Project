@@ -1,6 +1,7 @@
 #include "mu_test.h"
 
 #include <string> //std::string
+#include <unistd.h> //sleep
 
 #include "booter.hpp" //Booter
 #include "topic_subscribers.hpp" //TopicSubscribers
@@ -55,10 +56,14 @@ UNIT(boting_and_submiting)
     LocalDistributor disributor(susbscriber);
     EventManager manager(fifoEventStore, disributor);
     manager.Run();
-
+    sleep(1);
     booter.DisconnectDevices();
-
     manager.Pause();
+    connectors.GetEventReciever().RecvEvent(std::make_shared<systemEvents::SystemEvent>
+                                                (
+                                                    systemEvents::g_shutDownTopic.m_type, 
+                                                    systemEvents::g_shutDownTopic.m_location
+                                                ));
     manager.ShutDown();
     ASSERT_PASS();
 END_UNIT

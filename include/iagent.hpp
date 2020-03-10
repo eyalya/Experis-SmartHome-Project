@@ -12,7 +12,7 @@ class IAgent
 public:
     virtual ~IAgent() = default;
 
-    virtual booter::EventHandlerPtr GetHandler(Topic a_topic) = 0;
+    virtual booter::EventHandlerPtr GetHandler(Topic& a_topic) = 0;
     virtual DeviceDataPtr GetData() = 0;
     virtual booter::SystemConnectorApi& GetConnector() = 0;
 

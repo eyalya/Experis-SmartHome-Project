@@ -55,7 +55,7 @@ public:
     Sprinklers(Sprinklers const& a_rhs) = delete;
     Sprinklers& operator=(Sprinklers const& a_rhs) = delete;
 
-    virtual booter::EventHandlerPtr GetHandler(Topic a_topic);
+    virtual booter::EventHandlerPtr GetHandler(Topic& a_topic);
     virtual void Connect();
     virtual void Disconnect();
     

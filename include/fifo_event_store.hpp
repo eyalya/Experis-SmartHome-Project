@@ -12,7 +12,7 @@ namespace eventor {
 class FifoEventStore : public IEventStoreAdder, public IEventStoreRemover
 {
 public:
-    explicit FifoEventStore(size_t a_maxEventsInStore = 100);
+    explicit FifoEventStore(size_t a_maxEventsInStore = 10000);
     ~FifoEventStore() = default;
 
     FifoEventStore(FifoEventStore const & a_other) = delete;

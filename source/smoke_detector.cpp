@@ -12,38 +12,41 @@ SmokeDetector::SmokeDetector(DeviceDataPtr a_data, booter::SystemConnectorApi& a
 : BaseAgent(a_data, a_connector)
 , m_topics()
 , m_state(true)
-, m_smokeThread()
-, m_detectorOn(std::make_shared<SmokeDetectorOnHandler>(m_state, a_connector.GetEventReciever(), 
-                m_smokeThread, a_data))
-, m_shutDown(std::make_shared<SmokeDetectorShutDownHandler>(m_state, m_smokeThread))
+, m_runner(new RunSmokeDetector(m_state, a_connector.GetEventReciever(), a_data))
+, m_shutDown()
+// , m_smokeThread()
+// , m_detectorOn(std::make_shared<SmokeDetectorOnHandler>(m_state, a_connector.GetEventReciever(), 
+//                 m_smokeThread, a_data))
+// , m_shutDown(std::make_shared<SmokeDetectorShutDownHandler>(m_state, m_smokeThread))
 {
 }
 
 void SmokeDetector::Connect()
 {
-    booter::SystemConnectorApi& connector = GetConnector();
+    // booter::SystemConnectorApi& connector = GetConnector();
 
     std::shared_ptr<BaseAgent> pt = shared_from_this(); 
-    connector.GetRegistrator().RegisterSubscriber(pt, systemEvents::g_systemOnTopic);
+    // connector.GetRegistrator().RegisterSubscriber(pt, systemEvents::g_systemOnTopic);
     // connector.GetRegistrator().RegisterSubscriber(shared_from_this(), systemEvents::g_shutDownTopic);
 }
 
 void SmokeDetector::Disconnect()
 {
     m_state = false;
-    m_smokeThread.JoinAll();
+    m_runner.Join();
+    // m_smokeThread.JoinAll();
 }
 
-booter::EventHandlerPtr SmokeDetector::GetHandler(Topic a_topic)
+booter::EventHandlerPtr SmokeDetector::GetHandler(Topic&)
 {
-    if (a_topic.m_type == systemEvents::g_systemOnTopic.m_type)
-    {
-        return m_detectorOn;
-    }
-    else
-    {
-        return m_shutDown;
-    }
+    // if (a_topic.m_type == systemEvents::g_systemOnTopic.m_type)
+    // {
+    //     return m_detectorOn;
+    // }
+    // else
+    // {
+    //     return m_shutDown;
+    // }
     return m_shutDown;
 }
 
@@ -76,34 +79,34 @@ FireEvent::FireEvent(EventType a_type, Location a_location, std::string const& a
 {
 }
 
-SmokeDetectorOnHandler::SmokeDetectorOnHandler(std::atomic<bool>& a_state, eventor::IEventReciver& a_reciver, 
-                           advcpp::ThreadsGroup<RunSmokeDetector>& a_smokeThread, DeviceDataPtr a_data)
-: m_state(a_state)
-, m_reciver(a_reciver)
-, m_smokeThread(a_smokeThread)
-, m_data(a_data)
-{
-}
+// SmokeDetectorOnHandler::SmokeDetectorOnHandler(std::atomic<bool>& a_state, eventor::IEventReciver& a_reciver, 
+//                            advcpp::ThreadsGroup<RunSmokeDetector>& a_smokeThread, DeviceDataPtr a_data)
+// : m_state(a_state)
+// , m_reciver(a_reciver)
+// , m_smokeThread(a_smokeThread)
+// , m_data(a_data)
+// {
+// }
 
-void SmokeDetectorOnHandler::Handle(EventPtr)
-{
-    m_state = true;
-    std::cout << "smoke detector on" << std::endl; 
-    m_smokeThread.AddThreads(1, m_state, m_reciver, m_data);
-}
+// void SmokeDetectorOnHandler::Handle(EventPtr)
+// {
+//     m_state = true;
+//     std::cout << "smoke detector on" << std::endl; 
+//     m_smokeThread.AddThreads(1, m_state, m_reciver, m_data);
+// }
 
-SmokeDetectorShutDownHandler::SmokeDetectorShutDownHandler(std::atomic<bool>& a_state, 
-                                                     advcpp::ThreadsGroup<RunSmokeDetector>& a_smokeThread)
-: m_state(a_state)
-, m_smokeThread(a_smokeThread)
-{
-}
+// SmokeDetectorShutDownHandler::SmokeDetectorShutDownHandler(std::atomic<bool>& a_state, 
+//                                                      advcpp::ThreadsGroup<RunSmokeDetector>& a_smokeThread)
+// : m_state(a_state)
+// , m_smokeThread(a_smokeThread)
+// {
+// }
 
 void SmokeDetectorShutDownHandler::Handle(EventPtr)
 {
-    m_state = false;
+    // m_state = false;
     std::cout << "shut down smoke detector" << std::endl;
-    m_smokeThread.JoinAll();
+    // m_smokeThread.JoinAll();
 }
 
 DevicePtr SmokeDetectorBuilder::Build(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector)
