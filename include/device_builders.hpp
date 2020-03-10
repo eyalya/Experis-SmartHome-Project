@@ -14,7 +14,7 @@ class DeviceBuilders
 public:
     typedef std::unique_ptr<IBuilder> BuilderPtr;
 
-    DeviceBuilders() = default;
+    DeviceBuilders(IDeviceRegistrator& a_registrator);
     ~DeviceBuilders() = default;
 
     IBuilder& operator[](DeviceType const& a_type);

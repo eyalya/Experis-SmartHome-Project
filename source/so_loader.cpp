@@ -9,20 +9,16 @@ namespace booter {
 
 std::string const SODeviceRegistrator::registerFuncName = "RegistrateBuilder";
 
-bool SODeviceRegistrator::LoadDeviceSO(DeviceType const& a_deviceType)
+void SODeviceRegistrator::Register(DeviceType const& a_type, DeviceBuilders& a_builders)
 {
-    try
-    {
-        m_loaders.emplace_back(a_deviceType);
-        std::function<void(DeviceBuilders&)> registerFunc;
-        m_loaders.back().GetFunc(registerFuncName, registerFunc);
-        registerFunc(m_builders);
-    }
-    catch(const advcpp::SOException& e)
-    {
-        return false;
-    }
-    return true;
+    std::string soLib = a_type + ".so";
+    m_loaders.emplace_back(soLib);
+
+    // std::string soFunc = registerFuncName + a_type;
+    std::function<void(DeviceBuilders&)> registerFunc;
+    m_loaders.back().GetFunc(registerFuncName, registerFunc);
+
+    registerFunc(a_builders);
 }
 
 } // namespace booter

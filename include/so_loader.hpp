@@ -13,16 +13,15 @@ namespace booter {
 class SODeviceRegistrator : public IDeviceRegistrator
 {
 public:
-    SODeviceRegistrator(DeviceBuilders& m_builders);
+    SODeviceRegistrator() = default;
 
-    bool LoadDeviceSO(DeviceType const& a_deviceType);
+    virtual void Register(DeviceType const& a_type, DeviceBuilders& a_builders);
     
 private:
     static std::string const registerFuncName;
 
 private:
     std::vector<advcpp::SOHandler> m_loaders;
-    DeviceBuilders& m_builders;
 };  
     
 } // namespace booter

@@ -13,10 +13,12 @@
 #include "event_manager.hpp" //EventManager
 
 #include "device_group.hpp" //DeviceGroup
-#include "smoke_detector.hpp" //SmokeDetector
 #include "device_data_factory.hpp" //DeviceDataFactory
 #include "system_connector.hpp" //SystemConnectors
-#include "hardcoded_device_maker.hpp" //HardCodedDeviceMaker
+
+#include "device_builders.hpp" //DeviceBuilders
+#include "so_device_maker.hpp" //SoDeviceMaker 
+#include "so_loader.hpp" //SODeviceRegistrator
 
 #include "system_events.hpp" //g_shutDownTopic
 
@@ -27,24 +29,11 @@ using namespace hub;
 using namespace booter;
 using namespace eventor;
 
-
-// UNIT(smoke_test)
-//     DeviceDataFactory factory;
-//     HardCodedDeviceMaker deviceMaker;
-
-//     TopicSubscribers susbscriber;
-//     FifoEventStore fifoEventStore;
-//     LiteEventReciver eventReciever(fifoEventStore);
-//     SystemConnectors connectors(susbscriber, eventReciever);
-
-//     Booter booter(connectors, deviceMaker, factory);
-
-//     ASSERT_PASS();
-// END_UNIT
-
-UNIT(boting_and_submiting)
+UNIT(booting_with_so)
     DeviceDataFactory factory;
-    HardCodedDeviceMaker deviceMaker;
+    SODeviceRegistrator regirtrator;
+    DeviceBuilders builder(regirtrator);
+    SoDeviceMaker deviceMaker(builder);
 
     TopicSubscribers susbscriber;
     FifoEventStore fifoEventStore;
@@ -73,7 +62,6 @@ END_UNIT
 TEST_SUITE(tip# 1588258 we should ot regret our actions_ 
 we responded to each event in our life the best we could with the knwoledge we had)
 
-// TEST(smoke_test)
-TEST(boting_and_submiting)
+TEST(booting_with_so)
 
 END_SUITE

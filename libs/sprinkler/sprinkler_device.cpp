@@ -93,5 +93,12 @@ DevicePtr SprinkelBuilder::Build(DeviceDataPtr a_data, booter::SystemConnectorAp
     return std::make_shared<Sprinklers>(a_data, a_connector);
 }
 
+
+extern "C" void RegistrateBuilder(booter::DeviceBuilders& a_builders)
+{
+    static std::unique_ptr<SprinkelBuilder> s_sprinkelBuilder;
+    a_builders.AddBuilder("SprinkelBuilder", std::move(s_sprinkelBuilder));
+}
+
 } //namespace hub
 

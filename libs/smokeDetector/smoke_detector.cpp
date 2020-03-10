@@ -6,6 +6,7 @@
 #include "smoke_detector.hpp"
 #include "system_events.hpp" //g_shutDownTopic
 
+
 namespace smartHome {
 
 SmokeDetector::SmokeDetector(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector)
@@ -114,5 +115,11 @@ DevicePtr SmokeDetectorBuilder::Build(DeviceDataPtr a_data, booter::SystemConnec
     return std::make_shared<SmokeDetector>(a_data, a_connector);
 }
 
-} //namespace hub
+extern "C" void RegistrateBuilder(booter::DeviceBuilders& a_builders)
+{
+    static std::unique_ptr<SmokeDetectorBuilder> s_fireBuilder;
+    a_builders.AddBuilder("SmokeDetectorBuilder", std::move(s_fireBuilder));
+}
+
+} //namespace smartHome
 

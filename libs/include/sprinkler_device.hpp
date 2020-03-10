@@ -11,6 +11,7 @@
 #include "ievent_handler.hpp" //IEventHandler
 #include "common_types.hpp" //EventHandlerPtr
 #include "ibuilder.hpp" //IBuilder
+#include "device_builders.hpp" //DeviceBuilder
 
 namespace smartHome {
 
@@ -77,6 +78,8 @@ public:
 
     virtual DevicePtr Build(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector);
 };
+
+extern "C" void RegistrateBuilder(booter::DeviceBuilders& a_builders);
 
 
 } //namespace smartHome

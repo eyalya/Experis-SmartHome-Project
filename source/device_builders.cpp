@@ -4,6 +4,11 @@ namespace smartHome {
 namespace booter
 {
 
+DeviceBuilders::DeviceBuilders(IDeviceRegistrator& a_registrator)
+: m_registrator(a_registrator)
+{ 
+}
+
 IBuilder& DeviceBuilders::operator[](DeviceType const& a_type)
 {
     auto builder = m_builders.find(a_type);
