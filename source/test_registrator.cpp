@@ -19,18 +19,20 @@ void TestRegistrator::Register(DeviceType const& a_type, DeviceBuilders& a_build
     }   
 }
 
-void RegisterSmokeDetectorBuilder(DeviceBuilders& a_builders)
+extern "C"
 {
-    static std::unique_ptr<SmokeDetectorBuilder> s_fireBuilder;
-    a_builders.AddBuilder("Fire", std::move(s_fireBuilder));
-}
+    void RegisterSmokeDetectorBuilder(DeviceBuilders& a_builders)
+    {
+        static std::unique_ptr<SmokeDetectorBuilder> s_fireBuilder;
+        a_builders.AddBuilder("Fire", std::move(s_fireBuilder));
+    }
 
-void RegisterSprinklerBuilder(DeviceBuilders& a_builders)
-{
-    static std::unique_ptr<SprinkelBuilder> s_sprinklerBuilder;
-    a_builders.AddBuilder("Sprinkler", std::move(s_sprinklerBuilder));
+    void RegisterSprinklerBuilder(DeviceBuilders& a_builders)
+    {
+        static std::unique_ptr<SprinkelBuilder> s_sprinklerBuilder;
+        a_builders.AddBuilder("Sprinkler", std::move(s_sprinklerBuilder));
+    }
 }
-
 
 } // namespace booter
 } // namespace smartHome
