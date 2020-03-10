@@ -9,7 +9,8 @@ CFLAGS = -fpic -g3 -pedantic -Wall -Werror -Wextra
 CXXFLAGS = $(CFLAGS) 
 CXXFLAGS += -std=c++17
 
-LDFLAGS += -shared -lpthread  
+LDFLAGS += -shared -lpthread
+LDLIBS += -ldl
 
 INC_DIRS += ../include/
 INC_DIRS += ../include/inl/
@@ -18,13 +19,16 @@ SOURCES  += $(wildcard ../source/*.cpp)
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 
-TARGET = ./demo_devices.so
+TARGET = demo_devices.so
 
 .PHONY: clean test all val
 
 all:  $(TARGET)
 
+test: $(TARGET)
+
 $(TARGET): $(OBJECTS)
+	 $(CC) $(FLAGS) $(CFLAGS) $(LDFLAGS) $(DEBUGFLAGS) -o $(TARGET) $(OBJECTS)
 
 clean:
 	rm -f $(OBJECTS) $(TARGET) $(DEPENDS)
