@@ -19,7 +19,7 @@ SOURCES  += $(wildcard ../source/*.cpp)
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 
-TARGET = smoke_detector.so
+TARGET = ../smoke_detector.so
 
 .PHONY: clean test all val
 

@@ -25,7 +25,7 @@ void SmokeDetector::Connect()
 {
     // booter::SystemConnectorApi& connector = GetConnector();
 
-    std::shared_ptr<BaseAgent> pt = shared_from_this(); 
+    // std::shared_ptr<BaseAgent> pt = shared_from_this(); 
     // connector.GetRegistrator().RegisterSubscriber(pt, systemEvents::g_systemOnTopic);
     // connector.GetRegistrator().RegisterSubscriber(shared_from_this(), systemEvents::g_shutDownTopic);
 }

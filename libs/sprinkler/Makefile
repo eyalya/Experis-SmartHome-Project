@@ -19,7 +19,7 @@ SOURCES  += $(wildcard ../source/*.cpp)
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 
-TARGET = sprinkler.so
+TARGET = ../sprinkler.so
 
 .PHONY: clean test all val
 
