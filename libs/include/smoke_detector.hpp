@@ -104,6 +104,6 @@ public:
 
 } //namespace smartHome
 
-//extern "C" void RegistrateBuilder(booter::DeviceBuilders& a_builders);
+// extern "C" void RegistrateBuilder(booter::DeviceBuilders& a_builders);
 
 #endif //FIRE_SENSOR_HPP

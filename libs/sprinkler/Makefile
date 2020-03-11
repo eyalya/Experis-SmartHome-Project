@@ -13,6 +13,7 @@ LDFLAGS += -shared -lpthread
 LDLIBS += -ldl
 
 INC_DIRS += ../include/
+INC_DIRS += ../../include/
 
 
 SOURCES  += sprinkler_device.cpp

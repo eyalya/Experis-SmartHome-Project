@@ -4,5 +4,8 @@ test: sprinkler smokeDetector
 sprinkler smokeDetector:
 	@$(MAKE) -C $@ test
 
-.PHONY: sprinkler smokeDetector
+clean:
+	@$(MAKE) -C $@ clean
+
+.PHONY: clean sprinkler smokeDetector
 

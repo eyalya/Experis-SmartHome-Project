@@ -10,7 +10,7 @@ namespace advcpp
 {
     
 inline SOHandler::SOHandler(std::string const& a_filePath)
-: m_handle(dlopen(a_filePath.c_str(), RTLD_LAZY))
+: m_handle(dlopen(a_filePath.c_str(), RTLD_NOW))
 {
     if(!m_handle)
     {
