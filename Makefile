@@ -1,8 +1,15 @@
 
-all: libs tests
+all: 
+	@$(MAKE) -C libs all
+	@$(MAKE) -C tests all
 
-libs tests:
-	@$(MAKE) -C $@ test
 
-.PHONY: libs tests
+clean:
+	@$(MAKE) -C libs clean
+	@$(MAKE) -C tests clean
+
+debug:
+	@$(MAKE) -C tests/soboot debug
+
+.PHONY: clean all debug
 

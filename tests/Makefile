@@ -1,11 +1,9 @@
+all: 
+	@$(MAKE) -C soboot all	
 
-# all: booterTest lightEventReciver topicDistributerTest
-all: soboot  
-test: soboot 
 
-# booterTest lightEventReciver topicDistributerTest:
-soboot:
-	@$(MAKE) -C $@ test
+clean:
+	@$(MAKE) -C soboot clean	
 
-.PHONY: sobooter booterTest lightEventReciver topicDistributerTest
 
+.PHONY: clean all

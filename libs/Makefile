@@ -1,8 +1,11 @@
-all: sprinkler smokeDetector 
-test: sprinkler smokeDetector
+all: 
+	@$(MAKE) -C sprinkler 
+	@$(MAKE) -C smokeDetector 
 
-sprinkler smokeDetector:
-	@$(MAKE) -C $@ test
 
-.PHONY: sprinkler smokeDetector
+clean:
+	@$(MAKE) -C sprinkler clean
+	@$(MAKE) -C smokeDetector clean
 
+
+.PHONY: clean all
