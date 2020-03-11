@@ -101,7 +101,7 @@ public:
     virtual DevicePtr Build(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector);
 };
 
-extern "C" void RegistrateBuilder(booter::DeviceBuilders& a_builders);
+extern "C" void MOM(booter::DeviceBuilders& a_builders);
 
 } //namespace smartHome
 

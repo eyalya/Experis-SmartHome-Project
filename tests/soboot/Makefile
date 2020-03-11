@@ -13,6 +13,7 @@ LDFLAGS += -pthread
 LDLIBS += -ldl
 
 INC_DIRS += ../../include/
+INC_DIRS += ../include/
 INC_DIRS += ../../include/inl/
 
 SOURCES  = $(TARGET).cpp

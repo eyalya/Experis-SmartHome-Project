@@ -1,10 +1,10 @@
 
 # all: booterTest lightEventReciver topicDistributerTest
-all: sobooter  
-test: sobooter 
+all: soboot  
+test: soboot 
 
 # booterTest lightEventReciver topicDistributerTest:
-booterTest:
+soboot:
 	@$(MAKE) -C $@ test
 
 .PHONY: sobooter booterTest lightEventReciver topicDistributerTest

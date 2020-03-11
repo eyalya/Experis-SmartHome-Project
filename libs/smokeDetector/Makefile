@@ -12,10 +12,11 @@ CXXFLAGS += -std=c++17
 LDFLAGS += -shared -lpthread
 LDLIBS += -ldl
 
+INC_DIRS += ../../include/
 INC_DIRS += ../include/
-INC_DIRS += ../include/inl/
+INC_DIRS += ../../include/inl/
 
-SOURCES  += $(wildcard ../source/*.cpp)
+SOURCES  += $(wildcard ../../source/*.cpp)
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 

@@ -108,14 +108,14 @@ void SmokeDetectorShutDownHandler::Handle(EventPtr)
     // m_state = false;
     std::cout << "shut down smoke detector" << std::endl;
     // m_smokeThread.JoinAll();
-}
+} 
 
 DevicePtr SmokeDetectorBuilder::Build(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector)
 {
     return std::make_shared<SmokeDetector>(a_data, a_connector);
 }
 
-extern "C" void RegistrateBuilder(booter::DeviceBuilders& a_builders)
+extern "C" void MOM(booter::DeviceBuilders& a_builders)
 {
     static std::unique_ptr<SmokeDetectorBuilder> s_fireBuilder;
     a_builders.AddBuilder("SmokeDetectorBuilder", std::move(s_fireBuilder));
