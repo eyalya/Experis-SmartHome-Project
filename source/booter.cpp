@@ -15,7 +15,11 @@ Booter::Booter(SystemConnectorApi& a_connectors, IDeviceMaker& a_maker, IDeviceD
 void Booter::BootSystem()
 {
     m_maker.CreateDevices(m_deviceGroup, m_connectors, m_factory);
-    m_connectors.GetEventReciever().RecvEvent(std::make_shared<systemEvents::SystemEvent>
+    eventor::IEventReciver& er = m_connectors.GetEventReciever();
+    
+    //TODO: implment a function sendSystemOnEvent private to booter
+    //TODO: implement a function in systemevents.hpp make_shared_event(topic, loc)
+    er.RecvEvent(std::make_shared<systemEvents::SystemEvent>
                                                 (
                                                     systemEvents::g_systemOnTopic.m_type, 
                                                     systemEvents::g_systemOnTopic.m_location

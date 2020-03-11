@@ -115,11 +115,14 @@ DevicePtr SmokeDetectorBuilder::Build(DeviceDataPtr a_data, booter::SystemConnec
     return std::make_shared<SmokeDetector>(a_data, a_connector);
 }
 
-extern "C" void MOM(booter::DeviceBuilders& a_builders)
-{
-    static std::unique_ptr<SmokeDetectorBuilder> s_fireBuilder;
-    a_builders.AddBuilder("SmokeDetectorBuilder", std::move(s_fireBuilder));
-}
 
 } //namespace smartHome
 
+using namespace smartHome;
+
+extern "C" void RegistrateBuilder(booter::DeviceBuilders& a_builders)
+{
+    static std::unique_ptr<SmokeDetectorBuilder> s_fireBuilder(new SmokeDetectorBuilder);
+    if(s_fireBuilder)
+        a_builders.AddBuilder("SmokeDetectorBuilder", std::move(s_fireBuilder));
+}

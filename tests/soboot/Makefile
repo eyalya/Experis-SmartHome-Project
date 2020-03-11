@@ -29,7 +29,10 @@ all:  $(TARGET)
 
 test: $(TARGET)
 	LD_LIBRARY_PATH=../../libs/ ./$(TARGET)
-    
+ 
+debug: $(TARGET)
+	LD_LIBRARY_PATH=../../libs/ gdb ./$(TARGET)  
+
 $(TARGET): $(OBJECTS)
 
 clean:

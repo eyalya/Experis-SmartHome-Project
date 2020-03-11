@@ -59,8 +59,9 @@ UNIT(booting_with_so)
 END_UNIT
 
 
-TEST_SUITE(tip# 1588258 we should ot regret our actions_ 
-we responded to each event in our life the best we could with the knwoledge we had)
+TEST_SUITE(tip# 1588258 we should ot regret our actions\n 
+                we responded to each event in our life the\n 
+                best we could with the knwoledge we had)
 
 TEST(booting_with_so)
 

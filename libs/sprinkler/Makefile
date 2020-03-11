@@ -13,9 +13,9 @@ LDFLAGS += -shared -lpthread
 LDLIBS += -ldl
 
 INC_DIRS += ../include/
-INC_DIRS += ../include/inl/
 
-SOURCES  += $(wildcard ../source/*.cpp)
+
+SOURCES  += sprinkler_device.cpp
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 

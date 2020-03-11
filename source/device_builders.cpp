@@ -9,6 +9,9 @@ DeviceBuilders::DeviceBuilders(IDeviceRegistrator& a_registrator)
 { 
 }
 
+
+//TODO: for mhz: make it optional
+//TODO: make it return a pointer, on failure erturn null
 IBuilder& DeviceBuilders::operator[](DeviceType const& a_type)
 {
     auto builder = m_builders.find(a_type);

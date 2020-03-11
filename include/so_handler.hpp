@@ -2,6 +2,7 @@
 #define SO_HANDLER_HPP 
 
 #include <string> //std::string
+#include <functional> //std::function<>
 
 #include "informative_exception.hpp"
 
@@ -13,8 +14,8 @@ public:
     SOHandler(std::string const& a_filePath);
     ~SOHandler(); 
 
-    template<typename Func>
-    void GetFunc(std::string const& a_filePath, Func& a_func);
+    template<typename F>
+    std::function<F> GetFunc(const char* a_funcName);
 
 private:
     void* m_handle;

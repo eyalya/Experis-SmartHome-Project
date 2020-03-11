@@ -16,7 +16,9 @@ INC_DIRS += ../../include/
 INC_DIRS += ../include/
 INC_DIRS += ../../include/inl/
 
-SOURCES  += $(wildcard ../../source/*.cpp)
+SOURCES  += smoke_detector.cpp
+
+#$(wildcard ../../source/*.cpp)
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 
