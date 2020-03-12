@@ -13,10 +13,10 @@ std::string const SODeviceRegistrator::registerFuncName = "RegistrateBuilder";
 void SODeviceRegistrator::Register(DeviceType const& a_type, DeviceBuilders& a_builders)
 {
     std::string soLib(a_type + ".so");
-    auto handler = advcpp::SOHandler{soLib};    
+    m_loaders.emplace_back(soLib);
+    auto& handler = m_loaders.back();   
     auto rf = handler.GetFunc<void(DeviceBuilders&)>(registerFuncName.c_str());    
     rf(a_builders);
-    m_loaders.push_back(handler);
 }
 
 } // namespace booter

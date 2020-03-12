@@ -14,6 +14,9 @@ public:
     SOHandler(std::string const& a_filePath);
     ~SOHandler(); 
 
+    // SOHandler(SOHandler const& a_other) = delete;
+    // SOHandler& operator=(SOHandler const& a_other) = delete;
+
     template<typename F>
     std::function<F> GetFunc(const char* a_funcName);
 

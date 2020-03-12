@@ -20,7 +20,7 @@ inline SOHandler::SOHandler(std::string const& a_filePath)
 
 inline SOHandler::~SOHandler()
 {
-    dlclose(m_handle);
+    // dlclose(m_handle);
 }
 
 template<typename F>
