@@ -1,6 +1,6 @@
 #include <functional>
 
-#include "so_loader.hpp"
+#include "so_device_registrator.hpp"
 
 namespace smartHome {
 namespace booter {

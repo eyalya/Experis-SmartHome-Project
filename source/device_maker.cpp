@@ -2,17 +2,17 @@
 #include <vector> //std::vector
 #include <map>
 
-#include "so_device_maker.hpp"
+#include "device_maker.hpp"
 
 namespace smartHome {
 namespace booter {
 
-SoDeviceMaker::SoDeviceMaker(DeviceBuilders& a_deviceBuilders)
+DeviceMaker::DeviceMaker(DeviceBuilders& a_deviceBuilders)
 : m_deviceBuilders(a_deviceBuilders)
 {
 }
 
-void SoDeviceMaker::CreateDevices(hub::DeviceGroup& a_devices, SystemConnectorApi& a_connectors, 
+void DeviceMaker::CreateDevices(hub::DeviceGroup& a_devices, SystemConnectorApi& a_connectors, 
                                IDeviceDataFactory& a_factory)
 {
     //TODO: std::vector<DeviceDataPtr> afistFullOfDatas = a_deviceConfig.load()  from class DeviceConfigFactory
@@ -29,7 +29,7 @@ void SoDeviceMaker::CreateDevices(hub::DeviceGroup& a_devices, SystemConnectorAp
 
 
 
-DevicePtr SoDeviceMaker::CreateDevice(DeviceDataPtr a_data, SystemConnectorApi& a_connectors)
+DevicePtr DeviceMaker::CreateDevice(DeviceDataPtr a_data, SystemConnectorApi& a_connectors)
 {
     //TODO: hardcoded? hardeCoded?? HARDCODED????
     //std::map<std::string, std::string> soMap = { {"Fire", "smoke_detector"}, {"Fire??", "sprinkler"} };

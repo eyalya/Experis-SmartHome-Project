@@ -17,8 +17,8 @@
 #include "system_connector.hpp" //SystemConnectors
 
 #include "device_builders.hpp" //DeviceBuilders
-#include "so_device_maker.hpp" //SoDeviceMaker 
-#include "so_loader.hpp" //SODeviceRegistrator
+#include "device_maker.hpp" //SoDeviceMaker 
+#include "so_device_registrator.hpp" //SODeviceRegistrator
 
 #include "system_events.hpp" //g_shutDownTopic
 
@@ -33,7 +33,7 @@ UNIT(booting_with_so)
     DeviceDataFactory factory;
     SODeviceRegistrator regirtrator;
     DeviceBuilders builder(regirtrator);
-    SoDeviceMaker deviceMaker(builder);
+    DeviceMaker deviceMaker(builder);
 
     TopicSubscribers susbscriber;
     FifoEventStore fifoEventStore;

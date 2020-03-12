@@ -10,14 +10,14 @@
 namespace smartHome {
 namespace booter {
 
-class SoDeviceMaker: public IDeviceMaker
+class DeviceMaker: public IDeviceMaker
 {
 public:
-    SoDeviceMaker(DeviceBuilders& a_deviceBuilders);
+    DeviceMaker(DeviceBuilders& a_deviceBuilders);
 
-    ~SoDeviceMaker() = default;
-    SoDeviceMaker(SoDeviceMaker const& a_other) = default;
-    SoDeviceMaker& operator=(SoDeviceMaker const& a_other) = default;
+    ~DeviceMaker() = default;
+    DeviceMaker(DeviceMaker const& a_other) = default;
+    DeviceMaker& operator=(DeviceMaker const& a_other) = default;
     
 
     virtual void CreateDevices(hub::DeviceGroup& a_devices, SystemConnectorApi& a_connectors, 

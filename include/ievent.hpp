@@ -16,6 +16,7 @@ typedef std::shared_ptr<IEvent> EventPtr;
 
 struct Location;
 
+//template<typename PayloadType> //TODO: add template
 class IEvent
 {
 public:
@@ -27,7 +28,7 @@ public:
 
     virtual std::ostream& Print(std::ostream& a_os) const = 0;
     
-    //virtual Payload& TimeStamp(); //TODO: solution without dynamic cast
+    // virtual Payload& GetPayload() = 0; //TODO: solution without dynamic cast
 };
 
 } //namespace smartHome
