@@ -8,7 +8,7 @@ clean:
 	@$(MAKE) -C libs clean
 	@$(MAKE) -C tests clean
 
-debug:
+debug: all
 	@$(MAKE) -C tests/soboot debug
 
 .PHONY: clean all debug
