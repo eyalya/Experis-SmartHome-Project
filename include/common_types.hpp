@@ -13,8 +13,11 @@ using DeviceDataPtr = std::shared_ptr<DeviceData>;
 
 namespace booter {
 
+class IBuilder;
+
 using DeviceType = std::string;
 using EventHandlerPtr = std::shared_ptr<hub::IEventHandler>;
+using IBuildPtr = std::shared_ptr<IBuilder>;
 
 } //namespace booter
 

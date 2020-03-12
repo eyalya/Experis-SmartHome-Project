@@ -10,7 +10,7 @@ namespace advcpp
 {
     
 inline SOHandler::SOHandler(std::string const& a_filePath)
-: m_handle(dlopen(a_filePath.c_str(), RTLD_NOW))
+: m_handle(dlopen(a_filePath.c_str(), RTLD_LAZY))
 {
     if(!m_handle)
     {
@@ -31,7 +31,7 @@ std::function<F> SOHandler::GetFunc(const char* a_funcName)
     {
         throw(SOException(a_funcName, XINFO));
     }
-
+    
     return reinterpret_cast<F*>(a_res);
     //TODO: shout at Noam
     // a_func =   *(Func*)a_res;    

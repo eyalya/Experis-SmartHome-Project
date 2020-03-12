@@ -36,14 +36,15 @@ DevicePtr SoDeviceMaker::CreateDevice(DeviceDataPtr a_data, SystemConnectorApi& 
     
     if (a_data->m_type == std::string("Fire"))
     {
-        DevicePtr device = m_deviceBuilders["smoke_detector"].Build(a_data, a_connectors);
+        auto b = m_deviceBuilders["smoke_detector"];
+        DevicePtr device = b->Build(a_data, a_connectors);
         // DevicePtr device = std::make_shared<SmokeDetector>(a_data, a_connectors);
         device->Connect();
         return device;
     }
     else
     {
-        DevicePtr device = m_deviceBuilders["sprinkler"].Build(a_data, a_connectors);
+        DevicePtr device = m_deviceBuilders["sprinkler"]->Build(a_data, a_connectors);
         device->Connect();
         return device;
     }   

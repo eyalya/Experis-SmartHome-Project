@@ -101,6 +101,6 @@ extern "C" void RegistrateBuilder(booter::DeviceBuilders& a_builders)
 {
     static std::unique_ptr<SprinkelBuilder> s_sprinkelBuilder(new SprinkelBuilder);
     assert(s_sprinkelBuilder);
-    a_builders.AddBuilder("SprinkelBuilder", std::move(s_sprinkelBuilder));
+    a_builders.AddBuilder("sprinkler", std::move(s_sprinkelBuilder));
 }
 

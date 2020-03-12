@@ -12,17 +12,17 @@ namespace booter {
 class DeviceBuilders
 {
 public:
-    typedef std::unique_ptr<IBuilder> BuilderPtr;
+    typedef std::shared_ptr<IBuilder> BuilderPtr;
 
     DeviceBuilders(IDeviceRegistrator& a_registrator);
     ~DeviceBuilders() = default;
 
-    IBuilder& operator[](DeviceType const& a_type);
+    IBuildPtr operator[](DeviceType const& a_type);
 
     void AddBuilder(DeviceType const& a_type, BuilderPtr a_builder);
 
 private:
-    std::unordered_map<DeviceType, std::unique_ptr<IBuilder> > m_builders;
+    std::unordered_map<DeviceType, IBuildPtr > m_builders;
     IDeviceRegistrator& m_registrator;
 };
 

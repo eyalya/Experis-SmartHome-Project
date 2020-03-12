@@ -122,7 +122,7 @@ using namespace smartHome;
 
 extern "C" void RegistrateBuilder(booter::DeviceBuilders& a_builders)
 {
-    static std::unique_ptr<SmokeDetectorBuilder> s_fireBuilder(new SmokeDetectorBuilder);
+    static std::shared_ptr<SmokeDetectorBuilder> s_fireBuilder(new SmokeDetectorBuilder);
     if(s_fireBuilder)
-        a_builders.AddBuilder("SmokeDetectorBuilder", std::move(s_fireBuilder));
+        a_builders.AddBuilder("smoke_detector", s_fireBuilder);
 }

@@ -9,7 +9,7 @@ CFLAGS = -fPIC -g3 -pedantic -Wall -Werror -Wextra
 CXXFLAGS = $(CFLAGS) 
 CXXFLAGS += -std=c++17
 
-LDFLAGS += -pthread 
+LDFLAGS += -pthread -export-dynamic
 LDLIBS += -ldl
 
 INC_DIRS += ../../include/
@@ -33,6 +33,7 @@ test: $(TARGET)
 debug: $(TARGET)
 	LD_LIBRARY_PATH=../../libs/ gdb ./$(TARGET)  
 
+# $(TARGET): CXXFLAGS += -rdynamic
 $(TARGET): $(OBJECTS)
 
 clean:
