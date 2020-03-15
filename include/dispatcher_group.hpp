@@ -26,7 +26,6 @@ public:
 
 private:
     static const size_t DEFAULT_QUEUE_SIZE = 50;
-    static const size_t DEFAULT_QUEUE_SIZE = 50;
 
 private:
     advcpp::WaitableQ<EventPtr> m_eventQ;

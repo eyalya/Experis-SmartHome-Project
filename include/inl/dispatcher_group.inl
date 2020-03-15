@@ -17,7 +17,7 @@ DispatcherGroup<Executor>::DispatcherGroup()
 template <typename Executor>
 void DispatcherGroup<Executor>::AddHandler(booter::EventHandlerPtr a_handler)
 {
-    m_handlers
+    m_handlers.push_back(a_handler);
 }
 
 } //namespace hub
