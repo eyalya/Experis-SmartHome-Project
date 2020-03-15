@@ -25,7 +25,7 @@ public:
 
     bool Contains(booter::EventHandlerPtr a_handler) const;
 
-    size_t Hash();
+    size_t hash();
 
 private:
     static const size_t DEFAULT_QUEUE_SIZE = 50;
