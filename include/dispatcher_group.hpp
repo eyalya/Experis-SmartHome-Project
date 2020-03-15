@@ -2,7 +2,8 @@
 #define DISPATCHER_GROUP_HPP
 
 #include <vector> //std::vector
-#include <mutex> //std
+#include <mutex> //std::mutex, std::guard
+#include <thread> //std::thread
 
 #include "waitable_queue.hpp" 
 #include "common_types.hpp" //booter::EventHandlerPtr
@@ -10,12 +11,14 @@
 namespace smartHome {
 namespace hub {
 
-template <typename Executor>
+// using SmallSystem = std::vector;
+// using EnterpriseSystem = std::vector;
+
+using IExecuter = std::thread;
+
 class DispatcherGroup
 {
 public:
-    DispatcherGroup();
-
     void AddHandler(booter::EventHandlerPtr a_handler);
     bool RemoveHandler(booter::EventHandlerPtr a_handler);
     void AddEvent(EventPtr a_event);
@@ -30,14 +33,12 @@ private:
 private:
     advcpp::WaitableQ<EventPtr> m_eventQ;
     std::vector<booter::EventHandlerPtr> m_handlers;
-    Executor m_publisher;
+    IExecuter m_publisher;
 
-    mutabale std::mutex m_lock;
+    mutable std::mutex m_lock;
 };
     
 } // namespace hub
 } // namespace smartHome
-
-#include "inl/dispatcher_group.inl"
 
 #endif //DISPATCHER_GROUP_HPP
