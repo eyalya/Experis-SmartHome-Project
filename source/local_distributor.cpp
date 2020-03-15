@@ -1,7 +1,7 @@
 #include "local_distributor.hpp"
 #include "ievent_handler.hpp" //IEventHandler
 #include "device.hpp" //BaseAgent
-#include "device_group.hpp" //DeviceGroup
+#include "dispatcher_group.hpp" 
 
 namespace smartHome {
 namespace hub {
@@ -37,9 +37,12 @@ void HandleEvent::operator()(std::shared_ptr<IAgent> a_device)
 void LocalDistributor::DistributeToDevice(EventPtr a_event)
 {
     Topic topic(a_event);
-    DeviceGroup dGroup = m_subscriberContainer.FindTopic(topic);
-    HandleEvent handler(topic, a_event);
-    dGroup.Foreach<HandleEvent>(handler);
+    DgPtrContainer dGroups = m_subscriberContainer.FindTopic(topic);
+    
+    for (auto dgroup: dGroups)
+    {
+        dgroup->AddEvent(a_event);
+    }
 }
 
 

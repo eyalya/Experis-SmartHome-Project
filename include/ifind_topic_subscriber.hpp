@@ -1,20 +1,23 @@
 #ifndef IFIND_TOPIC_SUBSCRIBER_HPP
 #define IFIND_TOPIC_SUBSCRIBER_HPP
 
-#include "event_base.hpp" //Topic
-#include "device_group.hpp" //DeviceGroup
+#include <vector> //std::vector
+#include <memory> //std::shared_pointer
+
+#include <common_types.hpp> //DgPtrContainer
 
 namespace smartHome 
 {
+class Topic;
+
 namespace hub 
 {
-
 class IFindTopicSubscriber {
 public:
     
     virtual ~IFindTopicSubscriber() = default;
     
-    virtual DeviceGroup const& FindTopic(Topic const& a_topic) = 0;
+    virtual DgPtrContainer const& FindTopic(Topic const& a_topic) = 0;
 
 protected:
     IFindTopicSubscriber() = default;
