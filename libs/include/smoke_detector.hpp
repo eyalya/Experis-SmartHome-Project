@@ -36,7 +36,7 @@ public:
     SmokeDetector(SmokeDetector const& a_rhs) = delete;
     SmokeDetector& operator=(SmokeDetector const& a_rhs) = delete;
 
-    virtual booter::EventHandlerPtr GetHandler(Topic& a_topic);
+    virtual booter::EventHandlerPtr GetHandler(Topic const& a_topic);
     virtual void Connect();
     virtual void Disconnect();
 

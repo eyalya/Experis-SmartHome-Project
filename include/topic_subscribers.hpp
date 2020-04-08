@@ -25,7 +25,7 @@ public:
     virtual void RegisterSubscriber(std::shared_ptr<BaseAgent> a_device, Topic const& a_topic);
     virtual void UnRegisterSubscriber(std::shared_ptr<BaseAgent> a_device, Topic const& a_topic);
 
-    virtual DeviceGroup const& FindTopic(Topic const& a_topic);
+    // virtual DeviceGroup const& FindTopic(Topic const& a_topic);
 
 private:
     typedef std::string TopicId;

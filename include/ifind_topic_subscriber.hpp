@@ -3,8 +3,9 @@
 
 #include <vector> //std::vector
 #include <memory> //std::shared_pointer
+#include <optional> //std::optional
 
-#include <common_types.hpp> //DgPtrContainer
+#include "common_types.hpp" //DgPtrContainer
 
 namespace smartHome 
 {
@@ -17,7 +18,7 @@ public:
     
     virtual ~IFindTopicSubscriber() = default;
     
-    virtual DgPtrContainer const& FindTopic(Topic const& a_topic) = 0;
+    virtual std::optional<DgPtrContainer> FindTopic(Topic const& a_topic) = 0;
 
 protected:
     IFindTopicSubscriber() = default;

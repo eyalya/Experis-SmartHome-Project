@@ -37,11 +37,12 @@ void HandleEvent::operator()(std::shared_ptr<IAgent> a_device)
 void LocalDistributor::DistributeToDevice(EventPtr a_event)
 {
     Topic topic(a_event);
-    DgPtrContainer dGroups = m_subscriberContainer.FindTopic(topic);
-    
-    for (auto dgroup: dGroups)
-    {
-        dgroup->AddEvent(a_event);
+    auto dGroups = m_subscriberContainer.FindTopic(topic);
+    if (dGroups){
+        for (auto dgroup: *dGroups)
+        {
+            dgroup->AddEvent(a_event);
+        }   
     }
 }
 

@@ -23,6 +23,7 @@ class DispatcherGroup
 {
 public:
     using Container = std::vector<booter::EventHandlerPtr>;
+    DispatcherGroup(): m_eventQ(DEFAULT_QUEUE_SIZE){}
 
     void AddHandler(booter::EventHandlerPtr a_handler);
     bool RemoveHandler(booter::EventHandlerPtr a_handler);
@@ -30,10 +31,8 @@ public:
 
     bool Contains(booter::EventHandlerPtr a_handler) const;
 
-    size_t hash() const;
-
 private:
-    auto FindHandler(booter::EventHandlerPtr a_handler) const;
+    DispatcherGroup::Container::const_iterator FindHandler(booter::EventHandlerPtr a_handler) const;
 
     void CopyHandlersContainer(Container& a_handlerContainer) const;
 
@@ -47,7 +46,11 @@ private:
 
     mutable advcpp::WaitableQ<EventPtr> m_eventQ;
     mutable std::mutex m_lock;
+    size_t m_hashNumber = 0;
 };
+
+template <typename Container>
+size_t HashContainer(Container const& a_dG);
 
 } // namespace hub
 } // namespace smartHome

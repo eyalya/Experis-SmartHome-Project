@@ -20,6 +20,8 @@
 #include "device_maker.hpp" //SoDeviceMaker 
 #include "so_device_registrator.hpp" //SODeviceRegistrator
 
+#include "configurators.hpp" //IConfigurator
+
 #include "system_events.hpp" //g_shutDownTopic
 
 
@@ -30,6 +32,24 @@ using namespace booter;
 using namespace eventor;
 
 UNIT(smoke_test)
+
+    DeviceDataFactory factory;
+    SODeviceRegistrator registrator;
+    DeviceBuilders builders(registrator);
+    DeviceMaker deviceMaker(builders);
+
+    HsConnectorConfig connectorConfig;
+    SystemConnectorApi& connector = connectorConfig.GetConnector();
+
+    Booter booter(connector, deviceMaker, factory);
+    booter.BootSystem();
+
+    LocalDistributor distributor(connector.GetFinder());
+    EventManager manager(connector.GetEventRemover(), distributor);
+    ASSERT_PASS();
+END_UNIT
+
+UNIT(booting_with_so)
     DeviceDataFactory factory;
     SODeviceRegistrator regirtrator;
     DeviceBuilders builder(regirtrator);
@@ -38,50 +58,20 @@ UNIT(smoke_test)
     Publisher publisher;
     FifoEventStore fifoEventStore;
     LiteEventReciver eventReciever(fifoEventStore);
-    SystemConnectors connectors(publisher, eventReciever);
+    SystemConnectors connectors(publisher, eventReciever, publisher, fifoEventStore);
 
     Booter booter(connectors, deviceMaker, factory);
     booter.BootSystem();
 
-    LocalDistributor disributor(publisher);
-    EventManager manager(fifoEventStore, disributor);
-    ASSERT_PASS();
+    LocalDistributor disributor(connectors.GetFinder());
 END_UNIT
-
-// UNIT(booting_with_so)
-//     DeviceDataFactory factory;
-//     SODeviceRegistrator regirtrator;
-//     DeviceBuilders builder(regirtrator);
-//     DeviceMaker deviceMaker(builder);
-
-//     TopicSubscribers susbscriber;
-//     FifoEventStore fifoEventStore;
-//     LiteEventReciver eventReciever(fifoEventStore);
-//     SystemConnectors connectors(susbscriber, eventReciever);
-
-//     Booter booter(connectors, deviceMaker, factory);
-//     booter.BootSystem();
-
-//     LocalDistributor disributor(susbscriber);
-//     EventManager manager(fifoEventStore, disributor);
-//     manager.Run();
-    
-//     booter.DisconnectDevices();
-//     manager.Pause();
-//     connectors.GetEventReciever().RecvEvent(std::make_shared<systemEvents::SystemEvent>
-//                                                 (
-//                                                     systemEvents::g_shutDownTopic.m_type, 
-//                                                     systemEvents::g_shutDownTopic.m_location
-//                                                 ));
-//     manager.ShutDown();
-//     ASSERT_PASS();
-// END_UNIT
 
 
 TEST_SUITE(tip# 1588258 we should ot regret our actions\n 
                 we responded to each event in our life the\n 
                 best we could with the knwoledge we had)
-TEST(smoke_test)
-
+    
+    TEST(smoke_test)
+    TEST(booting_with_so)
 
 END_SUITE

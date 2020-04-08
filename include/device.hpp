@@ -26,7 +26,7 @@ class BaseAgent : public IAgent, public std::enable_shared_from_this<BaseAgent>
 public:
     BaseAgent(DeviceDataPtr a_data, booter::SystemConnectorApi& a_connector);
 
-    virtual booter::EventHandlerPtr GetHandler(Topic& a_topic) = 0;
+    virtual booter::EventHandlerPtr GetHandler(Topic const& a_topic) = 0;
     virtual void Connect() = 0;
     virtual void Disconnect() = 0;
 

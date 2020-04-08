@@ -29,17 +29,17 @@ void TopicSubscribers::UnRegisterSubscriber(std::shared_ptr<BaseAgent> a_device,
     }
 }
 
-DeviceGroup const& TopicSubscribers::FindTopic(Topic const& a_topic)
-{
-    iterator iter = m_subscribers.Find(a_topic.m_id);
+// DeviceGroup const& TopicSubscribers::FindTopic(Topic const& a_topic)
+// {
+//     iterator iter = m_subscribers.Find(a_topic.m_id);
 
-    if (iter != m_subscribers.End())
-    {
-        return iter->m_value;
-    }
-    //TODO: return if not 
-    return iter->m_value;
-}
+//     if (iter != m_subscribers.End())
+//     {
+//         return iter->m_value;
+//     }
+//     //TODO: return if not 
+//     return iter->m_value;
+// }
 
 } //namespace hub
 } //namespace smartHome 

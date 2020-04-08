@@ -5,9 +5,14 @@
 namespace smartHome {
 namespace booter {
     
-SystemConnectors::SystemConnectors(hub::ISubscribersRegister& a_registerator, eventor::IEventReciver& a_storeRemover)
+SystemConnectors::SystemConnectors(hub::ISubscribersRegister& a_registerator, 
+                                    eventor::IEventReciver& a_reciever,
+                                    hub::IFindTopicSubscriber& a_finder,
+                                    eventor::IEventStoreRemover& a_remover)
 : m_registerator(a_registerator)
-, m_storeRemover(a_storeRemover)
+, m_reciever(a_reciever)
+, m_finder(a_finder)
+, m_remover(a_remover)
 {
 }
 
@@ -18,9 +23,18 @@ hub::ISubscribersRegister& SystemConnectors::GetRegistrator()
 
 eventor::IEventReciver& SystemConnectors::GetEventReciever()
 {
-    return m_storeRemover;
+    return m_reciever;
 }
 
+hub::IFindTopicSubscriber& SystemConnectors::GetFinder()
+{
+    return m_finder;
+}
+
+eventor::IEventStoreRemover& SystemConnectors::GetEventRemover()
+{
+    return m_remover;
+}
 
 
 } // namespace booter

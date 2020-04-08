@@ -28,7 +28,7 @@ void DeviceDataFactory::CreateFireSensorData(size_t a_nTopics)
     
     while(a_nTopics --> 0)
     {
-        a_datas.push_back(std::make_shared<DeviceData>("Fire", Location (floor, room)));
+        a_datas.push_back(std::make_shared<DeviceData>("smoke_detector", Location (floor, room)));
         ++room;            
         ++floor;
     }
@@ -43,7 +43,7 @@ void DeviceDataFactory::CreateSprinklerData(size_t a_nTopics)
     
     while(a_nTopics --> 0)
     {
-        a_datas.push_back(std::make_shared<DeviceData>("Sprinkler", Location (floor, room)));
+        a_datas.push_back(std::make_shared<DeviceData>("sprinkler", Location (floor, room)));
         ++room;            
         ++floor;
     }

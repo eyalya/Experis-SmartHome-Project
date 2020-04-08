@@ -38,7 +38,7 @@ void SmokeDetector::Disconnect()
     // m_smokeThread.JoinAll();
 }
 
-booter::EventHandlerPtr SmokeDetector::GetHandler(Topic&)
+booter::EventHandlerPtr SmokeDetector::GetHandler(Topic const&)
 {
     // if (a_topic.m_type == systemEvents::g_systemOnTopic.m_type)
     // {

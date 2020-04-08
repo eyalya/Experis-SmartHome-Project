@@ -6,6 +6,7 @@
 
 #include "ievent.hpp" //IEvent
 #include "ievent_store_remover.hpp" //IEventStoreRemover
+#include "system_connector_api.hpp" //
 #include "idistributor.hpp" //IDistributor
 #include "event_proccesors.hpp" //EventProcessor
 #include "thread_group.hpp" //ThreadGroup

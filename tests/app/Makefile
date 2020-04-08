@@ -21,7 +21,7 @@ SOURCES  += $(wildcard ../../source/*.cpp)
 
 OBJECTS  = $(SOURCES:.cpp=.o)
 
-TARGET = publisher_test
+TARGET = app
 
 .PHONY: clean test all val
 

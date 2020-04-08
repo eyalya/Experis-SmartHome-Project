@@ -27,20 +27,25 @@ void Publisher::RegisterSubscriber(std::shared_ptr<IAgent> a_device, Topic const
 
         m_groups.insert({a_device, newGroup});
         m_devices.insert({newGroup, a_device});
-        m_events.emplace({a_topic, DgPtrContainer({newGroup})});
+        m_topics.insert({a_topic, DgPtrContainer({newGroup})});
     }
-    
-
 }
 
-void Publisher::UnRegisterSubscriber(std::shared_ptr<IAgent> a_device, Topic const& a_topic)
+void Publisher::UnRegisterSubscriber(std::shared_ptr<IAgent>, Topic const&)
 {
 
 }
 
-DgPtrContainer const& Publisher::FindTopic(Topic const& a_topic)
+std::optional<DgPtrContainer> Publisher::FindTopic(Topic const& a_topic)
 {
-    
+    auto iter = m_topics.find(a_topic);
+
+    if(iter != m_topics.end())
+    {
+        return iter->second;
+    }
+
+    return std::nullopt;
 }
 
 

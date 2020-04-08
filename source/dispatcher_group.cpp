@@ -27,7 +27,7 @@ bool DispatcherGroup::RemoveHandler(booter::EventHandlerPtr a_handler)
 
 void DispatcherGroup::AddEvent(EventPtr a_event)
 {
-    m_eventQ.Enqueue(a_event);
+    m_eventQ.Enqueue(a_event); 
 }
 
 bool DispatcherGroup::Contains(booter::EventHandlerPtr a_handler) const
@@ -42,7 +42,7 @@ bool DispatcherGroup::Contains(booter::EventHandlerPtr a_handler) const
     return true;
 }
 
-auto DispatcherGroup::FindHandler(booter::EventHandlerPtr a_handler) const
+DispatcherGroup::Container::const_iterator DispatcherGroup::FindHandler(booter::EventHandlerPtr a_handler) const
 {
     return std::find(m_handlers.begin(), m_handlers.end(), a_handler);
 }
@@ -75,7 +75,8 @@ namespace std{
 
 size_t hash<smartHome::hub::DispatcherGroup>::operator()(const smartHome::hub::DispatcherGroup& a_dispatchGroup) const
 {
-    return a_dispatchGroup.hash();
+    size_t a = reinterpret_cast<size_t>(&a_dispatchGroup);
+    return std::hash<size_t>{}(a);
 }
 
 }// namespace std

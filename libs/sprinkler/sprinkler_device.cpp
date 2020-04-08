@@ -32,7 +32,7 @@ void Sprinklers::Disconnect()
     // m_sprinklerRunner.JoinAll();
 }
 
-booter::EventHandlerPtr Sprinklers::GetHandler(Topic& a_topic)
+booter::EventHandlerPtr Sprinklers::GetHandler(Topic const& a_topic)
 {
     if (a_topic.m_type == "Fire")
     {
@@ -99,8 +99,8 @@ using namespace smartHome;
 
 extern "C" void RegistrateBuilder(booter::DeviceBuilders& a_builders)
 {
-    static std::unique_ptr<SprinkelBuilder> s_sprinkelBuilder(new SprinkelBuilder);
-    assert(s_sprinkelBuilder);
-    a_builders.AddBuilder("sprinkler", std::move(s_sprinkelBuilder));
+    static std::shared_ptr<SprinkelBuilder> s_sprinkelBuilder(new SprinkelBuilder);
+    if(s_sprinkelBuilder)
+        a_builders.AddBuilder("sprinkler", s_sprinkelBuilder);
 }
 
