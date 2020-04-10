@@ -2,6 +2,7 @@
 #define DEVICE_DATA_FACTORY_HPP
 
 #include <vector> //std:vector
+
 #include "idevice_data_factory.hpp"
 #include "common_types.hpp"
 

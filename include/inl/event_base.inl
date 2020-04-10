@@ -56,7 +56,12 @@ inline bool Topic::operator==(Topic const& a_rhs) const
     return m_id == a_rhs.m_id;
 }
 
-inline size_t Topic::hash()
+inline bool Topic::operator<(Topic const& a_rhs) const
+{
+    return m_id < a_rhs.m_id;
+}
+
+inline size_t Topic::hash() const
 {
     return advcpp::hash(m_id);
 }

@@ -12,24 +12,63 @@ namespace hub
 void Publisher::RegisterSubscriber(std::shared_ptr<IAgent> a_device, Topic const& a_topic)
 {
     booter::EventHandlerPtr handler = a_device->GetHandler(a_topic);
-    auto iter = m_groups.find(a_device);
-    if (iter != m_groups.end())
+    auto oldDeviceIter = m_devices.find(a_device);
+    std::set<Topic> topics; 
+    DgPtr group = NULL;
+
+    //inserting to devices
+    if (oldDeviceIter != m_devices.end())
     {
-        // remove from old topic
-        // add to new group by new combined topic
-        // add to made events group 
+        topics = oldDeviceIter->second.first;
+    }
+
+    topics.insert(a_topic);
+    TopicsDispatcher td = std::make_pair(topics, group);
+    auto mapVal = std::make_pair(a_device, td);
+    auto newDeviceIter = m_devices.insert(mapVal).first; //FIXME: deal if failed to return 
+
+
+    //inserting to groups
+    auto groupIter = m_group.find(topics);
+
+    if (groupIter != m_group.end())
+    {
+        group = groupIter->second;
     }
     else
     {
-        //insert new to maps
-        DgPtr newGroup = std::make_shared<DispatcherGroup>();
-        newGroup->AddHandler(handler); 
-
-        m_groups.insert({a_device, newGroup});
-        m_devices.insert({newGroup, a_device});
-        m_topics.insert({a_topic, DgPtrContainer({newGroup})});
+        group = std::make_shared<DispatcherGroup>();
+        auto val = std::make_pair(topics, group);
+        m_group.insert(val);
+        
+        //update finder
+        for (auto &topic: topics)
+        {
+            auto iter = m_finder.find(topic);
+            if (iter != m_finder.end())
+            {
+                iter->second.push_back(group);
+            }
+            else
+            {
+                auto finderVal = std::make_pair(topic, std::vector<DgPtr>{group});
+                m_finder.insert(finderVal);        
+            }
+        }
     }
+    // TODO: change all to emplace
+    
+    newDeviceIter->second.second = group;
+    
+
+    // remove  
+    if(oldDeviceIter != m_devices.end())
+    {   
+        m_devices.erase(oldDeviceIter);
+    }    
 }
+
+// void UpdateFinder(Topic const& a_topic, )
 
 void Publisher::UnRegisterSubscriber(std::shared_ptr<IAgent>, Topic const&)
 {
@@ -38,9 +77,9 @@ void Publisher::UnRegisterSubscriber(std::shared_ptr<IAgent>, Topic const&)
 
 std::optional<DgPtrContainer> Publisher::FindTopic(Topic const& a_topic)
 {
-    auto iter = m_topics.find(a_topic);
+    auto iter = m_finder.find(a_topic);
 
-    if(iter != m_topics.end())
+    if(iter != m_finder.end())
     {
         return iter->second;
     }

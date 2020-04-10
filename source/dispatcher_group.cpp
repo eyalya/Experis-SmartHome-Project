@@ -65,7 +65,7 @@ void DispatcherGroup::CopyHandlersContainer(Container& a_handlerContainer) const
 {
     std::lock_guard<std::mutex> guard(m_lock);
     a_handlerContainer = m_handlers;
-    // std::copy(m_handlers.begin(), m_handlers.end(). a_handlerContainer.begin());
+    std::copy(m_handlers.begin(), m_handlers.end(), a_handlerContainer.begin());
 }
 
 }//namespace hub

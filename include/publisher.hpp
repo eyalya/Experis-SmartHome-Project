@@ -3,6 +3,8 @@
 
 #include <unordered_map> //std::unordered_map
 #include <unordered_set> //std::unordered_set
+#include <set> //std::set
+#include <vector> //std::vector
 
 #include "event_base.hpp"
 // #include "common_types.hpp" //DevicePtr
@@ -17,9 +19,11 @@ namespace hub
 
 class Publisher: public IFindTopicSubscriber, public ISubscribersRegister
 {
-using GroupByDevice = std::unordered_map<DevicePtr, DgPtr>;
-using DeviceByGroup = std::unordered_map<DgPtr, DevicePtr>;
-using GroupContByTopics = std::unordered_map<Topic, DgPtrContainer, TopicHash>;
+using TopicsDispatcher = std::pair<std::set<Topic>, DgPtr>;
+using DeviceKey = std::unordered_map<DevicePtr, TopicsDispatcher>;
+using GroupKey = std::unordered_map<std::set<Topic>, DgPtr, SetTopicHash>;  
+// using TopicCombination = std::unordered_map<std::vector<Topic>, DgPtr>; //TODO: possible not neccesasary
+using Finder = std::unordered_map<Topic, DgPtrContainer, TopicHash>; //used in Find Topic
 
 public:
     Publisher() = default;
@@ -31,9 +35,10 @@ public:
     virtual std::optional<DgPtrContainer> FindTopic(Topic const& a_topic);
 
 private:
-    GroupByDevice m_groups;
-    DeviceByGroup m_devices;
-    GroupContByTopics m_topics;
+    DeviceKey m_devices;
+    GroupKey m_group;
+    // TopicCombination m_dispatchers; //maybe redundant
+    Finder m_finder;
 };
 
 } //namespace hub 

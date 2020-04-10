@@ -3,6 +3,7 @@
 
 #include <memory> //std::shared_ptr
 #include <iostream> //std::ostream
+#include <set> //std::set
 
 #include "ievent.hpp"
 
@@ -47,8 +48,9 @@ struct Topic
     std::string m_id; //FIXME: maybe remove, used only in hash function
 
     bool operator==(Topic const& a_rhs) const;
+    bool operator<(Topic const& a_rhs) const;
 
-    size_t hash();
+    size_t hash() const;
 
 private:
     void GenerateID();
@@ -60,6 +62,15 @@ struct TopicHash
     size_t operator()(Topic a_topic) const
     {
         return a_topic.hash();
+    }
+};
+
+struct SetTopicHash
+{
+    SetTopicHash() = default;
+    size_t operator()(std::set<Topic> const& a_topicSet) const
+    {
+        return a_topicSet.cbegin()->hash();
     }
 };
 

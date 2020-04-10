@@ -9,7 +9,7 @@ clean:
 	@$(MAKE) -C tests clean
 
 debug:
-	@$(MAKE) -C tests/publisher debug
+	@$(MAKE) -C tests debug
 
 
 #git change

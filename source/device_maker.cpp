@@ -34,7 +34,7 @@ DevicePtr DeviceMaker::CreateDevice(DeviceDataPtr a_data, SystemConnectorApi& a_
     //TODO: hardcoded? hardeCoded?? HARDCODED????
     //std::map<std::string, std::string> soMap = { {"Fire", "smoke_detector"}, {"Fire??", "sprinkler"} };
     
-    if (a_data->m_type == std::string("Fire"))
+    if (a_data->m_type == std::string("smoke_detector"))
     {
         auto b = m_deviceBuilders["smoke_detector"];
         DevicePtr device = b->Build(a_data, a_connectors);
